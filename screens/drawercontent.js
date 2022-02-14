@@ -42,12 +42,18 @@ const DrawerContent = ({ navigation }) => {
     const [collapse,setCollapse] = useState(true);
     const [collapse2,setCollapse2] = useState(true);
     const storeData = async (value) => {
-        console.log(value)
+        
+        // try {
+        //   await AsyncStorage.removeItem('@auth_token')
+        //   myContext.setuserToken(value)
+        // } catch (e) {
+        //   console.log(e)
+        // }
         try {
-          await AsyncStorage.removeItem('@auth_token')
-          myContext.setuserToken(value)
-        } catch (e) {
-          console.log(e)
+            await AsyncStorage.removeItem('@auth_token');
+            myContext.setuserToken(value);
+          } catch (e) {
+            console.log(e)
         }
     }
     

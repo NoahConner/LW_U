@@ -1,13 +1,15 @@
-import React,{useState,useContext} from 'react';
-import { View, SafeAreaView, Text, StyleSheet, Alert,Pressable, ActivityIndicator, TouchableOpacity, FlatList, Modal } from 'react-native';
+import React, { useEffect, useContext, useState } from 'react';
+import { View, SafeAreaView, Text, StyleSheet, Alert, Pressable, ActivityIndicator, TouchableOpacity, FlatList, Modal } from 'react-native';
 import { Image, Button, Icon } from 'react-native-elements';
 import Header from '../components/header'
 import Location from '../assets/svg/location.svg';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import AppContext from '../components/appcontext'
-import {  moderateScale } from 'react-native-size-matters';
-// import MapModal from '../components/map'
-
+import { moderateScale } from 'react-native-size-matters';
+import GetLocation from 'react-native-get-location';
+import axiosconfig from '../providers/axios';
+import Geolocation from '@react-native-community/geolocation';
+import Loader from './loader';
 
 var allRestT = [
     {
@@ -78,18 +80,18 @@ const mcCards = (d, i, navigation) => {
             <View style={styles.mcCard} key={d.id}>
                 <View style={{ backgroundColor: '#fff', borderRadius: 8, overflow: 'hidden' }}>
                     <Image
-                        source={{ uri: d.image }}
+                        source={{ uri: d.user.image }}
                         style={{ width: 65, height: 70, resizeMode: 'contain' }}
                         PlaceholderContent={<ActivityIndicator />}
                     />
                 </View>
                 <View style={{ marginLeft: 15, width: '100%', paddingRight: 100 }}>
-                    <Text style={{ fontFamily: 'Gilroy-Bold', fontSize: moderateScale(15), marginBottom: 5 }}>{d.name}</Text>
+                    <Text style={{ fontFamily: 'Gilroy-Bold', fontSize: moderateScale(15), marginBottom: 5 }}>{d.user.name}</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Location
                             style={{ height: 16, width: 13, marginRight: 10 }}
                         />
-                        <Text numberOfLines={1} style={{ fontSize: moderateScale(12), fontFamily: 'Gilroy-Medium' }}>{d.distance} </Text>
+                        <Text numberOfLines={1} style={{ fontSize: moderateScale(12), fontFamily: 'Gilroy-Medium' }}>{d.distance_in_km_meters} </Text>
                     </View>
                 </View>
             </View>
@@ -100,6 +102,74 @@ const mcCards = (d, i, navigation) => {
 const Home = ({ navigation }) => {
 
     const myContext = useContext(AppContext)
+    const [location, setLocation] = useState()
+    const [resTaurents, setresTaurents] = useState([])
+    const [loader, setLoader] = useState(false);
+    
+    const getCurrentLocation = () => {
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+            .then(location => {
+                console.log(location);
+                setLocation(location)
+                getRestaurents(location)
+            })
+            .catch(error => {
+                const { code, message } = error;
+                console.warn(code, message);
+            })
+
+        // Geolocation.getCurrentPosition(
+        //     (position) => {
+        //         setLocation(position)
+        //         getRestaurents(position)
+        //     },
+        //     (error) => {
+        //       Alert.alert(`Code ${error.code}`, error.message);
+        //       setLocation(null);
+        //       console.log(error);
+        //     },
+        //     {
+        //       accuracy: {
+        //         android: 'high',
+        //         ios: 'best',
+        //       },
+        //       enableHighAccuracy: true,
+        //       timeout: 15000,
+        //       maximumAge: 10000,
+        //       distanceFilter: 0,
+        //       forceRequestLocation: true,
+        //       forceLocationManager: false,
+        //       showLocationDialog: true,
+        //     },
+        //   );
+    }
+
+    const getRestaurents = (location) => {
+        // console.log(location,'tt')
+        setLoader(true)
+        axiosconfig.get(`admin/restaurents/${location.latitude},${location.longitude}`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+            }
+
+           }
+        ).then((res:any)=>{
+            console.log(res)
+            setresTaurents(res.data)
+            setLoader(false)
+        }).catch((err)=>{
+            console.log(err.response)
+            setLoader(false)
+        })
+    }
+
+    useEffect(() => {
+        getCurrentLocation()
+    }, [])
 
     return (
 
@@ -107,11 +177,17 @@ const Home = ({ navigation }) => {
             <View style={{ width: '100%' }}>
                 <Header navigation={navigation} />
             </View>
-
+            {
+                loader ? (
+                    <>
+                        <Loader />
+                    </>
+                ) : null
+            }
             <SafeAreaView style={{ ...styles.container, paddingHorizontal: 20 }}>
 
                 <FlatList
-                    data={allRestT}
+                    data={resTaurents}
                     renderItem={({ item, index }) => (
                         mcCards(item, index, navigation)
                     )}
@@ -162,5 +238,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 15,
     },
-    
+
 })

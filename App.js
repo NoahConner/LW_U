@@ -54,7 +54,7 @@ const App = (navigation) => {
   const [closeAllSheets, setcloseAllSheets] = useState(false)
   const [modalOpens,setmodalOpens] = useState(false)
   const userSettings = {
-    setting1name: userToken,
+    userToken: userToken,
     CongratesModalCon:CongratesModal,
     SorryModalCon:SorryModal,
     CouponModalCon:CouponModal,
@@ -126,7 +126,8 @@ const App = (navigation) => {
   }
   const getData = async () => {
     try {
-      const value = await AsyncStorage.getItem('@auth_token')
+      const value = await AsyncStorage.getItem('@auth_token');
+      console.log(value,'token')
       if(value !== null) {
         setuserToken(value)
       }

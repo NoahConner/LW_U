@@ -9,7 +9,7 @@ import axiosconfig from '../providers/axios';
 import Toast from 'react-native-toast-message';
 import Loader from './loader';
 import AppContext from '../components/appcontext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AsyncStorage} from '@react-native-async-storage/async-storage';
 
 const OPT = ({ route, navigation }) => {
   const [loader, setLoader] = useState(false);

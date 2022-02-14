@@ -29,11 +29,11 @@ const Login = ({navigation})=>{
 
     const storeData = async (value) => {
         try {
-          await AsyncStorage.setItem('@auth_token', value)
-          myContext.setuserToken(value);
-          navigation.navigate('Home')
-        } catch (e) {
-          console.log(e)
+            await AsyncStorage.setItem('@auth_token', value);
+            myContext.setuserToken(value);
+            navigation.navigate('Home')
+          } catch (e) {
+            console.log(e)
         }
       }
     
@@ -42,12 +42,19 @@ const Login = ({navigation})=>{
     const loginForm = async() => {
         let data = {
             email:email,
-            password:password
+            password:password,
+            type:'user'
+        }
+        var emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+        if(!emailReg.test(email)){
+            showToast('error','Email Invalid!');
+            return false
         }
 
         if(email == '' || email == null){
             showToast('error','Email Required!');
-            return false
+            return false;
         }
         if(password == '' || password == null){
             showToast('error','Password Required!');
@@ -56,13 +63,14 @@ const Login = ({navigation})=>{
         setLoader(true)
         await axiosconfig.post('app/login',data).then((res:any)=>{
             setLoader(false)
-            if(res.data.error != "invalid_grant"){
-                storeData(res.data.access_token)
+            if(res.data.error){
+                showToast('error',res.data.error_description);
             }else{
-                showToast('error',res.data.message);
+                console.log(res)
+                storeData(res.data.access_token)
             }
         }).catch((err)=>{
-            console.log(err)
+            console.log(err.response)
             setLoader(false)
             showToast('error','Invalid Credentials');
         })
