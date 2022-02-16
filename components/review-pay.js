@@ -8,16 +8,51 @@ import Tick from '../assets/svg/tick.svg'
 import AppContext from '../components/appcontext'
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {  moderateScale } from 'react-native-size-matters';
+import axiosconfig from '../providers/axios';
+import Loader from '../screens/loader';
 
-const ReviewPayment = ({navigation,amount})=>{
+const ReviewPayment = ({navigation,amount,cardSelect})=>{
+
     const myContext = useContext(AppContext);
+    const [loader, setLoader] = useState(false);
     const depositeAmount = ()=>{
-        myContext.setWalletAmount(amount)
-        myContext.setCongratesModal(true)
+        // myContext.setWalletAmount(amount)
+        // myContext.setCongratesModal(true)
+        deposite()
+    }
+
+    const deposite = async() => {
+        let data = {
+            user_id:myContext.myData.id,
+            card_id:cardSelect,
+            amount:amount
+        }
+        setLoader(true)
+        await axiosconfig.post(`admin/deposite`,data,
+        {
+            headers: {
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res)
+            setLoader(false)
+            myContext.setCongratesModal(true)
+        }).catch((err)=>{
+            console.log(err)
+            setLoader(false)
+        })
     }
 
     return(
         <View style={{padding:20}}>
+                        {
+                loader ? (
+                    <>
+                        <Loader />
+                    </>
+                ) : null
+            }
             <View style={styles.flexRow}>
                 <ReviewImg style={{height:RFPercentage(7),width:RFPercentage(7)}} />
                 <Text style={{fontSize:moderateScale(18),fontFamily:'Gilroy-Bold',marginTop:0,color:'#000',marginLeft:20}}>Review and Confirm</Text>

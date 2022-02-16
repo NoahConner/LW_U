@@ -1,21 +1,23 @@
-import React, { useState, useRef,useContext } from 'react';
+import React, { useState, useRef,useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity,Dimensions,ImageBackground  } from 'react-native';
 import { Image, Button, Icon,Input ,CheckBox } from 'react-native-elements';
-import StackHeader from '../components/stackheader'
+import StackHeader from '../components/stackheader';
 import PaymentIcon from '../assets/svg/paymentIconred.svg';
-import VisaIcon from '../assets/svg/visa.svg'
+import VisaIcon from '../assets/svg/visa.svg';
 import MasterIcon from '../assets/svg/master.svg'
 import Trash from '../assets/svg/bin.svg'
 import RBSheet from "react-native-raw-bottom-sheet";
 import AddCardSheet from '../components/add-card-sheet'
 import ReviewPayment from '../components/review-pay';
 import Modals from '../components/modals';
-import AppContext from '../components/appcontext'
-import AmexIcon from '../assets/svg/amex.svg'
-import DiscIcon from '../assets/svg/discover.svg'
-import JcbIcon from '../assets/svg/jcb.svg'
-import DinnerClub from '../assets/svg/diners-club.svg'
+import AppContext from '../components/appcontext';
+import AmexIcon from '../assets/svg/amex.svg';
+import DiscIcon from '../assets/svg/discover.svg';
+import JcbIcon from '../assets/svg/jcb.svg';
+import DinnerClub from '../assets/svg/diners-club.svg';
 import {  moderateScale } from 'react-native-size-matters';
+import axiosconfig from '../providers/axios';
+import Loader from '../screens/loader';
 
 // const defaultCad = [
 //     {
@@ -39,8 +41,10 @@ const ConfirmPayment = ({navigation,route })=>{
     const { amount } = route.params;
     const refRBSheet = useRef();
     const refRBSheetReview = useRef();
+    const [cards, setCards] = useState([]);
+    const [loader, setLoader] = useState(false);
     // const [cards, setCards] = useState(myContext.paymentmethods)
-    const [cardSelect,SetcardSelect] = useState(myContext.paymentmethods[0].type);
+    const [cardSelect,SetcardSelect] = useState();
 
 // console.log(myContext.paymentmethods[0])
     const splitNo = (c) => {
@@ -55,19 +59,19 @@ const ConfirmPayment = ({navigation,route })=>{
             <View style={{ ...styles.Ccard, marginTop: i == 0 ? 20 : 15 }} key={i}>
                 <View style={styles.flexRow}>
                     {
-                        d.type == 'visa' ? <VisaIcon style={{ height: 30, width: 40 }} /> :
-                        d.type == 'master-card' ? <MasterIcon style={{ height: 30, width: 40 }} /> :
-                        d.type == 'discover' ? <DiscIcon style={{ height: 30, width: 40 }} /> :
-                        d.type == 'jcb' ? <JcbIcon style={{ height: 30, width: 40 }} /> :
-                        d.type == 'american-express' ? <AmexIcon style={{ height: 30, width: 40 }} /> :
-                        d.type == 'diners-club' ? <DinnerClub style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'visa' ? <VisaIcon style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'master-card' ? <MasterIcon style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'discover' ? <DiscIcon style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'jcb' ? <JcbIcon style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'american-express' ? <AmexIcon style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'diners-club' ? <DinnerClub style={{ height: 30, width: 40 }} /> :
                         <PaymentIcon style={{ height: 30, width: 40 }}/>
                     }
                     <View style={{ marginLeft: 20 }}>
-                        <Text style={{ fontSize: moderateScale(14), fontFamily: 'Gilroy-Bold',textTransform:'capitalize'}}>{d.name}</Text>
+                        <Text style={{ fontSize: moderateScale(14), fontFamily: 'Gilroy-Bold',textTransform:'capitalize'}}>{d?.card_name}</Text>
                         <View style={{...styles.flexRow}}>
-                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium',textTransform:'capitalize',marginRight:20}}>{d.type} :</Text>
-                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium'}}>{splitNo(d.number)}</Text>
+                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium',textTransform:'capitalize',marginRight:20}}>{d?.card_type}:</Text>
+                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium'}}>{splitNo(d?.card_no)}</Text>
                         </View>
                     </View>
                 </View>
@@ -75,9 +79,9 @@ const ConfirmPayment = ({navigation,route })=>{
                     <Icon
                         name='square'
                         type='font-awesome'
-                        color={cardSelect == d.type ? '#1E3865' : '#E6E6E6'}
+                        color={cardSelect == d.id ? '#1E3865' : '#E6E6E6'}
                         iconStyle={{ fontSize: moderateScale(26) }}
-                        onPress={()=> SetcardSelect(d.type)}
+                        onPress={()=> SetcardSelect(d.id)}
                     />
                     <CheckBox
                         title=''
@@ -85,7 +89,7 @@ const ConfirmPayment = ({navigation,route })=>{
                         uncheckedIcon='square'
                         checkedColor="black"
                         uncheckedColor="transparent"
-                        checked={cardSelect == d.type ? true : false}
+                        checked={cardSelect == d.id ? true : false}
                         containerStyle={{ position: 'absolute', right: 30, bottom: -7, padding: 0, width: 0, overflow: 'hidden', borderRadius: 50 }}
                     />
                 </View>
@@ -93,8 +97,39 @@ const ConfirmPayment = ({navigation,route })=>{
         )
     }
 
+    const getCards = async() => {
+        setLoader(true)
+        console.log(myContext.myData.id)
+        await axiosconfig.get(`admin/cards/${myContext.myData.id}`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res)
+            setLoader(false)
+            setCards(res.data)
+            // myContext.setpaymentmethods(res.data)
+        }).catch((err)=>{
+            console.log(err)
+            setLoader(false)
+        })
+    }
+
+    useEffect(() => {
+        getCards()
+    }, [])
+
     return(
         <View style={{...styles.container}}>
+            {
+                loader ? (
+                    <>
+                        <Loader />
+                    </>
+                ) : null
+            }
             <StackHeader navigation={navigation} name={'Confirm Payment Method'} />
             <View style={{padding:20,width:'100%',height:Dimensions.get('window').height-100}}>
                 <View style={{...styles.flexRow,justifyContent: 'space-between'}}>
@@ -109,7 +144,7 @@ const ConfirmPayment = ({navigation,route })=>{
                 <View style={{ marginTop: 0, width: '100%', paddingBottom: 80 }}>
                     <SafeAreaView >
                         <FlatList
-                            data={myContext.paymentmethods}
+                            data={cards}
                             renderItem={({ item, index }) => (
                                 cardDiv(item, index)
                             )}
@@ -160,7 +195,7 @@ const ConfirmPayment = ({navigation,route })=>{
                     }}
                     height={Dimensions.get('window').height-130}
                 >
-                    <AddCardSheet navigation={navigation} statement={'deposite'} />
+                    <AddCardSheet navigation={navigation} statement={'deposite'}  />
                 </RBSheet>
 
             {/* review */}
@@ -183,7 +218,7 @@ const ConfirmPayment = ({navigation,route })=>{
                     }}
                     height={560}
                 >
-                    <ReviewPayment navigation={navigation} amount={amount}  statement={'deposite'} />
+                    <ReviewPayment navigation={navigation} amount={amount}  statement={'deposite'} cardSelect={cardSelect} />
                 </RBSheet>
 
             </View>

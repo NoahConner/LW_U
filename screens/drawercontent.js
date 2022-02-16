@@ -34,7 +34,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import {  moderateScale } from 'react-native-size-matters';
 import axiosconfig from '../providers/axios';
 
-
 const DrawerContent = ({ navigation }) => {
 
     const myContext = useContext(AppContext);
@@ -62,13 +61,17 @@ const DrawerContent = ({ navigation }) => {
     
     useEffect(() => {
         myDataR()
+        setTimeout(() => {
+            myDataR()
+        }, 1000);
     }, [])
     
-    const myDataR = () => {
+    const myDataR = async() => {
+        const value = await AsyncStorage.getItem('@auth_token');
         axiosconfig.get(`admin/my_data`,
         {
             headers: {
-              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+              Authorization: 'Bearer ' + value //the token is a variable which holds the token
             }
            }
         ).then((res:any)=>{

@@ -1,5 +1,5 @@
 import React, { useState, useRef,useContext, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity,Dimensions } from 'react-native';
+import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity,Dimensions, Alert  } from 'react-native';
 import { Image, Button, Icon } from 'react-native-elements';
 import StackHeader from '../components/stackheader'
 import VisaIcon from '../assets/svg/visa.svg'
@@ -24,15 +24,30 @@ const PaymentMethod = ({ navigation }) => {
     const myContext = useContext(AppContext);
     const [loader, setLoader] = useState(false);
     const refRBSheet = useRef();
-    var [cards, setCards] = useState(myContext.paymentmethods)
-    const removeCard = (i) => {
-        var fake = cards.filter(item => item.id != i)
-        // setCards(fake)
-        myContext.setpaymentmethods(fake)
+    // var [cards, setCards] = useState(myContext.paymentmethods)
+    const [cards, setCards] = useState([]);
+    const removeCard = async(i) => {
+        // var fake = cards.filter(item => item.id != i)
+        // myContext.setpaymentmethods(fake)
+        setLoader(true)
+        await axiosconfig.post(`admin/cards_edit/${i}`,{'status':0},
+        {
+            headers: {
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res)
+            setLoader(false)
+            getCards()
+        }).catch((err)=>{
+            console.log(err)
+            setLoader(false)
+        })
     }
 
     const splitNo = (c) => {
-        return c;
+        // return c;
         var splitt = c.split(' ')
         var lenghter = splitt.length
         var cNoo = '**** '+splitt[lenghter-1]
@@ -51,6 +66,7 @@ const PaymentMethod = ({ navigation }) => {
         ).then((res:any)=>{
             console.log(res)
             setLoader(false)
+            setCards(res.data)
             // myContext.setpaymentmethods(res.data)
         }).catch((err)=>{
             console.log(err)
@@ -58,31 +74,44 @@ const PaymentMethod = ({ navigation }) => {
         })
     }
 
-    const cardDiv = (d, i) => {
+    const alertFunc = (m,id) =>
+    Alert.alert(
+      "Warning",
+      m,
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => removeCard(id) }
+      ]
+    );
 
+    const cardDiv = (d, i) => {
         return (
             <View style={{ ...styles.Ccard, marginTop: i == 0 ? 20 : 15 }} key={i}>
                 <View style={styles.flexRow}>
                     {
-                        d.type == 'visa' ? <VisaIcon style={{ height: 30, width: 40 }} /> :
-                        d.type == 'master-card' ? <MasterIcon style={{ height: 30, width: 40 }} /> :
-                        d.type == 'discover' ? <DiscIcon style={{ height: 30, width: 40 }} /> :
-                        d.type == 'jcb' ? <JcbIcon style={{ height: 30, width: 40 }} /> :
-                        d.type == 'american-express' ? <AmexIcon style={{ height: 30, width: 40 }} /> :
-                        d.type == 'diners-club' ? <DinnerClub style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'visa' ? <VisaIcon style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'master-card' ? <MasterIcon style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'discover' ? <DiscIcon style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'jcb' ? <JcbIcon style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'american-express' ? <AmexIcon style={{ height: 30, width: 40 }} /> :
+                        d.card_type == 'diners-club' ? <DinnerClub style={{ height: 30, width: 40 }} /> :
                         <PaymentIcon style={{ height: 30, width: 40 }}/>
                     }
                     <View style={{ marginLeft: 20 }}>
-                        <Text style={{ fontSize: moderateScale(14), fontFamily: 'Gilroy-Bold',textTransform:'capitalize'}}>{d?.name}</Text>
+                        <Text style={{ fontSize: moderateScale(14), fontFamily: 'Gilroy-Bold',textTransform:'capitalize'}}>{d?.card_name}</Text>
                         <View style={{...styles.flexRow}}>
-                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium',textTransform:'capitalize',marginRight:20}}>{d?.type} :</Text>
-                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium'}}>{splitNo(d?.number)}</Text>
+                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium',textTransform:'capitalize',marginRight:20}}>{d?.card_type}:</Text>
+                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium'}}>{splitNo(d?.card_no)}</Text>
                         </View>
                     </View>
                 </View>
                 <View>
                     <TouchableOpacity>
-                        <Trash style={{ height: 24, width: 24 }} onPress={() => removeCard(d.id)} />
+                        <Trash style={{ height: 24, width: 24 }} onPress={() => alertFunc('Are you sure you want to delete the card?',d.id)} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -90,7 +119,7 @@ const PaymentMethod = ({ navigation }) => {
     }
 
     useEffect(() => {
-        // getCards()
+        getCards()
     }, [])
     
 
