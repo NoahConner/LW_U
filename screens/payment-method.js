@@ -1,4 +1,4 @@
-import React, { useState, useRef,useContext } from 'react';
+import React, { useState, useRef,useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity,Dimensions } from 'react-native';
 import { Image, Button, Icon } from 'react-native-elements';
 import StackHeader from '../components/stackheader'
@@ -16,9 +16,13 @@ import JcbIcon from '../assets/svg/jcb.svg'
 import DinnerClub from '../assets/svg/diners-club.svg'
 import Modals from '../components/modals';
 import {  moderateScale } from 'react-native-size-matters';
+import axiosconfig from '../providers/axios';
+import Loader from '../screens/loader';
+
 const PaymentMethod = ({ navigation }) => {
 
     const myContext = useContext(AppContext);
+    const [loader, setLoader] = useState(false);
     const refRBSheet = useRef();
     var [cards, setCards] = useState(myContext.paymentmethods)
     const removeCard = (i) => {
@@ -28,10 +32,30 @@ const PaymentMethod = ({ navigation }) => {
     }
 
     const splitNo = (c) => {
+        return c;
         var splitt = c.split(' ')
         var lenghter = splitt.length
         var cNoo = '**** '+splitt[lenghter-1]
         return cNoo
+    }
+
+    const getCards = async() => {
+        setLoader(true)
+        console.log(myContext.myData.id)
+        await axiosconfig.get(`admin/cards/${myContext.myData.id}`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res)
+            setLoader(false)
+            // myContext.setpaymentmethods(res.data)
+        }).catch((err)=>{
+            console.log(err)
+            setLoader(false)
+        })
     }
 
     const cardDiv = (d, i) => {
@@ -49,10 +73,10 @@ const PaymentMethod = ({ navigation }) => {
                         <PaymentIcon style={{ height: 30, width: 40 }}/>
                     }
                     <View style={{ marginLeft: 20 }}>
-                        <Text style={{ fontSize: moderateScale(14), fontFamily: 'Gilroy-Bold',textTransform:'capitalize'}}>{d.name}</Text>
+                        <Text style={{ fontSize: moderateScale(14), fontFamily: 'Gilroy-Bold',textTransform:'capitalize'}}>{d?.name}</Text>
                         <View style={{...styles.flexRow}}>
-                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium',textTransform:'capitalize',marginRight:20}}>{d.type} :</Text>
-                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium'}}>{splitNo(d.number)}</Text>
+                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium',textTransform:'capitalize',marginRight:20}}>{d?.type} :</Text>
+                            <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 5,fontFamily: 'Gilroy-Medium'}}>{splitNo(d?.number)}</Text>
                         </View>
                     </View>
                 </View>
@@ -65,8 +89,20 @@ const PaymentMethod = ({ navigation }) => {
         )
     }
 
+    useEffect(() => {
+        // getCards()
+    }, [])
+    
+
     return (
         <View style={styles.container}>
+            {
+                loader ? (
+                    <>
+                        <Loader />
+                    </>
+                ) : null
+            }
             <StackHeader navigation={navigation} name={'Payment Method'} />
             <View style={{ marginTop: 0, paddingHorizontal: 20, width: '100%', paddingBottom: 80 }}>
                 <SafeAreaView >

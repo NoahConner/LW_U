@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import axiosconfig from './providers/axios';
 
 import AppContext  from './components/appcontext';
 import Home from './screens/home'
@@ -52,7 +53,8 @@ const App = (navigation) => {
   const [mapModal, setmapModal] = useState(false);
   const [paymentmethods, setpaymentmethods] = useState(defaultCad);
   const [closeAllSheets, setcloseAllSheets] = useState(false)
-  const [modalOpens,setmodalOpens] = useState(false)
+  const [modalOpens,setmodalOpens] = useState(false);
+  const [myData,setMyData] = useState()
   const userSettings = {
     userToken: userToken,
     CongratesModalCon:CongratesModal,
@@ -65,6 +67,7 @@ const App = (navigation) => {
     paymentmethods:paymentmethods,
     closeAllSheets:closeAllSheets,
     modalOpens:modalOpens,
+    myData:myData,
     setuserToken,
     setCongratesModal,
     setSorryModal,
@@ -75,7 +78,8 @@ const App = (navigation) => {
     setmapModal,
     setpaymentmethods,
     setcloseAllSheets,
-    setmodalOpens
+    setmodalOpens,
+    setMyData
   };
 
   const Root = ({navigation}) => {
@@ -136,9 +140,26 @@ const App = (navigation) => {
       setuserToken(null)
     }
   }
+
+  const myDataR = () => {
+    axiosconfig.get(`admin/my_data`,
+    {
+        headers: {
+          Authorization: 'Bearer ' + userToken //the token is a variable which holds the token
+        }
+       }
+    ).then((res:any)=>{
+        console.log(res,'myData')
+        setMyData(res.data)
+    }).catch((err)=>{
+        console.log(err.response)
+    })
+  }
+
   useEffect(() => {
     const init = async () => {
       getData()
+      myDataR()
     };
 
     init().finally(async () => {

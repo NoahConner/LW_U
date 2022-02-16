@@ -1,4 +1,4 @@
-import React, { useContext,useState } from 'react';
+import React, { useContext,useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity,ActivityIndicator } from 'react-native';
 import {
     DrawerContentScrollView,
@@ -32,23 +32,17 @@ import CrossIco from '../assets/svg/x-mark.svg'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
 import {  moderateScale } from 'react-native-size-matters';
-
+import axiosconfig from '../providers/axios';
 
 
 const DrawerContent = ({ navigation }) => {
 
     const myContext = useContext(AppContext);
     const [toggleIcon,settoggleIcon] = useState(false);
+    const [myD,setmyD] = useState(false);
     const [collapse,setCollapse] = useState(true);
     const [collapse2,setCollapse2] = useState(true);
     const storeData = async (value) => {
-        
-        // try {
-        //   await AsyncStorage.removeItem('@auth_token')
-        //   myContext.setuserToken(value)
-        // } catch (e) {
-        //   console.log(e)
-        // }
         try {
             await AsyncStorage.removeItem('@auth_token');
             myContext.setuserToken(value);
@@ -56,7 +50,35 @@ const DrawerContent = ({ navigation }) => {
             console.log(e)
         }
     }
+
+    const nameSpliter = (n) => {
+        console.log(n)
+        if(n){
+            let c = n?.split(' ')
+            let sp = c[0][0]+c[1][0].toUpperCase()
+            return sp
+        }
+    }
     
+    useEffect(() => {
+        myDataR()
+    }, [])
+    
+    const myDataR = () => {
+        axiosconfig.get(`admin/my_data`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res,'myData')
+            myContext.setMyData(res.data)
+            setmyD(res.data)
+        }).catch((err)=>{
+            console.log(err.response)
+        })
+      }
 
     return (
         <LinearGradient colors={['#FF3C40', '#FF3C40', '#C46163']} style={{ flex: 1, paddingBottom: 20 }}>
@@ -65,7 +87,7 @@ const DrawerContent = ({ navigation }) => {
                     <View style={{ width: 65, height: 70, borderRadius: 10, backgroundColor:'#f1f1f1', display: 'flex', alignItems: 'center' , justifyContent: 'center',overflow: 'hidden'}}>
                         {
                             myContext.profileImagee == null ? (
-                                <><Text style={{ fontSize:moderateScale(18),fontFamily:'Gilroy-Bold',color:"#FF3C40"}}>JG</Text></>
+                                <><Text style={{ fontSize:moderateScale(18),fontFamily:'Gilroy-Bold',color:"#FF3C40"}}>{nameSpliter(myD?.name)}</Text></>
                             ) : (
                                 <>
                                     <Image
@@ -78,7 +100,7 @@ const DrawerContent = ({ navigation }) => {
                         }
                     </View>
                     <View style={{ width: '100%',paddingHorizontal:20,alignItems:'center',marginTop:10}} numberOfLines={1}>
-                        <Title style={{ ...styles.textStyle, color: '#000',fontSize:moderateScale(16),fontFamily:'Gilroy-Bold',marginLeft:0}} numberOfLines={1}>Jacob Gomez</Title>
+                        <Title style={{ ...styles.textStyle, color: '#000',fontSize:moderateScale(16),fontFamily:'Gilroy-Bold',marginLeft:0}} numberOfLines={1}>{myD.name}</Title>
                         <View style={{...styles.flexCon}}>
                             <Title style={{ color: '#000',fontSize:moderateScale(12),fontFamily:'Gilroy-Bold',marginLeft:0}} numberOfLines={1}>Balance:</Title>
                             <Title style={{ color: '#000',fontSize:moderateScale(12),fontFamily:'Gilroy-Bold',marginLeft:0}} numberOfLines={1}> ${myContext.WalletAmount}</Title>

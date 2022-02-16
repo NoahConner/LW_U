@@ -6,19 +6,23 @@ import { CheckBox ,Button,Text } from 'react-native-elements'
 import Safe from '../assets/svg/safe.svg'
 import AppContext from '../components/appcontext'
 import {  moderateScale } from 'react-native-size-matters';
+import axiosconfig from '../providers/axios';
+import Loader from '../screens/loader';
 
 var newCard = null;
 const AddCardSheet = ({navigation,statement}) => {
 
     const myContext = useContext(AppContext);
+    const [loader, setLoader] = useState(false);
+
     var allCards = myContext.paymentmethods
     const _onChange = (formData) => {
       newCard = formData
-      console.log(JSON.stringify(newCard, null, " "))
+      console.log(JSON.stringify(newCard, null, " "),'sd')
     };
     const _onFocus = (field) => console.log("focusing", field);
     const [checked,setChecked] = useState(true);
-    const saveCard = () =>{
+    const saveCard = async() =>{
       if(newCard == null){
         alert('Please fill the card fields.')
       }
@@ -26,17 +30,49 @@ const AddCardSheet = ({navigation,statement}) => {
         alert('Invalid Card!')
       }
       else if(newCard.valid){
-        var iddf = Math.floor(Math.random() * 100);
-        newCard.values["id"] = iddf
-        console.log(newCard.values);
-        allCards.push(newCard.values);
-        myContext.setpaymentmethods(allCards);
-        myContext.setcloseAllSheets(true)
+        // var iddf = Math.floor(Math.random() * 100);
+        // newCard.values["id"] = iddf
+        // console.log(newCard.values);
+        // allCards.push(newCard.values);
+        // myContext.setpaymentmethods(allCards);
+        // myContext.setcloseAllSheets(true)
+        
+        let cardData = {
+          user_id:myContext.myData.id,
+          card_cvv:newCard.values.cvc,
+          card_expiry:newCard.values.expiry,
+          card_no:newCard.values.number,
+          card_name:newCard.values.name,
+          card_type:newCard.values.type,
+        }
+
+        setLoader(true)
+        await axiosconfig.post(`admin/card_add`,cardData,
+        {
+            headers: {
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res)
+            setLoader(false)
+            myContext.setcloseAllSheets(true)
+        }).catch((err)=>{
+            console.log(err)
+            setLoader(false)
+        })
       }
     }
 
   return(
         <View style={s.container}>
+          {
+                loader ? (
+                    <>
+                        <Loader />
+                    </>
+                ) : null
+            }
             <ScrollView showsVerticalScrollIndicator={false}>
             <CreditCardInput
                 autoFocus

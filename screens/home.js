@@ -76,7 +76,7 @@ var allRestT = [
 
 const mcCards = (d, i, navigation) => {
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('Resturants')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Resturants',d)}>
             <View style={styles.mcCard} key={d.id}>
                 <View style={{ backgroundColor: '#fff', borderRadius: 8, overflow: 'hidden' }}>
                     <Image
@@ -147,10 +147,10 @@ const Home = ({ navigation }) => {
         //   );
     }
 
-    const getRestaurents = (location) => {
+    const getRestaurents = async(location) => {
         // console.log(location,'tt')
         setLoader(true)
-        axiosconfig.get(`admin/restaurents/${location.latitude},${location.longitude}`,
+        await axiosconfig.get(`admin/restaurents/${location.latitude},${location.longitude}`,
         {
             headers: {
               Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
@@ -167,7 +167,10 @@ const Home = ({ navigation }) => {
         })
     }
 
+
+
     useEffect(() => {
+        // myData()
         getCurrentLocation()
     }, [])
 
