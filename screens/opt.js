@@ -9,7 +9,7 @@ import axiosconfig from '../providers/axios';
 import Toast from 'react-native-toast-message';
 import Loader from './loader';
 import AppContext from '../components/appcontext';
-import {AsyncStorage} from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const OPT = ({ route, navigation }) => {
   const [loader, setLoader] = useState(false);
@@ -31,25 +31,46 @@ const OPT = ({ route, navigation }) => {
     })
   }
 
-  console.log(route.params)
+  useEffect(() => {
+    console.log(route.params)
+  }, [])
+  
+
+  // const storeData = async (value) => {
+  //   try {
+  //       await AsyncStorage.setItem('@auth_token', value);
+  //       myContext.setuserToken(value);
+  //       navigation.navigate('Home')
+  //     } catch (e) {
+  //       console.log(e)
+  //   }
+  // }
 
   const storeData = async (value) => {
     try {
-      await AsyncStorage.setItem('@auth_token', value)
+      await AsyncStorage.setItem('@auth_token', value);
       context.setuserToken(value);
-      navigation.navigate('Home')
+      setTimeout(() => {
+        navigation.navigate('Home')
+      }, 1000);
     } catch (e) {
-      console.log(e)
+      console.log(e.response)
     }
   }
 
   const verifycode = async (c) => {
-    route.params.type == 'forgot' ? forgotPass(c) : register(c);
+    console.log(c,'typec')
+    if(route.params.type == 'forgot'){
+      forgotPass(c)
+    }
+     else{
+      register(c)
+     }
   }
 
   const register = async (c) => {
     setLoader(true)
-    console.log(c)
+    console.log(c,'564')
     let data = {
       name: name,
       email: email,

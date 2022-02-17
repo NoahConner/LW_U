@@ -28,6 +28,7 @@ const ReviewPayment = ({navigation,amount,cardSelect})=>{
             amount:amount
         }
         setLoader(true)
+        console.log(myContext.userToken)
         await axiosconfig.post(`admin/deposite`,data,
         {
             headers: {
@@ -39,7 +40,7 @@ const ReviewPayment = ({navigation,amount,cardSelect})=>{
             setLoader(false)
             myContext.setCongratesModal(true)
         }).catch((err)=>{
-            console.log(err)
+            console.log(err.response)
             setLoader(false)
         })
     }
