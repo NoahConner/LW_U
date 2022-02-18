@@ -186,6 +186,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"]);
+    implementation 'com.facebook.fresco:animated-gif:2.5.0'
     implementation project(':react-native-linear-gradient')
     //noinspection GradleDynamicVersion
     implementation project(':react-native-community-geolocation')

@@ -25,7 +25,8 @@ const ReviewPayment = ({navigation,amount,cardSelect})=>{
         let data = {
             user_id:myContext.myData.id,
             card_id:cardSelect,
-            amount:amount
+            amount:amount,
+            processing_fee:1.25
         }
         setLoader(true)
         console.log(myContext.userToken)

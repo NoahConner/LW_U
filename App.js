@@ -156,10 +156,26 @@ const App = (navigation) => {
     })
   }
 
+  const getWallet = async() => {
+    await axiosconfig.get(`admin/current_wallet`,
+    {
+        headers: {
+          Authorization: 'Bearer ' + userToken //the token is a variable which holds the token
+        }
+       }
+    ).then((res:any)=>{
+        console.log(res,'wallet')
+        setWalletAmount(res.data.wallet)
+    }).catch((err)=>{
+        console.log(err.response)
+    })
+  }
+
   useEffect(() => {
     const init = async () => {
       getData()
       myDataR()
+      getWallet()
     };
 
     init().finally(async () => {
