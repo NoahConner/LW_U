@@ -39,12 +39,29 @@ const ReviewPayment = ({navigation,amount,cardSelect})=>{
         ).then((res:any)=>{
             console.log(res)
             setLoader(false)
+            getWallet()
             myContext.setCongratesModal(true)
         }).catch((err)=>{
             console.log(err.response)
             setLoader(false)
         })
     }
+
+    const getWallet = async() => {
+        const value = await AsyncStorage.getItem('@auth_token');
+        await axiosconfig.get(`admin/current_wallet`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + value //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res,'wallet')
+            myContext.setWalletAmount(res.data.wallet)
+        }).catch((err)=>{
+            console.log(err.response);
+        })
+      }
 
     return(
         <View style={{padding:20}}>

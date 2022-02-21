@@ -37,7 +37,8 @@ const Modals = ({ navigation }) => {
             myContext.setSorryModal(false)
         }
         else if (myContext.CouponModalCon) {
-            myContext.setCouponModal(false)
+            myContext.setCouponModal(false);
+            navigation.navigate('Home')
         }
         else if (myContext.closeAllSheets) {
             myContext.setcloseAllSheets(false)

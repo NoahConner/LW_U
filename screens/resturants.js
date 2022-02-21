@@ -111,11 +111,28 @@ const Resturants = ({route, navigation}) => {
             myContext.setCouponModal(true);
             setdatePick(null)
             setleaperName(null)
+            getWallet()
         }).catch((err)=>{
-            console.log(err)
+            console.log(err.response)
             setLoader(false)
         })
     }
+
+    const getWallet = async() => {
+        const value = await AsyncStorage.getItem('@auth_token');
+        await axiosconfig.get(`admin/current_wallet`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + value //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res,'wallet')
+            myContext.setWalletAmount(res.data.wallet)
+        }).catch((err)=>{
+            console.log(err.response);
+        })
+      }
 
     const mcCards = (d,i,navigation,refRBSheet,myContext)=>{
     
@@ -129,7 +146,7 @@ const Resturants = ({route, navigation}) => {
         }
     
         return (
-            <TouchableOpacity onPress={()=> openSheet(d.id)} key={i}>
+            <TouchableOpacity onPress={()=> openSheet(d.id)} key={i} style={{display: d.deal_quantity > 0 && d.status == 1  ? 'flex' : 'none'}}>
                 <View style={styles.mcCard} key={d.id}>
                     <View style={{backgroundColor:'#fff',borderRadius: 8,overflow: 'hidden'}}>
                         <Image

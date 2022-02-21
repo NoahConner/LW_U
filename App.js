@@ -156,8 +156,8 @@ const App = (navigation) => {
     })
   }
 
-  const getWallet = async() => {
-    await axiosconfig.get(`admin/current_wallet`,
+  const getWallet = () => {
+    axiosconfig.get(`admin/current_wallet`,
     {
         headers: {
           Authorization: 'Bearer ' + userToken //the token is a variable which holds the token
@@ -167,7 +167,7 @@ const App = (navigation) => {
         console.log(res,'wallet')
         setWalletAmount(res.data.wallet)
     }).catch((err)=>{
-        console.log(err.response)
+        console.log(err.response);
     })
   }
 

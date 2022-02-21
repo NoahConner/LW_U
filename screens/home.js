@@ -159,15 +159,31 @@ const Home = ({ navigation }) => {
            }
         ).then((res:any)=>{
             console.log(res)
-            setresTaurents(res.data)
+            setresTaurents(res.data, 'resTaurents')
             setLoader(false)
+            getWallet()
         }).catch((err)=>{
             console.log(err.response)
             setLoader(false)
         })
     }
 
-
+    const getWallet = async() => {
+        const value = await AsyncStorage.getItem('@auth_token');
+        console.log('res','wallet')
+        await axiosconfig.get(`admin/current_wallet`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + value //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res,'wallet')
+            myContext.setWalletAmount(res.data.wallet)
+        }).catch((err)=>{
+            console.log(err.response);
+        })
+      }
 
     useEffect(() => {
         // myData()

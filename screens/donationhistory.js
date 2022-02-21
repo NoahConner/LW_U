@@ -127,7 +127,7 @@ const DonationHistory = ({navigation})=>{
                     <View style={{...styles.flexRow,marginTop:15}}>
                         <View style={{...styles.flexRow,alignItems: "flex-start"}}>
                             <Text style={{fontSize:moderateScale(15),fontFamily:'Gilroy-Bold',marginTop:-3,...styles.redColor}}>Date/Time:</Text>
-                            <Text style={{fontSize:moderateScale(12),marginLeft: 16,flexShrink: 1,fontFamily:'Gilroy-Medium',color:'#696868' }}> {dateConverter(currentDeal?.created_at, true)}</Text>
+                            <Text style={{fontSize:moderateScale(12),marginLeft: 16,flexShrink: 1,fontFamily:'Gilroy-Medium',color:'#696868' }}>{moment(currentDeal?.created_at).format('DD MMM yy, h:mm:ss a z')}</Text>
                         </View>
                     </View>
                     <View style={{...styles.flexRow,marginTop:15}}>

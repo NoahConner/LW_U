@@ -89,7 +89,7 @@ const DepositHistory = ({navigation}) => {
                         <View style={{flexDirection:'column',width:'83%'}}>
                             <View style={{...styles.flexRow,justifyContent:'space-between'}}>
                                 <Text style={{fontWeight:'bold',fontSize:moderateScale(13),marginRight:0}}>Deposited</Text>
-                                <Text style={{...styles.dater}}>11/11/2021</Text>
+                                <Text style={{...styles.dater}}>{moment(d?.created_at).format('DD MMM, yy')}</Text>
                                 <Text style={{fontWeight:'bold',fontSize:moderateScale(15)}}>-${d?.amount}</Text>
                             </View>
                             {/* <Text style={styles.dater}>*** 1234</Text> */}
@@ -193,7 +193,7 @@ const DepositHistory = ({navigation}) => {
                     <View style={{...styles.flexRow,marginTop:15}}>
                         <View style={{...styles.flexRow,alignItems: "flex-start"}}>
                             <Text style={{fontSize:moderateScale(15),fontFamily:'Gilroy-Bold',marginTop:-3,...styles.redColor}}>Date/Time:</Text>
-                            <Text style={{fontSize:moderateScale(12),marginLeft: 16,flexShrink: 1,fontFamily:'Gilroy-Medium',color:'#696868' }}>{dateConverter(selectedCard?.created_at)}</Text>
+                            <Text style={{fontSize:moderateScale(12),marginLeft: 16,flexShrink: 1,fontFamily:'Gilroy-Medium',color:'#696868' }}>{moment(selectedCard?.created_at).format('DD MMM, yy')}</Text>
                         </View>
                     </View>
                     <View style={{...styles.flexRow,marginTop:15}}>

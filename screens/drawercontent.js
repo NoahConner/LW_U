@@ -15,7 +15,7 @@ import {
     Switch
 } from 'react-native-paper';
 import { Image, Button,Icon } from 'react-native-elements';
-import AppContext from '../components/appcontext'
+import AppContext from '../components/appcontext';
 import LogOut from '../assets/svg/logoutIcon.svg';
 import ProfileIcon from '../assets/svg/profileIcon.svg';
 import DepositeIcon from '../assets/svg/deposite.svg';
@@ -23,12 +23,12 @@ import PaymentIcon from '../assets/svg/paymentIcon.svg';
 import DonationIcon from '../assets/svg/historyIcon.svg';
 import PrivacyIcon from '../assets/svg/accept.svg'; 
 import TermsIcon from '../assets/svg/insurance.svg'; 
-import DepoHis from '../assets/svg/deposite-history.svg'
+import DepoHis from '../assets/svg/deposite-history.svg';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import Collapsible from 'react-native-collapsible';
-import LegalIcon from '../assets/svg/legalicon.svg'
-import SocialIcon from '../assets/svg/social-media.svg'
-import CrossIco from '../assets/svg/x-mark.svg'
+import LegalIcon from '../assets/svg/legalicon.svg';
+import SocialIcon from '../assets/svg/social-media.svg';
+import CrossIco from '../assets/svg/x-mark.svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
 import {  moderateScale } from 'react-native-size-matters';
@@ -52,6 +52,7 @@ const DrawerContent = ({ navigation }) => {
 
     const nameSpliter = (n) => {
         console.log(n)
+        getWallet()
         if(n){
             let c = n?.split(' ')
             let sp = c[0][0]+c[1][0].toUpperCase()
@@ -60,15 +61,17 @@ const DrawerContent = ({ navigation }) => {
     }
     
     useEffect(() => {
-        myDataR()
+        myDataR();
+        getWallet()
         setTimeout(() => {
-            myDataR()
+            myDataR();
+            getWallet()
         }, 1000);
     }, [])
     
     const myDataR = async() => {
         const value = await AsyncStorage.getItem('@auth_token');
-        axiosconfig.get(`admin/my_data`,
+        await axiosconfig.get(`admin/my_data`,
         {
             headers: {
               Authorization: 'Bearer ' + value //the token is a variable which holds the token
@@ -80,6 +83,22 @@ const DrawerContent = ({ navigation }) => {
             setmyD(res.data)
         }).catch((err)=>{
             console.log(err.response)
+        })
+    }
+
+    const getWallet = async() => {
+        const value = await AsyncStorage.getItem('@auth_token');
+        await axiosconfig.get(`admin/current_wallet`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + value //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res,'wallet')
+            myContext.setWalletAmount(res.data.wallet)
+        }).catch((err)=>{
+            console.log(err.response);
         })
       }
 

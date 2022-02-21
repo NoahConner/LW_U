@@ -1,4 +1,4 @@
-import React, { useState, useRef,useContext } from 'react';
+import React, { useState, useRef,useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity,Image ,ActivityIndicator } from 'react-native';
 import { Icon ,CheckBox,Input, Button   } from 'react-native-elements';
 import StackHeader from '../components/stackheader'
@@ -11,11 +11,17 @@ import CameraIcon from '../assets/svg/camera.svg'
 import GalleryIcon from '../assets/svg/gallery.svg'
 import AppContext from '../components/appcontext'
 import {  moderateScale } from 'react-native-size-matters';
+import Loader from './loader';
+import axiosconfig from '../providers/axios';
+import Toast from 'react-native-toast-message';
 
 const Profile = ({navigation})=>{
     const refRBSheet = useRef();
     const [editCOn,seteditCOn] = useState('camera');
-    const myContext = useContext(AppContext)
+    const [formVal , setFormVal] = useState(null) 
+    const myContext = useContext(AppContext);
+    const [loader, setLoader] = useState(false);
+    const [myData , setMyData] = useState()
 
     const editCard = ()=>{
         return(
@@ -49,6 +55,8 @@ const Profile = ({navigation})=>{
                                 inputContainerStyle={{
                                     ...styles.inputContainerStyle
                                 }}
+                                onChangeText={(t) => setFormVal(t)} 
+                                value={myData?.name.split(' ')[0]}
                             />
                         </>
                     )
@@ -66,6 +74,8 @@ const Profile = ({navigation})=>{
                                 inputContainerStyle={{
                                     ...styles.inputContainerStyle
                                 }}
+                                onChangeText={(t) => setFormVal(t)} 
+                                value={myData?.name.split(' ')[1]}
                             />
                         </>
                     )
@@ -83,6 +93,8 @@ const Profile = ({navigation})=>{
                                 inputContainerStyle={{
                                     ...styles.inputContainerStyle
                                 }}
+                                onChangeText={(t) => setFormVal(t)} 
+                                value={myData?.email}
                             />
                         </>
                     )
@@ -100,6 +112,8 @@ const Profile = ({navigation})=>{
                                 inputContainerStyle={{
                                     ...styles.inputContainerStyle
                                 }}
+                                onChangeText={(t) => setFormVal(t)} 
+                                value={myData?.phone}
                             />
                         </>
                     )
@@ -117,6 +131,7 @@ const Profile = ({navigation})=>{
                                 inputContainerStyle={{
                                     ...styles.inputContainerStyle
                                 }}
+                                onChangeText={(t) => setFormVal(t)} 
                             />
                         </>
                     )
@@ -163,15 +178,101 @@ const Profile = ({navigation})=>{
 
     // var [profileImagee,setprofileImagee] = useState('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png')
 
+    const getRecords = async() => {
+        setLoader(true)
+        await axiosconfig.get(`admin/my_data`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res)
+            setLoader(false)
+            setMyData(res.data)
+        }).catch((err)=>{
+            console.log(err)
+            setLoader(false)
+        })
+    }
+
+    const showToast = (t, e) => {
+        console.log(t)
+        Toast.show({
+            type: t,
+            text1: e,
+        })
+    }
+
+    useEffect(() => {
+        getRecords();
+        console.log('records')
+    }, [])
+    
+    const userForm = async() => {
+        console.log(editCOn, formVal);
+
+        if(formVal == null){
+            showToast('error', `${editCOn} required`);
+            return false;
+        }
+
+        let data = {}
+        if(editCOn == 'frstname'){
+            data['name'] = formVal+' '+myData?.name.split(' ')[1]
+            console.log(data, 'namer')
+        }
+        if(editCOn == 'lstname'){
+            data['name'] = myData?.name.split(' ')[0]+' '+formVal
+            console.log(data, 'namer')
+        }
+        if(editCOn == 'email'){
+            data['email'] = formVal
+            console.log(data, 'namer')
+        }
+        if(editCOn == 'phone'){
+            data['phone'] = formVal
+            console.log(data, 'namer')
+        }
+        if(editCOn == 'password'){
+            data['password'] = formVal
+            console.log(data, 'namer')
+        }
+
+        setLoader(true)
+        await axiosconfig.post(`admin/user_edit/${myContext.myData.id}`, data,
+        {
+            headers: {
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+            console.log(res);
+            setLoader(false);
+            refRBSheet.current.close();
+            getRecords()
+        }).catch((err)=>{
+            console.log(err);
+            setLoader(false);
+        })
+    }
+
     return (
         <View style={styles.container}>
+             {
+                loader ? (
+                    <>
+                        <Loader />
+                    </>
+                ) : null
+            }
             <StackHeader navigation={navigation} name={'Profile'} />
             <ScrollView style={{padding:20,marginTop:10,marginBottom:0}}>
 
                 <View style={{alignItems: 'center',marginBottom:50}}>
                     <TouchableOpacity style={{position: 'relative',height:120,width:120,backgroundColor:'#F6F8FA',borderRadius:10,overflow: 'hidden'}} onPress={() => openSheet('camera')}>
                         <Image
-                            source={{ uri: myContext.profileImagee == null ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' : myContext.profileImagee }}
+                            source={{ uri: myData?.image == null ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' : myData?.image }}
                             style={{ width: 120, height: 120,  resizeMode: 'cover' }}
                             PlaceholderContent={<ActivityIndicator />}
                         />
@@ -183,7 +284,7 @@ const Profile = ({navigation})=>{
 
                 <View style={styles.mainCard}>
                     <Text style={styles.nameF}>First Name</Text>
-                    <Text style={styles.nameB}>Jacob</Text>
+                    <Text style={styles.nameB}>{myData?.name.split(' ')[0]}</Text>
                     <TouchableOpacity style={{position:'absolute',right:15,top:10}} onPress={() => openSheet('frstname')}>
                         <EditIcon style={{height:35,width:20}}/>
                     </TouchableOpacity>
@@ -191,7 +292,7 @@ const Profile = ({navigation})=>{
 
                 <View style={styles.mainCard}>
                     <Text style={styles.nameF}>Last Name</Text>
-                    <Text style={styles.nameB}>Gomez</Text>
+                    <Text style={styles.nameB}>{myData?.name.split(' ')[1]}</Text>
                     <TouchableOpacity style={{position:'absolute',right:15,top:10}} onPress={() => openSheet('lstname')}>
                         <EditIcon style={{height:35,width:20}}/>
                     </TouchableOpacity>
@@ -199,7 +300,7 @@ const Profile = ({navigation})=>{
 
                 <View style={styles.mainCard}>
                     <Text style={styles.nameF}>Email</Text>
-                    <Text style={styles.nameB}>jacob@gmail.com</Text>
+                    <Text style={styles.nameB}>{myData?.email}</Text>
                     <TouchableOpacity style={{position:'absolute',right:15,top:10}} onPress={() => openSheet('email')}>
                         <EditIcon style={{height:35,width:20}}/>
                     </TouchableOpacity>
@@ -207,7 +308,7 @@ const Profile = ({navigation})=>{
 
                 <View style={styles.mainCard}>
                     <Text style={styles.nameF}>Phone</Text>
-                    <Text style={styles.nameB}>+1234567898</Text>
+                    <Text style={styles.nameB}>{myData?.phone}</Text>
                     <TouchableOpacity style={{position:'absolute',right:15,top:10}} onPress={() => openSheet('phone')}>
                         <EditIcon style={{height:35,width:20}}/>
                     </TouchableOpacity>
@@ -255,6 +356,7 @@ const Profile = ({navigation})=>{
                                             padding:15,
                                             borderRadius:15
                                         }}
+                                        onPress={() => userForm()}
                                     />
                                 </View>
                             </>
