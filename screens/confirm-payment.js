@@ -46,7 +46,6 @@ const ConfirmPayment = ({navigation,route })=>{
     // const [cards, setCards] = useState(myContext.paymentmethods)
     const [cardSelect,SetcardSelect] = useState();
 
-// console.log(myContext.paymentmethods[0])
     const splitNo = (c) => {
         var splitt = c.split(' ')
         var lenghter = splitt.length
@@ -99,7 +98,6 @@ const ConfirmPayment = ({navigation,route })=>{
 
     const getCards = async() => {
         setLoader(true)
-        console.log(myContext.myData.id)
         await axiosconfig.get(`admin/cards/${myContext.myData.id}`,
         {
             headers: {
@@ -107,7 +105,6 @@ const ConfirmPayment = ({navigation,route })=>{
             }
            }
         ).then((res:any)=>{
-            console.log(res)
             setLoader(false)
             setCards(res.data)
             // myContext.setpaymentmethods(res.data)

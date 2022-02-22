@@ -17,7 +17,7 @@ const ForgotPassword = ({navigation})=>{
     const [loader, setLoader] = useState(false)
 
     const showToast = (t, e) => {
-        console.log(t)
+       
         Toast.show({
             type: t,
             text1: e,
@@ -33,13 +33,13 @@ const ForgotPassword = ({navigation})=>{
         setLoader(true)
         
         await axiosconfig.get(`app/check-mail/${email}`).then((res: any) => {
-            console.log(res,'ress')
+
             if (res.status == 200) {
                 setLoader(false)
                 showToast('error', 'Email not found')
             }
         }).catch((err) => {
-            console.log(err.response)
+      
             otpSend()
         })
     }
@@ -52,10 +52,10 @@ const ForgotPassword = ({navigation})=>{
         await axiosconfig.post('app/otp', { email: email }).then((res: any) => {
             setLoader(false)
             navigation.navigate('OPT', signData);
-            console.log(res.data)
+       
         }).catch((err) => {
             setLoader(false)
-            console.log(err)
+        
         })
     }
 

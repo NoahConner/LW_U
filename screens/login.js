@@ -20,7 +20,7 @@ const Login = ({navigation})=>{
     const myContext = useContext(AppContext)
 
     const showToast = (t, e) => {
-        console.log(t)
+
         Toast.show({
             type: t,
             text1: e,
@@ -33,7 +33,7 @@ const Login = ({navigation})=>{
             myContext.setuserToken(value);
             navigation.navigate('Home')
           } catch (e) {
-            console.log(e)
+
         }
       }
     
@@ -66,11 +66,11 @@ const Login = ({navigation})=>{
             if(res.data.error){
                 showToast('error',res.data.error_description);
             }else{
-                console.log(res)
+              
                 storeData(res.data.access_token)
             }
         }).catch((err)=>{
-            console.log(err.response)
+      
             setLoader(false)
             showToast('error','Invalid Credentials');
         })

@@ -23,7 +23,7 @@ const SignIn = ({ navigation }) => {
     const [loader, setLoader] = useState(false)
 
     const showToast = (t, e) => {
-        console.log(t)
+
         Toast.show({
             type: t,
             text1: e,
@@ -73,7 +73,7 @@ const SignIn = ({ navigation }) => {
 
 
         await axiosconfig.get(`app/check-mail/${signData.email}`).then((res: any) => {
-            console.log(res)
+        
             if (res.status == 200) {
                 otpSend()
             } else {
@@ -81,22 +81,22 @@ const SignIn = ({ navigation }) => {
                 showToast('error', res.data.message)
             }
         }).catch((err) => {
-            console.log(err.response)
+        
             setLoader(false)
             showToast('error', err.response.data.message)
         })
 
-        console.log(signData);
+    
     }
 
     const otpSend = async () => {
         await axiosconfig.post('app/otp', { email: signData.email }).then((res: any) => {
             setLoader(false)
             navigation.navigate('OPT', signData);
-            console.log(res.data)
+        
         }).catch((err) => {
             setLoader(false)
-            console.log(err)
+        
         })
     }
 
@@ -124,7 +124,7 @@ const SignIn = ({ navigation }) => {
             showToast('error','Google play services not available or outdated !');
             // play services not available or outdated
           } else {
-            console.log(error)
+            
           }
         }
       };

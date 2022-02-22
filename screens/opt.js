@@ -24,7 +24,6 @@ const OPT = ({ route, navigation }) => {
   } = route.params;
 
   const showToast = (t, e) => {
-    console.log(t)
     Toast.show({
       type: t,
       text1: e,
@@ -32,7 +31,7 @@ const OPT = ({ route, navigation }) => {
   }
 
   useEffect(() => {
-    console.log(route.params)
+
   }, [])
   
 
@@ -42,7 +41,6 @@ const OPT = ({ route, navigation }) => {
   //       myContext.setuserToken(value);
   //       navigation.navigate('Home')
   //     } catch (e) {
-  //       console.log(e)
   //   }
   // }
 
@@ -54,12 +52,12 @@ const OPT = ({ route, navigation }) => {
         navigation.navigate('Home')
       }, 1000);
     } catch (e) {
-      console.log(e.response)
+
     }
   }
 
   const verifycode = async (c) => {
-    console.log(c,'typec')
+
     if(route.params.type == 'forgot'){
       forgotPass(c)
     }
@@ -70,7 +68,6 @@ const OPT = ({ route, navigation }) => {
 
   const register = async (c) => {
     setLoader(true)
-    console.log(c,'564')
     let data = {
       name: name,
       email: email,
@@ -79,9 +76,7 @@ const OPT = ({ route, navigation }) => {
       type: type,
       otp: Number(c),
     }
-    console.log(data)
     await axiosconfig.post('app/register', data).then((res: any) => {
-      console.log(res.data)
       setLoader(false)
       if (res.data.status == 'error') {
         showToast('error', res.data.messsage);
@@ -90,7 +85,7 @@ const OPT = ({ route, navigation }) => {
         storeData(res.data.access_token)
       }
     }).catch((err) => {
-      console.log(err)
+
       showToast('error', err.response.data.messsage);
       setLoader(false)
     })

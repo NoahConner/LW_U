@@ -29,9 +29,9 @@ const NewPassword = ({route,navigation}) => {
         setLoader(true)
         let ide;
         // route.params.email
-        console.log(route.params)
+    
         await axiosconfig.post('app/restaurent_register',{code:'^^@$T3r*'}).then((res:any)=>{
-            console.log(res)
+      
             res.data.map((v)=>{
                 if(v.email == route.params.email){
                     ide = v.id
@@ -51,7 +51,7 @@ const NewPassword = ({route,navigation}) => {
     }
 
     const senh = async(data) => {
-        console.log(data)
+
         await axiosconfig.post('app/restaurent_register',data).then((res:any)=>{
             setLoader(false)
             navigation.navigate('Login')
@@ -62,7 +62,6 @@ const NewPassword = ({route,navigation}) => {
     }
 
     const showToast = (t, e) => {
-        console.log(t)
         Toast.show({
             type: t,
             text1: e,

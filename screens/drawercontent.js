@@ -46,12 +46,12 @@ const DrawerContent = ({ navigation }) => {
             await AsyncStorage.removeItem('@auth_token');
             myContext.setuserToken(value);
           } catch (e) {
-            console.log(e)
+  
         }
     }
 
     const nameSpliter = (n) => {
-        console.log(n)
+    
         getWallet()
         if(n){
             let c = n?.split(' ')
@@ -78,11 +78,11 @@ const DrawerContent = ({ navigation }) => {
             }
            }
         ).then((res:any)=>{
-            console.log(res,'myData')
+        
             myContext.setMyData(res.data)
             setmyD(res.data)
         }).catch((err)=>{
-            console.log(err.response)
+ 
         })
     }
 
@@ -95,10 +95,9 @@ const DrawerContent = ({ navigation }) => {
             }
            }
         ).then((res:any)=>{
-            console.log(res,'wallet')
+      
             myContext.setWalletAmount(res.data.wallet)
         }).catch((err)=>{
-            console.log(err.response);
         })
       }
 

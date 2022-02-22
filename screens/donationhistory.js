@@ -20,7 +20,6 @@ const DonationHistory = ({navigation})=>{
 
     const getRecords = async() => {
         setLoader(true)
-        console.log(myContext.myData.id)
         await axiosconfig.get(`admin/orders_by_id/${myContext.myData.id}`,
         {
             headers: {
@@ -28,11 +27,9 @@ const DonationHistory = ({navigation})=>{
             }
            }
         ).then((res:any)=>{
-            console.log(res)
             setLoader(false)
             setrecors(res.data)
         }).catch((err)=>{
-            console.log(err)
             setLoader(false)
         })
     }
@@ -40,7 +37,6 @@ const DonationHistory = ({navigation})=>{
     const openSheet = (d) => {
         setcurrentDeal(d)
         refRBSheet.current.open()
-        console.log(d)
     }
 
     const dCards = (d,i,refRBSheet)=>{

@@ -71,7 +71,7 @@ const Resturants = ({route, navigation}) => {
     const myContext = useContext(AppContext);
 
     const showToast = (t, e) => {
-        console.log(t)
+      
         Toast.show({
             type: t,
             text1: e,
@@ -105,7 +105,7 @@ const Resturants = ({route, navigation}) => {
             }
            }
         ).then((res:any)=>{
-            console.log(res)
+     
             setLoader(false)
             myContext.setCurrentCoupon(coupon);
             myContext.setCouponModal(true);
@@ -113,7 +113,7 @@ const Resturants = ({route, navigation}) => {
             setleaperName(null)
             getWallet()
         }).catch((err)=>{
-            console.log(err.response)
+ 
             setLoader(false)
         })
     }
@@ -127,10 +127,10 @@ const Resturants = ({route, navigation}) => {
             }
            }
         ).then((res:any)=>{
-            console.log(res,'wallet')
+        
             myContext.setWalletAmount(res.data.wallet)
         }).catch((err)=>{
-            console.log(err.response);
+            
         })
       }
 
@@ -172,7 +172,7 @@ const Resturants = ({route, navigation}) => {
     }
 
     useEffect(() => {
-      console.log(myContext.myData)
+
       setResData(route.params)
     }, [])
     

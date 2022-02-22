@@ -119,12 +119,10 @@ const DepositHistory = ({navigation}) => {
             }
         }
         ).then((res:any)=>{
-            console.log(res)
             setdHistory(res.data)
             setLoader(false)
             
         }).catch((err)=>{
-            console.log(err.response)
             setLoader(false)
         })
     }

@@ -37,11 +37,11 @@ const PaymentMethod = ({ navigation }) => {
             }
            }
         ).then((res:any)=>{
-            console.log(res)
+        
             setLoader(false)
             getCards()
         }).catch((err)=>{
-            console.log(err)
+          
             setLoader(false)
         })
     }
@@ -56,7 +56,6 @@ const PaymentMethod = ({ navigation }) => {
 
     const getCards = async() => {
         setLoader(true)
-        console.log(myContext.myData.id)
         await axiosconfig.get(`admin/cards/${myContext.myData.id}`,
         {
             headers: {
@@ -64,12 +63,12 @@ const PaymentMethod = ({ navigation }) => {
             }
            }
         ).then((res:any)=>{
-            console.log(res)
+     
             setLoader(false)
             setCards(res.data)
             // myContext.setpaymentmethods(res.data)
         }).catch((err)=>{
-            console.log(err)
+   
             setLoader(false)
         })
     }

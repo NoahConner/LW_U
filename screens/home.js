@@ -112,7 +112,6 @@ const Home = ({ navigation }) => {
             timeout: 15000,
         })
             .then(location => {
-                console.log(location);
                 setLocation(location)
                 getRestaurents(location)
             })
@@ -129,7 +128,6 @@ const Home = ({ navigation }) => {
         //     (error) => {
         //       Alert.alert(`Code ${error.code}`, error.message);
         //       setLocation(null);
-        //       console.log(error);
         //     },
         //     {
         //       accuracy: {
@@ -148,7 +146,6 @@ const Home = ({ navigation }) => {
     }
 
     const getRestaurents = async(location) => {
-        // console.log(location,'tt')
         setLoader(true)
         await axiosconfig.get(`admin/restaurents/${location.latitude},${location.longitude}`,
         {
@@ -158,19 +155,16 @@ const Home = ({ navigation }) => {
 
            }
         ).then((res:any)=>{
-            console.log(res)
             setresTaurents(res.data, 'resTaurents')
             setLoader(false)
             getWallet()
         }).catch((err)=>{
-            console.log(err.response)
             setLoader(false)
         })
     }
 
     const getWallet = async() => {
         const value = await AsyncStorage.getItem('@auth_token');
-        console.log('res','wallet')
         await axiosconfig.get(`admin/current_wallet`,
         {
             headers: {
@@ -178,10 +172,8 @@ const Home = ({ navigation }) => {
             }
            }
         ).then((res:any)=>{
-            console.log(res,'wallet')
             myContext.setWalletAmount(res.data.wallet)
         }).catch((err)=>{
-            console.log(err.response);
         })
       }
 

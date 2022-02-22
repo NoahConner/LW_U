@@ -74,7 +74,7 @@ const Wallet = ({ navigation }) => {
 
     const getRecords = async () => {
         setLoader(true)
-        console.log(myContext.myData.id)
+
         await axiosconfig.get(`admin/orders_by_id/${myContext.myData.id}`,
             {
                 headers: {
@@ -82,11 +82,11 @@ const Wallet = ({ navigation }) => {
                 }
             }
         ).then((res: any) => {
-            console.log(res)
+            
             setrecors(res.data)
             setLoader(false)
         }).catch((err) => {
-            console.log(err)
+  
             setLoader(false)
         })
     }
@@ -163,7 +163,7 @@ const Wallet = ({ navigation }) => {
             refRBSheetDepos.current.open()
             setselectedCard(d)
         }
-        console.log(d)
+      
     }
 
     useEffect(() => {
@@ -188,12 +188,12 @@ const Wallet = ({ navigation }) => {
                 }
             }
         ).then((res: any) => {
-            console.log(res)
+           
             setdHistory(res.data)
             setLoader(false)
 
         }).catch((err) => {
-            console.log(err.response)
+        
             setLoader(false)
         })
     }
