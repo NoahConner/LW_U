@@ -12,6 +12,7 @@ import GetLocation from 'react-native-get-location'
 import Cloc from '../assets/svg/clocation.svg'
 import Geolocation from '@react-native-community/geolocation';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import AppContext from '../components/appcontext'
 
 const { width, height } = Dimensions.get('window');
 
@@ -19,8 +20,9 @@ const ASPECT_RATIO = width / height;
 const LATITUDE = 29.9417666;
 const LONGITUDE = -95.3991524;
 const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const LONGITUDE_DELTA =  0.0421;
 const SPACE = 0.01;
+const mapRef = React.createRef();
 
 function log(eventName, e) {
   console.log(eventName, e.nativeEvent);
@@ -49,7 +51,7 @@ class MarkerTypes extends React.Component {
   }
 
   setRegion = (e) => {
-    // console.log(e.nativeEvent)
+    console.log(e)
     this.setState({
       region:{
         latitude: e.latitude,
@@ -60,30 +62,45 @@ class MarkerTypes extends React.Component {
     })
   }
 
-
-currentLocation = () => {
-  GetLocation.getCurrentPosition({
-    enableHighAccuracy: true,
-    timeout: 15000,
-  })
-    .then(location => {
-      console.log(location);
-      this.setState(
-        {
-          region:{
-          latitude: location.latitude,
-          longitude: location.longitude,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
+  componentDidMount() {
+    this.currentLocation()
+  }
+  currentLocation = () => {
+    GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 15000,
+    })
+      .then(location => {
+        console.log(location, 'location');
+        this.setState(
+          {
+            region:{
+            latitude: location.latitude,
+            longitude: location.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          }
         }
-      }
-      )
-    })
-    .catch(error => {
-      const { code, message } = error;
-      console.warn(code, message);
-    })
-}
+        )
+        mapRef.current.animateToRegion({
+          latitude:location.latitude,
+          longitude:location.longitude,
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1
+        })
+        console.log(this.state.region)
+      })
+      .catch(error => {
+        const { code, message } = error;
+        console.warn(code, message);
+      })
+
+      
+  }
+  saveReion (){
+    // this.context.setsetcurrentLatLng(this.state.region)
+    this.props.navigation.navigate('Home', this.state.region)
+  }
 
   render() {
     return (
@@ -99,7 +116,7 @@ currentLocation = () => {
             <Button
               title="Save"
               type="solid"
-              onPress={()=> console.log(this.state.region)}
+              onPress={()=> this.saveReion()}
               buttonStyle={{
                 backgroundColor: '#1E3865',
                 padding: 15,
@@ -109,6 +126,7 @@ currentLocation = () => {
           </View>
         </View>
         <MapView
+          ref={mapRef}
           provider={this.props.provider}
           style={styles.map}
           initialRegion={this.state.region}

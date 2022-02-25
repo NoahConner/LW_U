@@ -10,6 +10,7 @@ import GetLocation from 'react-native-get-location';
 import axiosconfig from '../providers/axios';
 import Geolocation from '@react-native-community/geolocation';
 import Loader from './loader';
+import { useIsFocused } from "@react-navigation/native";
 
 var allRestT = [
     {
@@ -99,50 +100,27 @@ const mcCards = (d, i, navigation) => {
     )
 }
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
 
     const myContext = useContext(AppContext)
     const [location, setLocation] = useState()
     const [resTaurents, setresTaurents] = useState([])
     const [loader, setLoader] = useState(false);
+    const isFocused = useIsFocused();
     
     const getCurrentLocation = () => {
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 15000,
         })
-            .then(location => {
-                setLocation(location)
-                getRestaurents(location)
-            })
-            .catch(error => {
-                const { code, message } = error;
-                console.warn(code, message);
-            })
-
-        // Geolocation.getCurrentPosition(
-        //     (position) => {
-        //         setLocation(position)
-        //         getRestaurents(position)
-        //     },
-        //     (error) => {
-        //       Alert.alert(`Code ${error.code}`, error.message);
-        //       setLocation(null);
-        //     },
-        //     {
-        //       accuracy: {
-        //         android: 'high',
-        //         ios: 'best',
-        //       },
-        //       enableHighAccuracy: true,
-        //       timeout: 15000,
-        //       maximumAge: 10000,
-        //       distanceFilter: 0,
-        //       forceRequestLocation: true,
-        //       forceLocationManager: false,
-        //       showLocationDialog: true,
-        //     },
-        //   );
+        .then(location => {
+            setLocation(location)
+            getRestaurents(location)
+        })
+        .catch(error => {
+            const { code, message } = error;
+            console.warn(code, message);
+        })
     }
 
     const getRestaurents = async(location) => {
@@ -175,18 +153,27 @@ const Home = ({ navigation }) => {
             myContext.setWalletAmount(res.data.wallet)
         }).catch((err)=>{
         })
-      }
+    }
 
     useEffect(() => {
         // myData()
+        console.log(isFocused)
+        if(isFocused){
+            getRestaurents(route.params);
+            setLocation(route.params)
+        }
+    }, [route, isFocused])
+
+    useEffect(() => {
         getCurrentLocation()
     }, [])
+    
 
     return (
 
         <View style={styles.container}>
             <View style={{ width: '100%' }}>
-                <Header navigation={navigation} />
+                <Header navigation={navigation} routes={location} />
             </View>
             {
                 loader ? (

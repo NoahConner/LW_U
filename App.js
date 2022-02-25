@@ -55,6 +55,7 @@ const App = (navigation) => {
   const [closeAllSheets, setcloseAllSheets] = useState(false)
   const [modalOpens,setmodalOpens] = useState(false);
   const [myData,setMyData] = useState()
+  const [currentLatLng,setcurrentLatLng] = useState()
   const userSettings = {
     userToken: userToken,
     CongratesModalCon:CongratesModal,
@@ -68,6 +69,7 @@ const App = (navigation) => {
     closeAllSheets:closeAllSheets,
     modalOpens:modalOpens,
     myData:myData,
+    currentLatLng:currentLatLng,
     setuserToken,
     setCongratesModal,
     setSorryModal,
@@ -79,7 +81,8 @@ const App = (navigation) => {
     setpaymentmethods,
     setcloseAllSheets,
     setmodalOpens,
-    setMyData
+    setMyData,
+    setcurrentLatLng
   };
 
   const Root = ({navigation}) => {
