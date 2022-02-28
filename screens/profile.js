@@ -199,7 +199,7 @@ const Profile = ({ navigation }) => {
   };
 
   const openCamer = c => {
-    console.log(c);
+ 
     if (c == 'g') {
       launchImageLibrary({
         width: 300,
@@ -210,10 +210,12 @@ const Profile = ({ navigation }) => {
       })
         .then(image => {
           myContext.setprofileImagee(image.assets[0].uri);
-          console.log(image);
+      
           imageUpload(image);
         })
-        .catch(error => { });
+        .catch(error => { 
+          console.log(error)
+        });
     } else if (c == 'c') {
       launchCamera({
         width: 300,
@@ -223,11 +225,13 @@ const Profile = ({ navigation }) => {
         saveToPhotos: true
       })
         .then(image => {
-          console.log(image);
+        
           myContext.setprofileImagee(image.assets[0].uri);
           imageUpload(image);
         })
-        .catch(error => { });
+        .catch(error => {
+          console.log(error)
+         });
     }
     refRBSheet.current.close();
   };
@@ -247,6 +251,7 @@ const Profile = ({ navigation }) => {
         setMyData(res.data);
       })
       .catch(err => {
+        console.log(err.response)
         setLoader(false);
       });
   };
@@ -260,7 +265,6 @@ const Profile = ({ navigation }) => {
 
   useEffect(() => {
     getRecords();
-    console.log('sd');
   }, []);
 
   const userForm = async () => {
@@ -301,23 +305,40 @@ const Profile = ({ navigation }) => {
         setLoader(false);
         refRBSheet.current.close();
         getRecords();
-        console.log(res)
       })
       .catch(err => {
+        console.log(err)
         setLoader(false);
+        getRecords();
       });
   }
 
   const imageUpload = async img => {
-    console.log(img);
     let data = {
       image:null
     }
     RNFS.readFile(img.assets[0].uri, 'base64')
       .then(res => {
-        console.log(res, '64');
-        data.image = res
+      
+        data.image = res;
+
+        setLoader(true);
+        axiosconfig.post('admin/react_image_upload', {image:res}, {
+          headers: {
+            Authorization: 'Bearer ' + myContext.userToken, //the token is a variable which holds the token
+          },
+        }).then((res)=>{
+          myContext.setprofileImagee(res.data.data.image_url);
+          updateData({image:res.data.data.image_url})
+          setLoader(false);
+        }).catch(err=>{
+          console.log(err.response)
+          setLoader(false);
+        })
+
       });
+
+      
       
       // updateData(data)
   };

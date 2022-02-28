@@ -79,8 +79,19 @@ const Resturants = ({route, navigation}) => {
     }
 
     const generateCoupon = async()=>{
-        let coupon = Math.random().toString(36).substr(2, 8).toUpperCase()
+        console.log('abc')
+        if(leaperName == null){
+            showToast('error', 'Leaper name required!')
+            return false
+        }
+        
+        if(datePick == null || datePick == 'Invalid date'){
+            showToast('error', 'Leaper Date of birth required!')
+            return false
+        }
 
+        let coupon = Math.random().toString(36).substr(2, 8).toUpperCase()
+        console.log(currentDeal)
         let dt = {
             deal_id:currentDeal.id,
             user_id:myContext.myData.id,
@@ -88,15 +99,8 @@ const Resturants = ({route, navigation}) => {
             leaper_dob:moment(datePick).format('MM-D-yy'),
             coupon:coupon
         }
-        if(dt.leaper_name == null){
-            showToast('error', 'Leaper name required!')
-            return false
-        }
-        
-        if(dt.leaper_dob == null || dt.leaper_dob == 'Invalid date'){
-            showToast('error', 'Leaper Date of birth required!')
-            return false
-        }
+        console.log(dt)
+
         setLoader(true)
         await axiosconfig.post(`admin/order`,dt,
         {
@@ -113,7 +117,7 @@ const Resturants = ({route, navigation}) => {
             setleaperName(null)
             getWallet()
         }).catch((err)=>{
- 
+            console.log(err.response)
             setLoader(false)
         })
     }
@@ -130,7 +134,7 @@ const Resturants = ({route, navigation}) => {
         
             myContext.setWalletAmount(res.data.wallet)
         }).catch((err)=>{
-            
+            console.log(err.response)
         })
       }
 

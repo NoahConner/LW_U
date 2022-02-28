@@ -52,7 +52,7 @@ const DrawerContent = ({ navigation }) => {
 
     const nameSpliter = (n) => {
     
-        getWallet()
+        // getWallet()
         if(n){
             let c = n?.split(' ')
             let sp = c[0][0]+c[1][0].toUpperCase()
@@ -60,46 +60,47 @@ const DrawerContent = ({ navigation }) => {
         }
     }
     
-    useEffect(() => {
-        myDataR();
-        getWallet()
-        setTimeout(() => {
-            myDataR();
-            getWallet()
-        }, 1000);
-    }, [])
+    // useEffect(() => {
+    //     myDataR();
+    //     getWallet()
+    //     setTimeout(() => {
+    //         myDataR();
+    //         getWallet()
+    //     }, 1000);
+    // }, [])
     
-    const myDataR = async() => {
-        const value = await AsyncStorage.getItem('@auth_token');
-        await axiosconfig.get(`admin/my_data`,
-        {
-            headers: {
-              Authorization: 'Bearer ' + value //the token is a variable which holds the token
-            }
-           }
-        ).then((res:any)=>{
+    // const myDataR = async() => {
+    //     const value = await AsyncStorage.getItem('@auth_token');
+    //     await axiosconfig.get(`admin/my_data`,
+    //     {
+    //         headers: {
+    //           Authorization: 'Bearer ' + value //the token is a variable which holds the token
+    //         }
+    //        }
+    //     ).then((res:any)=>{
         
-            myContext.setMyData(res.data)
-            setmyD(res.data)
-        }).catch((err)=>{
+    //         myContext.setMyData(res.data)
+    //         setmyD(res.data)
+    //     }).catch((err)=>{
  
-        })
-    }
+    //     })
+    // }
 
-    const getWallet = async() => {
-        const value = await AsyncStorage.getItem('@auth_token');
-        await axiosconfig.get(`admin/current_wallet`,
-        {
-            headers: {
-              Authorization: 'Bearer ' + value //the token is a variable which holds the token
-            }
-           }
-        ).then((res:any)=>{
+    // const getWallet = async() => {
+    //     const value = await AsyncStorage.getItem('@auth_token');
+    //     await axiosconfig.get(`admin/current_wallet`,
+    //     {
+    //         headers: {
+    //           Authorization: 'Bearer ' + value //the token is a variable which holds the token
+    //         }
+    //        }
+    //     ).then((res:any)=>{
       
-            myContext.setWalletAmount(res.data.wallet)
-        }).catch((err)=>{
-        })
-      }
+    //         myContext.setWalletAmount(res.data.wallet)
+    //     }).catch((err)=>{
+    //         console.log(err.response)
+    //     })
+    //   }
 
     return (
         <LinearGradient colors={['#FF3C40', '#FF3C40', '#C46163']} style={{ flex: 1, paddingBottom: 20 }}>
@@ -107,12 +108,12 @@ const DrawerContent = ({ navigation }) => {
                 <View style={{alignItems:'center',paddingTop:20,marginBottom:20}}>
                     <View style={{ width: 65, height: 70, borderRadius: 10, backgroundColor:'#f1f1f1', display: 'flex', alignItems: 'center' , justifyContent: 'center',overflow: 'hidden'}}>
                         {
-                            myContext.profileImagee == null ? (
-                                <><Text style={{ fontSize:moderateScale(18),fontFamily:'Gilroy-Bold',color:"#FF3C40"}}>{nameSpliter(myD?.name)}</Text></>
+                            myContext?.myData?.image == null ? (
+                                <><Text style={{ fontSize:moderateScale(18),fontFamily:'Gilroy-Bold',color:"#FF3C40"}}>{nameSpliter(myContext?.myData?.name)}</Text></>
                             ) : (
                                 <>
                                     <Image
-                                        source={{ uri: myContext.profileImagee}}
+                                        source={{ uri:  myContext?.myData?.image}}
                                         style={{ width: 65, height: 70,  resizeMode: 'cover' }}
                                         PlaceholderContent={<ActivityIndicator />}
                                     />
@@ -121,10 +122,10 @@ const DrawerContent = ({ navigation }) => {
                         }
                     </View>
                     <View style={{ width: '100%',paddingHorizontal:20,alignItems:'center',marginTop:10}} numberOfLines={1}>
-                        <Title style={{ ...styles.textStyle, color: '#000',fontSize:moderateScale(16),fontFamily:'Gilroy-Bold',marginLeft:0}} numberOfLines={1}>{myD.name}</Title>
+                        <Title style={{ ...styles.textStyle, color: '#000',fontSize:moderateScale(16),fontFamily:'Gilroy-Bold',marginLeft:0}} numberOfLines={1}>{myContext?.myData?.name}</Title>
                         <View style={{...styles.flexCon}}>
                             <Title style={{ color: '#000',fontSize:moderateScale(12),fontFamily:'Gilroy-Bold',marginLeft:0}} numberOfLines={1}>Balance:</Title>
-                            <Title style={{ color: '#000',fontSize:moderateScale(12),fontFamily:'Gilroy-Bold',marginLeft:0}} numberOfLines={1}> ${myContext.WalletAmount}</Title>
+                            <Title style={{ color: '#000',fontSize:moderateScale(12),fontFamily:'Gilroy-Bold',marginLeft:0}} numberOfLines={1}> ${myContext?.WalletAmount}</Title>
                         </View>
                     </View>
                 </View>

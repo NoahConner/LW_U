@@ -159,14 +159,17 @@ const Home = ({ navigation, route }) => {
         // myData()
         console.log(isFocused)
         if(isFocused){
+            getCurrentLocation()
             getRestaurents(route.params);
             setLocation(route.params)
+        }else{
+            getCurrentLocation()
         }
     }, [route, isFocused])
 
-    useEffect(() => {
-        getCurrentLocation()
-    }, [])
+    // useEffect(() => {
+        
+    // }, [])
     
 
     return (
@@ -199,18 +202,6 @@ const Home = ({ navigation, route }) => {
                     }
                 />
             </SafeAreaView>
-
-            {/* <Modal
-                animationType="slide"
-                transparent={true}
-                visible={myContext.mapModal}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    myContext.setmapModal(!myContext.mapModal);
-                }}
-            >
-                <MapModal navigation={navigation} />
-            </Modal> */}
         </View>
     )
 }

@@ -260,7 +260,7 @@ const Wallet = ({ navigation }) => {
                                     )
                                 })
                             }
-                            <TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigation.navigate('DonationHistory')}>
+                            <TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigation.navigate('DepositHistory')}>
                                 <Text style={{ color: '#007dff', textAlign: 'center' }}>See More</Text>
                             </TouchableOpacity>
                         </View>

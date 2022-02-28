@@ -152,10 +152,11 @@ const App = (navigation) => {
         }
        }
     ).then((res:any)=>{
-        console.log(res,'myData')
-        setMyData(res.data)
+        console.log(res,'myData');
+        setMyData(res.data);
+        setprofileImagee(res.data.image);
     }).catch((err)=>{
-        console.log(err.response)
+        console.log(err.response);
     })
   }
 
