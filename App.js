@@ -49,14 +49,15 @@ const App = (navigation) => {
   const [CouponModal,setCouponModal] = useState(false);
   const [CurrentCoupon,setCurrentCoupon] = useState('N/A');
   const [WalletAmount,setWalletAmount] = useState(0);
-  const [profileImagee,setprofileImagee] = useState(null);
   const [mapModal, setmapModal] = useState(false);
   const [paymentmethods, setpaymentmethods] = useState(defaultCad);
   const [closeAllSheets, setcloseAllSheets] = useState(false)
   const [modalOpens,setmodalOpens] = useState(false);
   const [myData,setMyData] = useState()
   const [currentLatLng,setcurrentLatLng] = useState()
-  const [myDat,setmyDat] = useState({})
+  const [myDat,setmyDat] = useState({});
+  const [profileImagee,setprofileImagee] = useState(null);
+  const [userName,setuserName] = useState(null);
   const userSettings = {
     userToken: userToken,
     CongratesModalCon:CongratesModal,
@@ -71,6 +72,7 @@ const App = (navigation) => {
     modalOpens:modalOpens,
     myData:myData,
     myDat:myDat,
+    userName:userName,
     currentLatLng:currentLatLng,
     setuserToken,
     setCongratesModal,
@@ -85,7 +87,8 @@ const App = (navigation) => {
     setmodalOpens,
     setMyData,
     setcurrentLatLng,
-    setmyDat
+    setmyDat,
+    setuserName
   };
 
   const Root = ({navigation}) => {

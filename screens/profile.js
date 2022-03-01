@@ -86,7 +86,7 @@ const Profile = ({ navigation }) => {
               }}>
               First Name
             </Text>
-            <Input
+            {/* <Input
               placeholder="Jacob"
               containerStyle={{
                 ...styles.textContainerStyle,
@@ -97,6 +97,18 @@ const Profile = ({ navigation }) => {
               }}
               onChangeText={t => setFormVal(t)}
               value={myData?.name.split(' ')[0]}
+            /> */}
+            <Input
+              placeholder={myData?.name.split(' ')[0]}
+              containerStyle={{
+                ...styles.textContainerStyle,
+                marginBottom: 10,
+              }}
+              inputContainerStyle={{
+                ...styles.inputContainerStyle,
+              }}
+              onChangeText={(t) => setFormVal(t)}
+              // value={myData?.name.split(' ')[0]}
             />
           </>
         ) : editCOn == 'lstname' ? (
@@ -109,7 +121,7 @@ const Profile = ({ navigation }) => {
               Last Name
             </Text>
             <Input
-              placeholder="Gomez"
+              placeholder={myData?.name.split(' ')[1]}
               containerStyle={{
                 ...styles.textContainerStyle,
                 marginBottom: 10,
@@ -118,7 +130,7 @@ const Profile = ({ navigation }) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={t => setFormVal(t)}
-              value={myData?.name.split(' ')[1]}
+              // value={myData?.name.split(' ')[1]}
             />
           </>
         ) : editCOn == 'email' ? (
@@ -131,7 +143,7 @@ const Profile = ({ navigation }) => {
               Email
             </Text>
             <Input
-              placeholder="jacob@gmail.com"
+              placeholder={myData?.email}
               containerStyle={{
                 ...styles.textContainerStyle,
                 marginBottom: 10,
@@ -140,7 +152,7 @@ const Profile = ({ navigation }) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={t => setFormVal(t)}
-              value={myData?.email}
+              // value={myData?.email}
             />
           </>
         ) : editCOn == 'phone' ? (
@@ -153,7 +165,7 @@ const Profile = ({ navigation }) => {
               Phone
             </Text>
             <Input
-              placeholder="+1234567898"
+              placeholder={myData?.phone}
               containerStyle={{
                 ...styles.textContainerStyle,
                 marginBottom: 10,
@@ -162,7 +174,7 @@ const Profile = ({ navigation }) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={t => setFormVal(t)}
-              value={myData?.phone}
+              // value={myData?.phone}
             />
           </>
         ) : editCOn == 'password' ? (
@@ -366,9 +378,9 @@ const Profile = ({ navigation }) => {
             <Image
               source={{
                 uri:
-                  myData?.image == null
-                    ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-                    : myData?.image,
+                myContext?.profileImagee == null
+                  ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                  : myContext?.profileImagee,
               }}
               style={{ width: 120, height: 120, resizeMode: 'cover' }}
               PlaceholderContent={<ActivityIndicator />}

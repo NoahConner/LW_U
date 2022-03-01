@@ -24,6 +24,8 @@ target 'LeaperWay' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
   target 'LeaperWayTests' do
     inherit! :complete
     # Pods for testing

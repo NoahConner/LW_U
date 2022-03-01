@@ -120,10 +120,12 @@ const Home = ({ navigation, route }) => {
         .catch(error => {
             const { code, message } = error;
             console.warn(code, message);
+            console.log(error.response)
         })
     }
 
     const getRestaurents = async(location) => {
+        console.log(location)
         setLoader(true)
         await axiosconfig.get(`admin/restaurents/${location.latitude},${location.longitude}`,
         {
@@ -154,19 +156,37 @@ const Home = ({ navigation, route }) => {
         }).catch((err)=>{
             console.log(err.response)
         })
+
+        await axiosconfig.get(`admin/my_data`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
+        
+            myContext.setprofileImagee(res.data.image)
+
+        }).catch((err)=>{
+            console.log(err.response)
+        })
     }
 
     useEffect(() => {
-        // myData()
         if(isFocused){
-            getCurrentLocation();
             getWallet();
-            getRestaurents(route.params);
-            setLocation(route.params)
         }else{
             getCurrentLocation();
             getWallet()
         }
+
+        if(route.params){
+            getRestaurents(route.params);
+            setLocation(route.params);
+        }else{
+            getCurrentLocation()
+        }
+
     }, [route, isFocused])
 
     // useEffect(() => {
