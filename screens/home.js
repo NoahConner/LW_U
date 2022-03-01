@@ -135,35 +135,37 @@ const Home = ({ navigation, route }) => {
         ).then((res:any)=>{
             setresTaurents(res.data, 'resTaurents')
             setLoader(false)
-            getWallet()
+            
         }).catch((err)=>{
+            console.log(err.response)
             setLoader(false)
         })
     }
 
     const getWallet = async() => {
-        const value = await AsyncStorage.getItem('@auth_token');
         await axiosconfig.get(`admin/current_wallet`,
         {
             headers: {
-              Authorization: 'Bearer ' + value //the token is a variable which holds the token
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
             }
            }
         ).then((res:any)=>{
             myContext.setWalletAmount(res.data.wallet)
         }).catch((err)=>{
+            console.log(err.response)
         })
     }
 
     useEffect(() => {
         // myData()
-        console.log(isFocused)
         if(isFocused){
-            getCurrentLocation()
+            getCurrentLocation();
+            getWallet();
             getRestaurents(route.params);
             setLocation(route.params)
         }else{
-            getCurrentLocation()
+            getCurrentLocation();
+            getWallet()
         }
     }, [route, isFocused])
 

@@ -60,31 +60,31 @@ const DrawerContent = ({ navigation }) => {
         }
     }
     
-    // useEffect(() => {
-    //     myDataR();
-    //     getWallet()
-    //     setTimeout(() => {
-    //         myDataR();
-    //         getWallet()
-    //     }, 1000);
-    // }, [])
+    useEffect(() => {
+        myDataR();
+        // getWallet()
+        setTimeout(() => {
+            myDataR();
+            // getWallet()
+        }, 1000);
+    }, [])
     
-    // const myDataR = async() => {
-    //     const value = await AsyncStorage.getItem('@auth_token');
-    //     await axiosconfig.get(`admin/my_data`,
-    //     {
-    //         headers: {
-    //           Authorization: 'Bearer ' + value //the token is a variable which holds the token
-    //         }
-    //        }
-    //     ).then((res:any)=>{
+    const myDataR = async() => {
+        const value = await AsyncStorage.getItem('@auth_token');
+        await axiosconfig.get(`admin/my_data`,
+        {
+            headers: {
+              Authorization: 'Bearer ' + value //the token is a variable which holds the token
+            }
+           }
+        ).then((res:any)=>{
         
-    //         myContext.setMyData(res.data)
-    //         setmyD(res.data)
-    //     }).catch((err)=>{
- 
-    //     })
-    // }
+            myContext.setMyData(res.data)
+            setmyD(res.data)
+        }).catch((err)=>{
+            console.log(err.response)
+        })
+    }
 
     // const getWallet = async() => {
     //     const value = await AsyncStorage.getItem('@auth_token');

@@ -30,31 +30,31 @@ const Header = ({navigation, routes})=>{
     
 
     const getData = async () => {
-        const value = await AsyncStorage.getItem('@auth_token');
-        await axiosconfig.get(`admin/current_wallet`,
-        {
-            headers: {
-              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
-            }
-           }
-        ).then((res:any)=>{
-            myContext.setWalletAmount(res.data.wallet)
-        }).catch((err)=>{
-            console.log(err.response)
-        })
+        // const value = await AsyncStorage.getItem('@auth_token');
+        // await axiosconfig.get(`admin/current_wallet`,
+        // {
+        //     headers: {
+        //       Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+        //     }
+        //    }
+        // ).then((res:any)=>{
+        //     myContext.setWalletAmount(res.data.wallet)
+        // }).catch((err)=>{
+        //     console.log(err.response)
+        // })
 
-        await axiosconfig.get(`admin/my_data`,
-        {
-            headers: {
-              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
-            }
-           }
-        ).then((res:any)=>{
+        // await axiosconfig.get(`admin/my_data`,
+        // {
+        //     headers: {
+        //       Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+        //     }
+        //    }
+        // ).then((res:any)=>{
         
-            myContext.setMyData(res.data)
-        }).catch((err)=>{
+        //     myContext.setMyData(res.data)
+        // }).catch((err)=>{
  
-        })
+        // })
         navigation.openDrawer();
     }
 

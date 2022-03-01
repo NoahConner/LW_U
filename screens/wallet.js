@@ -86,7 +86,7 @@ const Wallet = ({ navigation }) => {
             setrecors(res.data)
             setLoader(false)
         }).catch((err) => {
-  
+            console.log(err.response)
             setLoader(false)
         })
     }
@@ -193,7 +193,7 @@ const Wallet = ({ navigation }) => {
             setLoader(false)
 
         }).catch((err) => {
-        
+            console.log(err.response)
             setLoader(false)
         })
     }

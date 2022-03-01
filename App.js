@@ -56,6 +56,7 @@ const App = (navigation) => {
   const [modalOpens,setmodalOpens] = useState(false);
   const [myData,setMyData] = useState()
   const [currentLatLng,setcurrentLatLng] = useState()
+  const [myDat,setmyDat] = useState({})
   const userSettings = {
     userToken: userToken,
     CongratesModalCon:CongratesModal,
@@ -69,6 +70,7 @@ const App = (navigation) => {
     closeAllSheets:closeAllSheets,
     modalOpens:modalOpens,
     myData:myData,
+    myDat:myDat,
     currentLatLng:currentLatLng,
     setuserToken,
     setCongratesModal,
@@ -82,7 +84,8 @@ const App = (navigation) => {
     setcloseAllSheets,
     setmodalOpens,
     setMyData,
-    setcurrentLatLng
+    setcurrentLatLng,
+    setmyDat
   };
 
   const Root = ({navigation}) => {
@@ -145,34 +148,34 @@ const App = (navigation) => {
   }
 
   const myDataR = () => {
-    axiosconfig.get(`admin/my_data`,
-    {
-        headers: {
-          Authorization: 'Bearer ' + userToken //the token is a variable which holds the token
-        }
-       }
-    ).then((res:any)=>{
-        console.log(res,'myData');
-        setMyData(res.data);
-        setprofileImagee(res.data.image);
-    }).catch((err)=>{
-        console.log(err.response);
-    })
+    // axiosconfig.get(`admin/my_data`,
+    // {
+    //     headers: {
+    //       Authorization: 'Bearer ' + userToken //the token is a variable which holds the token
+    //     }
+    //    }
+    // ).then((res:any)=>{
+    //     console.log(res,'myData');
+    //     setMyData(res.data);
+    //     setprofileImagee(res.data.image);
+    // }).catch((err)=>{
+    //     console.log(err.response);
+    // })
   }
 
   const getWallet = () => {
-    axiosconfig.get(`admin/current_wallet`,
-    {
-        headers: {
-          Authorization: 'Bearer ' + userToken //the token is a variable which holds the token
-        }
-       }
-    ).then((res:any)=>{
-        console.log(res,'wallet')
-        setWalletAmount(res.data.wallet)
-    }).catch((err)=>{
-        console.log(err.response);
-    })
+    // axiosconfig.get(`admin/current_wallet`,
+    // {
+    //     headers: {
+    //       Authorization: 'Bearer ' + userToken //the token is a variable which holds the token
+    //     }
+    //    }
+    // ).then((res:any)=>{
+    //     console.log(res,'wallet')
+    //     setWalletAmount(res.data.wallet)
+    // }).catch((err)=>{
+    //     console.log(err.response);
+    // })
   }
 
   useEffect(() => {
