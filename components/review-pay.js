@@ -28,8 +28,9 @@ const ReviewPayment = ({navigation,amount,cardSelect})=>{
             amount:amount,
             processing_fee:1.25
         }
+
         setLoader(true)
-        console.log(myContext.userToken)
+        console.log(myContext.userToken, 'myContext.userToken')
         await axiosconfig.post(`admin/deposite`,data,
         {
             headers: {
@@ -37,22 +38,22 @@ const ReviewPayment = ({navigation,amount,cardSelect})=>{
             }
            }
         ).then((res:any)=>{
-            console.log(res)
+            console.log(res, 'ress')
             setLoader(false)
             getWallet()
             myContext.setCongratesModal(true)
         }).catch((err)=>{
-            console.log(err.response)
+            console.log(err.response,  'ress000')
             setLoader(false)
         })
     }
 
     const getWallet = async() => {
-        const value = await AsyncStorage.getItem('@auth_token');
+        
         await axiosconfig.get(`admin/current_wallet`,
         {
             headers: {
-              Authorization: 'Bearer ' + value //the token is a variable which holds the token
+              Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
             }
            }
         ).then((res:any)=>{

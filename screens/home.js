@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { View, SafeAreaView, Text, StyleSheet, Alert, Pressable, ActivityIndicator, TouchableOpacity, FlatList, Modal } from 'react-native';
+import { View, SafeAreaView, Text, StyleSheet, Alert, Platform, ActivityIndicator, TouchableOpacity, FlatList, Modal } from 'react-native';
 import { Image, Button, Icon } from 'react-native-elements';
 import Header from '../components/header'
 import Location from '../assets/svg/location.svg';
@@ -78,7 +78,7 @@ var allRestT = [
 const mcCards = (d, i, navigation) => {
     return (
         <TouchableOpacity onPress={() => navigation.navigate('Resturants',d)}>
-            <View style={styles.mcCard} key={d.id}>
+            <View style={[ Platform.OS == 'ios' ? styles.mcCardIos : styles.mcCard]} key={d.id}>
                 <View style={{ backgroundColor: '#fff', borderRadius: 8, overflow: 'hidden' }}>
                     <Image
                         source={{ uri: d.user.image }}
@@ -243,6 +243,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 15,
+    },
+    mcCardIos: {
+        backgroundColor: '#f1f1f1',
+        shadowColor: 'black',
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        borderRadius: 12, textAlign: 'center',
+        padding: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 15,
+        width:'90%',
+        marginLeft:'5%'
     },
 
 })

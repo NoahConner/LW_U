@@ -9,11 +9,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import axiosconfig from '../providers/axios';
 import Loader from './loader';
-import {
-    GoogleSignin,
-    GoogleSigninButton,
-    statusCodes,
-  } from '@react-native-google-signin/google-signin';
 
 const windowHeight = Dimensions.get('window').height;
 const SignIn = ({ navigation }) => {
@@ -40,10 +35,6 @@ const SignIn = ({ navigation }) => {
             'opt': null
         }
         setSignData(DoP);
-        GoogleSignin.configure({
-            webClientId: "Your-web-client-id", 
-            offlineAccess: true
-        });
     }, [])
 
     const setFormDatat = (e, t) => {
@@ -73,7 +64,7 @@ const SignIn = ({ navigation }) => {
 
 
         await axiosconfig.get(`app/check-mail/${signData.email}`).then((res: any) => {
-        
+
             if (res.status == 200) {
                 otpSend()
             } else {
@@ -81,22 +72,22 @@ const SignIn = ({ navigation }) => {
                 showToast('error', res.data.message)
             }
         }).catch((err) => {
-        
+
             setLoader(false)
             showToast('error', err.response.data.message)
         })
 
-    
+
     }
 
     const otpSend = async () => {
         await axiosconfig.post('app/otp', { email: signData.email }).then((res: any) => {
             setLoader(false)
             navigation.navigate('OPT', signData);
-        
+
         }).catch((err) => {
             setLoader(false)
-        
+
         })
     }
 
@@ -109,26 +100,6 @@ const SignIn = ({ navigation }) => {
         }
     }
 
-    const GoogleSingUp = async () => {
-        try {
-          await GoogleSignin.hasPlayServices();
-          await GoogleSignin.signIn().then(result => { console.log(result) });
-        } catch (error) {
-          if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-            // user cancelled the login flow
-            showToast('error','User cancelled the login flow !');
-          } else if (error.code === statusCodes.IN_PROGRESS) {
-            showToast('error','Signin in progress');
-            // operation (f.e. sign in) is in progress already
-          } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-            showToast('error','Google play services not available or outdated !');
-            // play services not available or outdated
-          } else {
-            
-          }
-        }
-      };
-
     return (
         <ScrollView contentContainerStyle={{ height: windowHeight + 70, backgroundColor: '#fff' }}>
             {
@@ -138,129 +109,127 @@ const SignIn = ({ navigation }) => {
                     </>
                 ) : null
             }
-            <SafeAreaView style={{ backgroundColor: '#000' }}>
-                <View style={styles.container}>
+            <View style={styles.container}>
 
-                    <View style={{ alignItems: 'center', width: '100%' }}>
-                        <Text style={{ color: '#E83131', fontSize: moderateScale(20), fontWeight: 'bold', marginTop: 30 }}>Sign Up</Text>
-                        <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 10, textAlign: 'center', width: 240, marginBottom: 60 }}>Donate Food to Poor people in just 3 easy steps</Text>
-                        <View style={{ width: '100%' }}>
-                            <Input
-                                placeholder='Full Name'
-                                containerStyle={{
-                                    ...styles.textContainerStyle,
-                                    marginBottom: 10
-                                }}
-                                inputContainerStyle={{
-                                    ...styles.inputContainerStyle
-                                }}
-                                onChangeText={(e) => setFormDatat(e, 'name')}
-                            />
-                            <Input
-                                placeholder='Email Adress'
-                                containerStyle={{
-                                    ...styles.textContainerStyle,
-                                    marginBottom: 10
-                                }}
-                                inputContainerStyle={{
-                                    ...styles.inputContainerStyle
-                                }}
-                                onChangeText={(e) => setFormDatat(e, 'email')}
-                            />
-                            <Input
-                                placeholder='Password'
-                                containerStyle={{
-                                    ...styles.textContainerStyle,
-                                    marginBottom: 10
-                                }}
-                                inputContainerStyle={{
-                                    ...styles.inputContainerStyle
-                                }}
-                                secureTextEntry={true}
-                                onChangeText={(e) => setFormDatat(e, 'password')}
-                            />
-                            <Input
-                                placeholder='Confirm Password'
-                                containerStyle={{
-                                    ...styles.textContainerStyle,
-                                    marginBottom: 10
-                                }}
-                                inputContainerStyle={{
-                                    ...styles.inputContainerStyle
-                                }}
-                                secureTextEntry={true}
-                                onChangeText={(e) => setFormDatat(e, 'confirm_password')}
-                            />
-                        </View>
-
-                        <View style={{ width: '100%', marginTop: 20 }}>
-                            <Button
-                                title="Sign Up"
-                                type="solid"
-                                buttonStyle={{
-                                    backgroundColor: '#1E3865',
-                                    padding: 15,
-                                    borderRadius: 15
-                                }}
-                                onPress={() => signUp()}
-                            />
-                            <Text style={{ color: '#666666', textAlign: 'center', fontSize: moderateScale(16), marginTop: 10, marginBottom: 10 }}>Or</Text>
-                            <Button
-                                title="Continue with Facebook"
-                                type="solid"
-                                buttonStyle={{
-                                    backgroundColor: '#F6F8FA',
-                                    padding: 15,
-                                    borderRadius: 15
-                                }}
-                                titleStyle={{
-                                    color: '#1E3865',
-                                    fontWeight: 'bold',
-                                }}
-                                icon={
-                                    <FacebookIcon
-                                        style={{
-                                            height: 30,
-                                            width: 30,
-                                            position: 'absolute',
-                                            left: 15
-                                        }}
-                                    />
-                                }
-                            />
-                            <Button
-                                title="Continue with Google"
-                                type="solid"
-                                buttonStyle={{
-                                    backgroundColor: '#F6F8FA',
-                                    padding: 15,
-                                    borderRadius: 15,
-                                    marginTop: 10
-                                }}
-                                titleStyle={{
-                                    color: '#1E3865',
-                                    fontWeight: 'bold',
-                                }}
-                                icon={
-                                    <GoogleIcon
-                                        style={{
-                                            height: 30,
-                                            width: 30,
-                                            position: 'absolute',
-                                            left: 15
-                                        }}
-                                    />
-                                }
-                            />
-                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-                                <Text style={{ color: '#707070', textAlign: 'center' }}>Already have an account? </Text>
-                                <TouchableOpacity onPress={() => navigation.navigate('Login')}><Text style={{ color: '#0071BC', textAlign: 'center' }}>Sign In</Text></TouchableOpacity>
-                            </View>
-                        </View>
+                <View style={{ alignItems: 'center', width: '100%' }}>
+                    <Text style={{ color: '#E83131', fontSize: moderateScale(20), fontWeight: 'bold', marginTop: 30 }}>Sign Up</Text>
+                    <Text style={{ color: '#666666', fontSize: moderateScale(12), marginTop: 10, textAlign: 'center', width: 240, marginBottom: 60 }}>Donate Food to Poor people in just 3 easy steps</Text>
+                    <View style={{ width: '100%' }}>
+                        <Input
+                            placeholder='Full Name'
+                            containerStyle={{
+                                ...styles.textContainerStyle,
+                                marginBottom: 10
+                            }}
+                            inputContainerStyle={{
+                                ...styles.inputContainerStyle
+                            }}
+                            onChangeText={(e) => setFormDatat(e, 'name')}
+                        />
+                        <Input
+                            placeholder='Email Adress'
+                            containerStyle={{
+                                ...styles.textContainerStyle,
+                                marginBottom: 10
+                            }}
+                            inputContainerStyle={{
+                                ...styles.inputContainerStyle
+                            }}
+                            onChangeText={(e) => setFormDatat(e, 'email')}
+                        />
+                        <Input
+                            placeholder='Password'
+                            containerStyle={{
+                                ...styles.textContainerStyle,
+                                marginBottom: 10
+                            }}
+                            inputContainerStyle={{
+                                ...styles.inputContainerStyle
+                            }}
+                            secureTextEntry={true}
+                            onChangeText={(e) => setFormDatat(e, 'password')}
+                        />
+                        <Input
+                            placeholder='Confirm Password'
+                            containerStyle={{
+                                ...styles.textContainerStyle,
+                                marginBottom: 10
+                            }}
+                            inputContainerStyle={{
+                                ...styles.inputContainerStyle
+                            }}
+                            secureTextEntry={true}
+                            onChangeText={(e) => setFormDatat(e, 'confirm_password')}
+                        />
                     </View>
 
+                    <View style={{ width: '100%', marginTop: 20 }}>
+                        <Button
+                            title="Sign Up"
+                            type="solid"
+                            buttonStyle={{
+                                backgroundColor: '#1E3865',
+                                padding: 15,
+                                borderRadius: 15
+                            }}
+                            onPress={() => signUp()}
+                        />
+                        <Text style={{ color: '#666666', textAlign: 'center', fontSize: moderateScale(16), marginTop: 10, marginBottom: 10 }}>Or</Text>
+                        <Button
+                            title="Continue with Facebook"
+                            type="solid"
+                            buttonStyle={{
+                                backgroundColor: '#F6F8FA',
+                                padding: 15,
+                                borderRadius: 15
+                            }}
+                            titleStyle={{
+                                color: '#1E3865',
+                                fontWeight: 'bold',
+                            }}
+                            icon={
+                                <FacebookIcon
+                                    style={{
+                                        height: 30,
+                                        width: 30,
+                                        position: 'absolute',
+                                        left: 15
+                                    }}
+                                />
+                            }
+                        />
+                        <Button
+                            title="Continue with Google"
+                            type="solid"
+                            buttonStyle={{
+                                backgroundColor: '#F6F8FA',
+                                padding: 15,
+                                borderRadius: 15,
+                                marginTop: 10
+                            }}
+                            titleStyle={{
+                                color: '#1E3865',
+                                fontWeight: 'bold',
+                            }}
+                            icon={
+                                <GoogleIcon
+                                    style={{
+                                        height: 30,
+                                        width: 30,
+                                        position: 'absolute',
+                                        left: 15
+                                    }}
+                                />
+                            }
+                        />
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+                            <Text style={{ color: '#707070', textAlign: 'center' }}>Already have an account? </Text>
+                            <TouchableOpacity onPress={() => navigation.navigate('Login')}><Text style={{ color: '#0071BC', textAlign: 'center' }}>Sign In</Text></TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
-            </SafeAreaView>
+
+            </View>
         </ScrollView>
     )
 }
@@ -275,7 +244,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingLeft: 30,
         paddingRight: 30,
-        paddingBottom: 20
+        paddingBottom: 20,
+        paddingTop:40
     },
     textContainerStyle: {
         width: '100%',

@@ -34,6 +34,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { moderateScale } from 'react-native-size-matters';
 import axiosconfig from '../providers/axios';
 import Share from 'react-native-share';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const DrawerContent = ({ navigation }) => {
 
@@ -103,47 +104,49 @@ const DrawerContent = ({ navigation }) => {
     //     })
     //   }
 
-    const share = async(d) => {
+    const share = async (d) => {
         const shareOptions = {
             title: 'Share image to fbstory',
             social: d == 'fb' ? Share.Social.FACEBOOK : d == 'tw' ? Share.Social.TWITTER : d == 'li' ? Share.Social.LINKEDIN : d == 'wa' ? Share.Social.WHATSAPP : null,
         };
-      
-          try {
+
+        try {
             const ShareResponse = await Share.shareSingle(shareOptions);
             setResult(JSON.stringify(ShareResponse, null, 2));
-          } catch (error) {
+        } catch (error) {
             console.log('Error =>', error);
             Alert.alert(
                 "Alert",
                 `Error => ${error.error}`,
                 [
-                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                    { text: "OK", onPress: () => console.log("OK Pressed") }
                 ]
             );
             setResult('error: '.concat(getErrorString(error)));
-          }
+        }
     }
 
     return (
         <LinearGradient colors={['#FF3C40', '#FF3C40', '#C46163']} style={{ flex: 1, paddingBottom: 20 }}>
             <View style={{ flex: 1, paddingBottom: 0 }}>
                 <View style={{ alignItems: 'center', paddingTop: 20, marginBottom: 20 }}>
-                    <View style={{ width: 65, height: 70, borderRadius: 10, backgroundColor: '#f1f1f1', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                        {
-                            myContext?.profileImagee == null ? (
-                                <><Text style={{ fontSize: moderateScale(18), fontFamily: 'Gilroy-Bold', color: "#FF3C40" }}>{nameSpliter(myContext?.myData?.name)}</Text></>
-                            ) : (
-                                <>
-                                    <Image
-                                        source={{ uri: myContext?.profileImagee }}
-                                        style={{ width: 65, height: 70, resizeMode: 'cover' }}
-                                        PlaceholderContent={<ActivityIndicator />}
-                                    />
-                                </>
-                            )
-                        }
-                    </View>
+                    <SafeAreaView>
+                        <View style={{ width: 65, height: 70, borderRadius: 10, backgroundColor: '#f1f1f1', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                            {
+                                myContext?.profileImagee == null ? (
+                                    <><Text style={{ fontSize: moderateScale(18), fontFamily: 'Gilroy-Bold', color: "#FF3C40" }}>{nameSpliter(myContext?.myData?.name)}</Text></>
+                                ) : (
+                                    <>
+                                        <Image
+                                            source={{ uri: myContext?.profileImagee }}
+                                            style={{ width: 65, height: 70, resizeMode: 'cover' }}
+                                            PlaceholderContent={<ActivityIndicator />}
+                                        />
+                                    </>
+                                )
+                            }
+                        </View>
+                    </SafeAreaView>
                     <View style={{ width: '100%', paddingHorizontal: 20, alignItems: 'center', marginTop: 10 }} numberOfLines={1}>
                         <Title style={{ ...styles.textStyle, color: '#000', fontSize: moderateScale(16), fontFamily: 'Gilroy-Bold', marginLeft: 0 }} numberOfLines={1}>{myContext?.myData?.name}</Title>
                         <View style={{ ...styles.flexCon }}>
@@ -239,7 +242,7 @@ const DrawerContent = ({ navigation }) => {
                             <Collapsible collapsed={collapse2} style={{ backgroundColor: '#f1f1f1', padding: 20, borderRadius: 10 }}>
                                 <TouchableOpacity onPress={() => share('fb')}>
                                     <View style={{ ...styles.flexCon, marginBottom: 20 }}>
-                                        
+
                                         <Icon
                                             name='facebook-square'
                                             type='font-awesome'
@@ -251,7 +254,7 @@ const DrawerContent = ({ navigation }) => {
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => share('li')}>
                                     <View style={{ ...styles.flexCon, marginBottom: 20 }}>
-                                        
+
                                         <Icon
                                             name='linkedin'
                                             type='font-awesome'
@@ -287,6 +290,7 @@ const DrawerContent = ({ navigation }) => {
                         </View>
                     </View>
                 </DrawerContentScrollView>
+                <SafeAreaView>
                 <View style={{ paddingLeft: 20, marginTop: 20 }}>
                     <TouchableOpacity onPress={() => { storeData(null) }}>
                         <View style={styles.flexCon}>
@@ -295,6 +299,7 @@ const DrawerContent = ({ navigation }) => {
                         </View>
                     </TouchableOpacity>
                 </View>
+                </SafeAreaView>
             </View>
         </LinearGradient >
 

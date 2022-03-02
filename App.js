@@ -1,12 +1,13 @@
 import 'react-native-gesture-handler';
 import React,{useState,useEffect } from 'react';
-import { View, Text, StyleSheet,SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { createStackNavigator,HeaderStyleInterpolators } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import axiosconfig from './providers/axios';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import AppContext  from './components/appcontext';
 import Home from './screens/home'
@@ -196,6 +197,7 @@ const App = (navigation) => {
 
   return(
   <AppContext.Provider value={userSettings}>
+    <SafeAreaProvider>
     <NavigationContainer>
        <Drawer.Navigator
        drawerBackgroundColor= {'black'}
@@ -216,6 +218,7 @@ const App = (navigation) => {
         <Drawer.Screen name="List" options={{headerShown:false}} component={Root} />
       </Drawer.Navigator>
     </NavigationContainer>
+    </SafeAreaProvider>
     <Toast />
   </AppContext.Provider>
   );

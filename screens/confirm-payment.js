@@ -107,6 +107,7 @@ const ConfirmPayment = ({navigation,route })=>{
         ).then((res:any)=>{
             setLoader(false)
             setCards(res.data)
+            SetcardSelect(res.data[0].id)
             // myContext.setpaymentmethods(res.data)
         }).catch((err)=>{
             console.log(err)
@@ -166,12 +167,14 @@ const ConfirmPayment = ({navigation,route })=>{
                 
                 </View>
                 <View style={{position: 'absolute',bottom:15,width:'100%',left:20}}>
+                    <SafeAreaView>
                     <Button
                         title="Review"
                         buttonStyle={styles.NextBtns}
                         titleStyle={{fontSize:moderateScale(15),fontFamily:'Gilroy-Bold'}}
                         onPress={() => refRBSheetReview.current.open()}
                     />
+                    </SafeAreaView>
                 </View>
                 <RBSheet
                     ref={refRBSheet}
@@ -195,7 +198,7 @@ const ConfirmPayment = ({navigation,route })=>{
                     <AddCardSheet navigation={navigation} statement={'deposite'}  />
                 </RBSheet>
 
-            {/* review */}
+                {/* review */}
                 <RBSheet
                     ref={refRBSheetReview}
                     closeOnDragDown={true}

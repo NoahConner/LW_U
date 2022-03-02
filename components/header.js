@@ -1,20 +1,21 @@
-import React,{useContext, useEffect} from 'react';
-import { View, Text, StyleSheet,TouchableOpacity  } from 'react-native';
-import { Button,Icon } from 'react-native-elements';
+import React, { useContext, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Button, Icon } from 'react-native-elements';
 import Wallet from '../assets/svg/wallet.svg';
 import Bars from '../assets/svg/bars.svg';
 import Location from '../assets/svg/location.svg';
 import AppContext from '../components/appcontext'
-import {  moderateScale } from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
 import Geocoder from 'react-native-geocoding';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axiosconfig from '../providers/axios';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Header = ({navigation, routes})=>{
+const Header = ({ navigation, routes }) => {
     const myContext = useContext(AppContext);
 
     useEffect(() => {
-        console.log(routes,'routes')
+        console.log(routes, 'routes')
         // Geocoder.init("AIzaSyBbYReyueMiiZMK5NnJSXlHyldmfymgrnc");
 
         // setTimeout(() => {
@@ -27,7 +28,7 @@ const Header = ({navigation, routes})=>{
         // }, 1000);
 
     }, [routes])
-    
+
 
     const getData = async () => {
         // const value = await AsyncStorage.getItem('@auth_token');
@@ -50,64 +51,67 @@ const Header = ({navigation, routes})=>{
         //     }
         //    }
         // ).then((res:any)=>{
-        
+
         //     myContext.setMyData(res.data)
         // }).catch((err)=>{
- 
+
         // })
         navigation.openDrawer();
     }
 
-    return(
+    return (
         <View style={styles.header}>
-            <View style={{width: '100%',flexDirection: 'row',justifyContent: 'space-between',alignItems: 'center',padding:10,textAlign:'center',
-            elevation:1,
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 3 },
-            shadowOpacity: 0.5,
-            shadowRadius: 5, 
-            borderBottomEndRadius:15,
-            borderBottomStartRadius:15
-        }}>
-                <View style={{flexDirection: 'row',alignItems: 'center',width: '90%',paddingLeft:5}} numberOfLines={1}>
+            <SafeAreaView>
+            <View style={{
+                width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, textAlign: 'center',
+                elevation: 1,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 3 },
+                shadowOpacity: 0.5,
+                shadowRadius: 5,
+                borderBottomEndRadius: 15,
+                borderBottomStartRadius: 15
+            }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', paddingLeft: 5 }} numberOfLines={1}>
                     <Button
                         icon={
-                            <Bars style={{height:29,width:40}}/>
+                            <Bars style={{ height: 29, width: 40 }} />
                         }
                         title=""
-                        containerStyle={{width:35}}
-                        buttonStyle={{backgroundColor:'transparent'}}
-                        onPress={()=> getData()}
+                        containerStyle={{ width: 35 }}
+                        buttonStyle={{ backgroundColor: 'transparent' }}
+                        onPress={() => getData()}
                     />
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         // onPress={()=> myContext.setmapModal(true)}
-                        onPress={()=> navigation.navigate('MapModal')}
+                        onPress={() => navigation.navigate('MapModal')}
                     >
-                        <View style={{marginLeft:25,width:'100%',paddingRight:125}}>
-                            <Text style={{fontSize:moderateScale(16),marginBottom:5,fontFamily:'Gilroy-Bold'}}>Location Radius</Text>
-                            <View style={{flexDirection: 'row',alignItems: 'center'}}>
-                            <Location
-                            style={{height:16,width:12,marginRight:10}}
-                            />
-                                <Text style={{fontSize:moderateScale(13),fontFamily:'Gilroy-Medium'}} numberOfLines={1}>363 North Sam Houston Parkway East Greater Greenspoint,  </Text>
+                        <View style={{ marginLeft: 25, width: '100%', paddingRight: 125 }}>
+                            <Text style={{ fontSize: moderateScale(16), marginBottom: 5, fontFamily: 'Gilroy-Bold' }}>Location Radius</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Location
+                                    style={{ height: 16, width: 12, marginRight: 10 }}
+                                />
+                                <Text style={{ fontSize: moderateScale(13), fontFamily: 'Gilroy-Medium' }} numberOfLines={1}>363 North Sam Houston Parkway East Greater Greenspoint,  </Text>
                             </View>
                         </View>
                     </TouchableOpacity>
                 </View>
-                <View style={{width: '10%',alignItems: 'flex-end',paddingRight:2}}>
+                <View style={{ width: '10%', alignItems: 'flex-end', paddingRight: 2 }}>
                     <TouchableOpacity>
                         <Button
                             icon={
-                                <Wallet style={{height:25,width:35}} />
+                                <Wallet style={{ height: 25, width: 35 }} />
                             }
                             title=""
-                            containerStyle={{width:30}}
-                            buttonStyle={{backgroundColor:'transparent'}}
+                            containerStyle={{ width: 30 }}
+                            buttonStyle={{ backgroundColor: 'transparent' }}
                             onPress={() => navigation.navigate('Wallet')}
                         />
                     </TouchableOpacity>
                 </View>
             </View>
+            </SafeAreaView>
         </View>
     )
 }
@@ -115,7 +119,7 @@ const Header = ({navigation, routes})=>{
 export default Header;
 
 const styles = StyleSheet.create({
-    header:{
+    header: {
         shadowColor: "#000",
         shadowOffset: {
             width: 0,

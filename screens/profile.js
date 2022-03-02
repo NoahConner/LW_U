@@ -22,7 +22,6 @@ import { moderateScale } from 'react-native-size-matters';
 import Loader from './loader';
 import axiosconfig from '../providers/axios';
 import Toast from 'react-native-toast-message';
-import RNFetchBlob from 'react-native-fetch-blob';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
 

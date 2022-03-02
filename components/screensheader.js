@@ -13,7 +13,8 @@ const SCheader = ({navigation,backbutton,name,wallet}) => {
 
     return(
         <View style={{position:'absolute',zIndex:1000,width:Dimensions.get('window').width}}>
-            <View style={{...styles.flexRow,width:'100%',paddingHorizontal:20,paddingVertical:10}}>
+           <SafeAreaView>
+           <View style={{...styles.flexRow,width:'100%',paddingHorizontal:20,paddingVertical:10}}>
                 <View style={styles.flexRow}>
                     {
                         backbutton != false ? (
@@ -60,6 +61,7 @@ const SCheader = ({navigation,backbutton,name,wallet}) => {
                     }
                 </View>
             </View>
+           </SafeAreaView>
         </View>
     )
 }

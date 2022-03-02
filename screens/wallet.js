@@ -208,8 +208,8 @@ const Wallet = ({ navigation }) => {
                 ) : null
             }
             <SCheader navigation={navigation} backbutton={true} name={'Wallet'} wallet={false} />
-            <View style={{ backgroundColor: '#1E3865', width: '100%', height: 200 }}></View>
-            <View style={{ width: '100%', paddingHorizontal: 20, position: 'absolute', top: 80 }}>
+            <View style={{ backgroundColor: '#1E3865', width: '100%', height: moderateScale(220) }}></View>
+            <View style={{ width: '100%', paddingHorizontal: 20, position: 'absolute', top: moderateScale(120), zIndex:1 }}>
                 <View style={styles.depoCard}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
                         <View>
@@ -227,7 +227,7 @@ const Wallet = ({ navigation }) => {
                     </View>
                 </View>
             </View>
-            <ScrollView style={{ backgroundColor: '#fff', height: '100%', borderTopLeftRadius: 20, borderTopRightRadius: 20, marginTop: -30, paddingHorizontal: 20 }}>
+            <ScrollView style={{ backgroundColor: '#fff', height: '100%', borderTopLeftRadius: 20, borderTopRightRadius: 20, marginTop: moderateScale(-30), paddingHorizontal: 20 }}>
                 <View style={{ paddingTop: 60, paddingBottom: 30 }}>
                     <View style={{ ...styles.flexRow, marginTop: 20 }}>
                         <PaymentIcon style={{ height: 22, width: 32 }} />

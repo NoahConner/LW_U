@@ -6,6 +6,7 @@ import Wallet from '../assets/svg/wallet.svg';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import AppContext from '../components/appcontext'
 import {  moderateScale } from 'react-native-size-matters';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const DepositeAmount = ({navigation})=>{
 
@@ -77,12 +78,14 @@ const DepositeAmount = ({navigation})=>{
                     />
                 </View>
                 <View style={{position: 'absolute',bottom:15,width:'100%',left:20}}>
+                    <SafeAreaView>
                     <Button
                         title="Next"
                         buttonStyle={styles.NextBtns}
                         titleStyle={{fontSize:moderateScale(15),fontFamily:'Gilroy-Bold'}}
                         onPress={()=> verifyAmont()}
                     />
+                    </SafeAreaView>
                 </View>
             </View>
         </View>
