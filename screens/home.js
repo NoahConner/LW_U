@@ -184,15 +184,10 @@ const Home = ({ navigation, route }) => {
             getRestaurents(route.params);
             setLocation(route.params);
         }else{
-            getCurrentLocation()
+            getCurrentLocation();
         }
 
     }, [route, isFocused])
-
-    // useEffect(() => {
-        
-    // }, [])
-    
 
     return (
 
