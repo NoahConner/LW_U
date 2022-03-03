@@ -14,6 +14,9 @@
 		1F1D4FB524CD0194CA7F4045 /* libPods-LeaperWay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A00ADA0B80E0BFCC61B99DEE /* libPods-LeaperWay.a */; };
 		4EEA74A0740E046D0A2B5E94 /* libPods-LeaperWay-LeaperWayTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37C59B91ACE503F05B893EC0 /* libPods-LeaperWay-LeaperWayTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		843FE87F27D0AA12009E2C85 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FE87E27D0AA12009E2C85 /* BootSplash.storyboard */; };
+		8450FA3727D096D700553A09 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8450FA3627D096D700553A09 /* Poppins-SemiBold.ttf */; };
+		8450FA3927D096EC00553A09 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8450FA3827D096EC00553A09 /* Poppins-Regular.ttf */; };
 		84F7A21527CF7CCC00BCC4AD /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84F7A21427CF7CCC00BCC4AD /* Gilroy-Bold.ttf */; };
 		84F7A21727CF7CEF00BCC4AD /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84F7A21627CF7CEF00BCC4AD /* Gilroy-Regular.ttf */; };
 		84F7A21927CF7D0C00BCC4AD /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84F7A21827CF7D0C00BCC4AD /* Gilroy-Medium.ttf */; };
@@ -52,6 +55,9 @@
 		6DCE69B3A78B44E1998512BB /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		710C2B4153754071A8AA3B83 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LeaperWay/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		843FE87E27D0AA12009E2C85 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = LeaperWay/BootSplash.storyboard; sourceTree = "<group>"; };
+		8450FA3627D096D700553A09 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBold.ttf"; path = "../../../fonts/Poppins/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		8450FA3827D096EC00553A09 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Regular.ttf"; path = "../../../fonts/Poppins/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		84F7A21427CF7CCC00BCC4AD /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Bold.ttf"; path = "../../../fonts/gilroy/Gilroy-Bold.ttf"; sourceTree = "<group>"; };
 		84F7A21627CF7CEF00BCC4AD /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Regular.ttf"; path = "../../../fonts/gilroy/Gilroy-Regular.ttf"; sourceTree = "<group>"; };
 		84F7A21827CF7D0C00BCC4AD /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Medium.ttf"; path = "../../../fonts/gilroy/Gilroy-Medium.ttf"; sourceTree = "<group>"; };
@@ -127,6 +133,9 @@
 		13B07FAE1A68108700A75B9A /* LeaperWay */ = {
 			isa = PBXGroup;
 			children = (
+				843FE87E27D0AA12009E2C85 /* BootSplash.storyboard */,
+				8450FA3827D096EC00553A09 /* Poppins-Regular.ttf */,
+				8450FA3627D096D700553A09 /* Poppins-SemiBold.ttf */,
 				84F7A23127CF7D5000BCC4AD /* Gilroy-Light.ttf */,
 				84F7A21827CF7D0C00BCC4AD /* Gilroy-Medium.ttf */,
 				84F7A21627CF7CEF00BCC4AD /* Gilroy-Regular.ttf */,
@@ -307,11 +316,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				84F7A21527CF7CCC00BCC4AD /* Gilroy-Bold.ttf in Resources */,
+				8450FA3727D096D700553A09 /* Poppins-SemiBold.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				843FE87F27D0AA12009E2C85 /* BootSplash.storyboard in Resources */,
 				84F7A21927CF7D0C00BCC4AD /* Gilroy-Medium.ttf in Resources */,
 				84F7A23227CF7D5000BCC4AD /* Gilroy-Light.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				84F7A21727CF7CEF00BCC4AD /* Gilroy-Regular.ttf in Resources */,
+				8450FA3927D096EC00553A09 /* Poppins-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

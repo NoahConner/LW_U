@@ -106,7 +106,7 @@ class MarkerTypes extends React.Component {
     return (
       <View style={styles.container}>
         <SCheader navigation={this.props.navigation} backbutton={true} name={'Map'} wallet={false} />
-        <View style={{ position: 'absolute', bottom: 40, left: 0, zIndex: 9999, width: '100%', paddingHorizontal: 20 }}>
+        <View style={{ position: 'absolute', bottom: moderateScale(70), left: 0, zIndex: 9999, width: '100%', paddingHorizontal: 20 }}>
           <View>
             <View style={{ alignItems: 'flex-end' }}>
               <TouchableOpacity style={{ paddingVertical: 10, paddingHorizontal: 8, backgroundColor: '#fff', borderRadius: 50, elevation: 5, marginBottom: 20, width: 43 }} onPress={() => this.currentLocation()}>

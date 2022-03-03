@@ -9,7 +9,8 @@ import {  moderateScale } from 'react-native-size-matters';
 import axiosconfig from '../providers/axios';
 import Loader from '../screens/loader';
 import AppContext from '../components/appcontext'
-import moment from 'moment'
+import moment from 'moment';
+import Nodata from '../screens/nodata'
 
 const defaultCad = [
     {
@@ -151,15 +152,29 @@ const DepositHistory = ({navigation}) => {
                 ) : null
             }
             <StackHeader navigation={navigation} name={'Deposit History'} />
+            <View style={{ paddingHorizontal: 20 }}>
+                <Text style={{ fontSize: moderateScale(18), fontFamily: 'Gilroy-Bold', marginBottom: 20 }}>Deposit History</Text>
+            </View>
+            {
+                dHistory.length < 1 ? (
+                    <>
+                                <Nodata title={'Seems like you have not deposited yet!' } />
+                            </>
+                ) : null
+            }
+                    
             <ScrollView >
             <View style={{ marginTop: 0, width: '100%', paddingBottom:40,paddingHorizontal:20 }}>
                 <SafeAreaView >
                     {
+                    dHistory.length > 0 ? 
+
                         dHistory?.map((item,i)=>{
                             return(
                                 cardDiv(item,i)
                             )
-                        })
+                        }) : 
+                        null
                     }
                 </SafeAreaView>
             </View>

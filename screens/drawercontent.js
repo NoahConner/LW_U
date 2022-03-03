@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import {
     DrawerContentScrollView,
     DrawerItem
@@ -105,25 +105,44 @@ const DrawerContent = ({ navigation }) => {
     //   }
 
     const share = async (d) => {
-        const shareOptions = {
-            title: 'Share image to fbstory',
-            social: d == 'fb' ? Share.Social.FACEBOOK : d == 'tw' ? Share.Social.TWITTER : d == 'li' ? Share.Social.LINKEDIN : d == 'wa' ? Share.Social.WHATSAPP : null,
-        };
+        // const shareOptions = {
+        //     title: 'Share image to fbstory',
+        //     social: d == 'fb' ? Share.Social.FACEBOOK : d == 'tw' ? Share.Social.TWITTER : d == 'li' ? Share.Social.LINKEDIN : d == 'wa' ? Share.Social.WHATSAPP : null,
+        // };
 
-        try {
-            const ShareResponse = await Share.shareSingle(shareOptions);
-            setResult(JSON.stringify(ShareResponse, null, 2));
-        } catch (error) {
-            console.log('Error =>', error);
-            Alert.alert(
-                "Alert",
-                `Error => ${error.error}`,
-                [
-                    { text: "OK", onPress: () => console.log("OK Pressed") }
-                ]
-            );
-            setResult('error: '.concat(getErrorString(error)));
-        }
+        // try {
+        //     const ShareResponse = await Share.shareSingle(shareOptions);
+        //     setResult(JSON.stringify(ShareResponse, null, 2));
+        // } catch (error) {
+        //     console.log('Error =>', error);
+        //     Alert.alert(
+        //         "Alert",
+        //         `Error => ${error.error}`,
+        //         [
+        //             { text: "OK", onPress: () => console.log("OK Pressed") }
+        //         ]
+        //     );
+        //     setResult('error: '.concat(getErrorString(error)));
+        // }
+
+        let  text = 'Leaperway app'
+        if(Platform.OS === 'android')
+            text = text.concat('https://hackeruna.com')
+        else
+            text = text.concat('http://itunes.apple.com/app/id1453977874')
+
+        Share.share({
+            subject: 'Download Leaperway App Now',
+            title: 'Download Leaperway App Now',
+            message: text,
+            url:'app://tagwag',
+
+        }, {
+            // Android only:
+            dialogTitle: 'Share TagWag App',
+            // iOS only:
+            excludedActivityTypes: []
+        })
     }
 
     return (
