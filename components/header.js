@@ -6,18 +6,13 @@ import Bars from '../assets/svg/bars.svg';
 import Location from '../assets/svg/location.svg';
 import AppContext from '../components/appcontext'
 import { moderateScale } from 'react-native-size-matters';
-import Geocoder from 'react-native-geocoding';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axiosconfig from '../providers/axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Header = ({ navigation, routes }) => {
     const myContext = useContext(AppContext);
 
     useEffect(() => {
-        console.log(routes, 'routes')
         // Geocoder.init("AIzaSyBbYReyueMiiZMK5NnJSXlHyldmfymgrnc");
-
         // setTimeout(() => {
         //     Geocoder.from(29.9417666, -95.3991524)
         //     .then(json => {
@@ -26,36 +21,10 @@ const Header = ({ navigation, routes }) => {
         //     })
         //     .catch(error => console.warn(error));
         // }, 1000);
-
     }, [routes])
 
 
     const getData = async () => {
-        // const value = await AsyncStorage.getItem('@auth_token');
-        // await axiosconfig.get(`admin/current_wallet`,
-        // {
-        //     headers: {
-        //       Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
-        //     }
-        //    }
-        // ).then((res:any)=>{
-        //     myContext.setWalletAmount(res.data.wallet)
-        // }).catch((err)=>{
-        //     console.log(err.response)
-        // })
-
-        // await axiosconfig.get(`admin/my_data`,
-        // {
-        //     headers: {
-        //       Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
-        //     }
-        //    }
-        // ).then((res:any)=>{
-
-        //     myContext.setMyData(res.data)
-        // }).catch((err)=>{
-
-        // })
         navigation.openDrawer();
     }
 
