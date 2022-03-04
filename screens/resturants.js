@@ -178,6 +178,7 @@ const Resturants = ({route, navigation}) => {
     useEffect(() => {
 
       setResData(route.params)
+      console.log(route.params)
     }, [])
     
 

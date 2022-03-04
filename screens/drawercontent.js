@@ -54,7 +54,6 @@ const DrawerContent = ({ navigation }) => {
 
     const nameSpliter = (n) => {
 
-        // getWallet()
         if (n) {
             let c = n?.split(' ')
             let sp = c[0][0] + c[1][0].toUpperCase()
@@ -64,10 +63,8 @@ const DrawerContent = ({ navigation }) => {
 
     useEffect(() => {
         myDataR();
-        // getWallet()
         setTimeout(() => {
             myDataR();
-            // getWallet()
         }, 1000);
     }, [])
 
@@ -80,7 +77,6 @@ const DrawerContent = ({ navigation }) => {
                 }
             }
         ).then((res: any) => {
-
             myContext.setMyData(res.data)
             setmyD(res.data)
         }).catch((err) => {
@@ -88,61 +84,15 @@ const DrawerContent = ({ navigation }) => {
         })
     }
 
-    // const getWallet = async() => {
-    //     const value = await AsyncStorage.getItem('@auth_token');
-    //     await axiosconfig.get(`admin/current_wallet`,
-    //     {
-    //         headers: {
-    //           Authorization: 'Bearer ' + value //the token is a variable which holds the token
-    //         }
-    //        }
-    //     ).then((res:any)=>{
-
-    //         myContext.setWalletAmount(res.data.wallet)
-    //     }).catch((err)=>{
-    //         console.log(err.response)
-    //     })
-    //   }
+    const shareOptions = {
+        title: 'Title',
+        message: 'Message to share', // Note that according to the documentation at least one of "message" or "url" fields is required
+        url: 'www.example.com',
+        subject: 'Subject'
+    };
 
     const share = async (d) => {
-        // const shareOptions = {
-        //     title: 'Share image to fbstory',
-        //     social: d == 'fb' ? Share.Social.FACEBOOK : d == 'tw' ? Share.Social.TWITTER : d == 'li' ? Share.Social.LINKEDIN : d == 'wa' ? Share.Social.WHATSAPP : null,
-        // };
-
-        // try {
-        //     const ShareResponse = await Share.shareSingle(shareOptions);
-        //     setResult(JSON.stringify(ShareResponse, null, 2));
-        // } catch (error) {
-        //     console.log('Error =>', error);
-        //     Alert.alert(
-        //         "Alert",
-        //         `Error => ${error.error}`,
-        //         [
-        //             { text: "OK", onPress: () => console.log("OK Pressed") }
-        //         ]
-        //     );
-        //     setResult('error: '.concat(getErrorString(error)));
-        // }
-
-        let  text = 'Leaperway app'
-        if(Platform.OS === 'android')
-            text = text.concat('https://hackeruna.com')
-        else
-            text = text.concat('http://itunes.apple.com/app/id1453977874')
-
-        Share.share({
-            subject: 'Download Leaperway App Now',
-            title: 'Download Leaperway App Now',
-            message: text,
-            url:'app://tagwag',
-
-        }, {
-            // Android only:
-            dialogTitle: 'Share TagWag App',
-            // iOS only:
-            excludedActivityTypes: []
-        })
+        Share.share(shareOptions)
     }
 
     return (

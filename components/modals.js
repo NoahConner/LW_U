@@ -9,6 +9,7 @@ import Modal from "react-native-modal";
 import Tick from '../assets/svg/tick.svg'
 import AppContext from '../components/appcontext'
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { moderateScale } from 'react-native-size-matters';
 
 const Modals = ({ navigation }) => {
     const myContext = useContext(AppContext);
@@ -77,20 +78,20 @@ const Modals = ({ navigation }) => {
                                 myContext.closeAllSheets ? (
                                     <>
                                         <Tick style={{ height: 55, width: 55, marginBottom: 20 }} />
-                                        <Text style={{ color: '#FF3C40', fontSize: RFPercentage(2.5), fontFamily: 'Gilroy-Bold' }}>Card Added Successfully! </Text>
+                                        <Text style={{ color: '#FF3C40', fontSize: moderateScale(16,0.1), fontFamily: 'Gilroy-Bold' }}>Card Added Successfully! </Text>
                                         <Text style={{ textAlign: 'center', color: '#666666', fontSize: RFPercentage(1.8), marginTop: 10, fontFamily: 'Gilroy-Medium' }}>You have Successfully Added the Card.</Text>
                                     </>
                                 ) :
                                     myContext.CongratesModalCon ? (
                                         <>
                                             <Tick style={{ height: 55, width: 55, marginBottom: 20 }} />
-                                            <Text style={{ color: '#FF3C40', fontSize: RFPercentage(2.5), fontFamily: 'Gilroy-Bold' }}>Deposit Successful! </Text>
+                                            <Text style={{ color: '#FF3C40', fontSize: moderateScale(16,0.1), fontFamily: 'Gilroy-Bold' }}>Deposit Successful! </Text>
                                             <Text style={{ textAlign: 'center', color: '#666666', fontSize: RFPercentage(1.8), marginTop: 10, fontFamily: 'Gilroy-Medium' }}>You have Successfully Deposited  the Amount.</Text>
                                         </>
                                     ) : myContext.SorryModalCon ? (
                                         <>
 
-                                            <Text style={{ color: '#FF3C40', fontSize: RFPercentage(2.5), fontFamily: 'Gilroy-Bold' }}>Sorry :(</Text>
+                                            <Text style={{ color: '#FF3C40', fontSize: moderateScale(16,0.1), fontFamily: 'Gilroy-Bold' }}>Sorry :(</Text>
                                             <Text style={{ textAlign: 'center', color: '#666666', fontSize: RFPercentage(1.8), marginTop: 10, fontFamily: 'Gilroy-Medium' }}>you don't have insufficient balance in your wallet, Please deposit money on you wallet</Text>
                                             <Button
                                                 title="Deposit"
@@ -112,9 +113,9 @@ const Modals = ({ navigation }) => {
                                     ) : myContext.CouponModalCon ? (
                                         <>
 
-                                            <Text style={{ color: '#FF3C40', fontSize: RFPercentage(2.5), fontFamily: 'Gilroy-Bold' }}>Thanks For Your Donation! </Text>
+                                            <Text style={{ color: '#FF3C40', fontSize: moderateScale(16,0.1), fontFamily: 'Gilroy-Bold' }}>Thanks For Your Donation! </Text>
                                             <Text style={{ textAlign: 'center', color: '#666666', fontSize: RFPercentage(2), marginTop: 5, fontFamily: 'Gilroy-Medium' }}>Here`s the coupon code for your Leaper`s Food.</Text>
-                                            <Text style={{ textAlign: 'center', color: '#1E3865', fontSize: RFPercentage(2.5), marginTop: 25, fontFamily: 'Gilroy-Bold' }}>Coupon Code</Text>
+                                            <Text style={{ textAlign: 'center', color: '#1E3865', fontSize: moderateScale(16,0.1), marginTop: 25, fontFamily: 'Gilroy-Bold' }}>Coupon Code</Text>
                                             <Button
                                                 title={myContext.CurrentCoupon}
                                                 type="solid"
@@ -125,7 +126,7 @@ const Modals = ({ navigation }) => {
                                                     borderRadius: 15,
                                                 }}
                                                 titleStyle={{
-                                                    fontSize: RFPercentage(2.5),
+                                                    fontSize: moderateScale(16,0.1),
                                                     fontFamily: 'Gilroy-Bold'
                                                 }}
                                                 onPress={() => copytxt()}

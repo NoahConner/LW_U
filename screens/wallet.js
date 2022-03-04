@@ -345,7 +345,7 @@ const Wallet = ({ navigation }) => {
                                 <View style={{ ...styles.flexRow, marginTop: 15 }}>
                                     <View style={{ ...styles.flexRow, alignItems: "flex-start" }}>
                                         <Text style={{ fontSize: moderateScale(15), fontFamily: 'Gilroy-Bold', marginTop: -3, ...styles.redColor }}>Leaper DOB:</Text>
-                                        <Text style={{ fontSize: moderateScale(12), marginLeft: 16, flexShrink: 1, fontFamily: 'Gilroy-Medium', color: '#696868' }}>{dateConverter(currentDeal?.leaper_dob, false)}</Text>
+                                        <Text style={{ fontSize: moderateScale(12), marginLeft: 16, flexShrink: 1, fontFamily: 'Gilroy-Medium', color: '#696868' }}>{moment(currentDeal?.leaper_dob).format('MMMM d, y')}</Text>
                                     </View>
                                 </View>
 

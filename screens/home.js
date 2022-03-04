@@ -151,7 +151,7 @@ const Home = ({ navigation, route }) => {
             }
             <SafeAreaView style={{ ...styles.container, paddingHorizontal: 20 }}>
                 {
-                    locationon ? (
+                    !locationon ? (
                         <>
 
                             <View style={{width:'70%', marginLeft:'15%'}}>

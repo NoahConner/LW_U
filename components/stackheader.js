@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         elevation: 1.5,
         height:moderateScale(80),
         width:'100%',
-        marginTop:moderateScale(20),
+        marginTop:moderateScale(0),
         // marginLeft:'-5%',
         paddingTop:5,
         paddingHorizontal:20,
