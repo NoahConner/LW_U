@@ -58,7 +58,7 @@ const defaultCad = [
         'card_no': '**** 8569',
         'id': '4'
     }
-]
+];
 
 const DepositHistory = ({navigation}) => {
     const refRBSheetDepos = useRef();
@@ -130,9 +130,9 @@ const DepositHistory = ({navigation}) => {
 
     const dateConverter = (d,t) => {
         if(t){
-            return moment(d).format('MMMM d, y, h:mm:ss a z')
+            return moment(d).format('MMMM d, y, h:mm:ss a z');
         }else{
-            return moment(d).format('MMMM d, y')
+            return moment(d).format('MMMM d, y');
         }
     }
     

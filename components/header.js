@@ -8,21 +8,9 @@ import AppContext from '../components/appcontext'
 import { moderateScale } from 'react-native-size-matters';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Header = ({ navigation, routes }) => {
+
+const Header = ({ navigation, routes, address }) => {
     const myContext = useContext(AppContext);
-
-    useEffect(() => {
-        // Geocoder.init("AIzaSyBbYReyueMiiZMK5NnJSXlHyldmfymgrnc");
-        // setTimeout(() => {
-        //     Geocoder.from(29.9417666, -95.3991524)
-        //     .then(json => {
-        //             var addressComponent = json.results[0].address_components[0];
-        //         console.log(addressComponent, 'addressComponent');
-        //     })
-        //     .catch(error => console.warn(error));
-        // }, 1000);
-    }, [routes])
-
 
     const getData = async () => {
         navigation.openDrawer();
@@ -53,7 +41,7 @@ const Header = ({ navigation, routes }) => {
                     />
                     <TouchableOpacity
                         // onPress={()=> myContext.setmapModal(true)}
-                        onPress={() => navigation.navigate('MapModal')}
+                        onPress={() => navigation.navigate('MapModal', routes)}
                     >
                         <View style={{ marginLeft: 25, width: '100%', paddingRight: 125 }}>
                             <Text style={{ fontSize: moderateScale(16), marginBottom: 5, fontFamily: 'Gilroy-Bold' }}>Location Radius</Text>
@@ -61,7 +49,7 @@ const Header = ({ navigation, routes }) => {
                                 <Location
                                     style={{ height: 16, width: 12, marginRight: 10 }}
                                 />
-                                <Text style={{ fontSize: moderateScale(13), fontFamily: 'Gilroy-Medium' }} numberOfLines={1}>363 North Sam Houston Parkway East Greater Greenspoint,  </Text>
+                                <Text style={{ fontSize: moderateScale(13), fontFamily: 'Gilroy-Medium' }} numberOfLines={1}>{address}</Text>
                             </View>
                         </View>
                     </TouchableOpacity>

@@ -85,15 +85,19 @@ const DrawerContent = ({ navigation }) => {
     }
 
     const shareOptions = {
-        title: 'Title',
-        message: 'Message to share', // Note that according to the documentation at least one of "message" or "url" fields is required
-        url: 'www.example.com',
-        subject: 'Subject'
-    };
-
-    const share = async (d) => {
-        Share.share(shareOptions)
-    }
+        title: 'Share via',
+        message: 'some message',
+        url: 'some share url',
+        social: Share.Social.WHATSAPP,
+        whatsAppNumber: "9199999999",  // country code + phone number
+        filename: 'test' , // only for base64 file in Android
+      };
+    
+      const share = async () => {
+        Share.shareSingle(shareOptions)
+            .then((res) => { console.log(res) })
+            .catch((err) => { err && console.log(err); });
+      }
 
     return (
         <LinearGradient colors={['#FF3C40', '#FF3C40', '#C46163']} style={{ flex: 1, paddingBottom: 20 }}>

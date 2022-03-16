@@ -11,6 +11,8 @@ import axiosconfig from '../providers/axios';
 import Geolocation from '@react-native-community/geolocation';
 import Loader from './loader';
 import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Geocoder from 'react-native-geocoding';
 
 const mcCards = (d, i, navigation) => {
     return (
@@ -45,6 +47,7 @@ const Home = ({ navigation, route }) => {
     const [loader, setLoader] = useState(false);
     const isFocused = useIsFocused();
     const [locationon, setlocationon] = useState(true);
+    const [address, setaddress] = useState(null);
 
     const getCurrentLocation = () => {
         GetLocation.getCurrentPosition({
@@ -64,9 +67,23 @@ const Home = ({ navigation, route }) => {
             })
     }
 
+  const getPysicalAddress = (location) => {
+    console.log(location, 'location')
+    Geocoder.init("AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA");
+    setTimeout(() => {
+        Geocoder.from(location?.latitude, location?.longitude)
+        .then(json => {
+                var addressComponent = json.results[0].formatted_address;
+            console.log(addressComponent, 'addressComponent');
+            // myContext.setaddress(addressComponent)
+            setaddress(addressComponent)
+        })
+        .catch(error => console.warn(error));
+    }, 1000);
+  }
+
     const getRestaurents = async (location) => {
         setlocationon(true)
-        console.log(location)
         setLoader(true)
         await axiosconfig.get(`admin/restaurents/${location.latitude},${location.longitude}`,
             {
@@ -78,7 +95,8 @@ const Home = ({ navigation, route }) => {
         ).then((res: any) => {
             setresTaurents(res.data, 'resTaurents')
             setLoader(false)
-            getWallet()
+            getWallet();
+            getPysicalAddress(location)
         }).catch((err) => {
             console.log(err.response)
             setLoader(false)
@@ -86,14 +104,16 @@ const Home = ({ navigation, route }) => {
     }
 
     const getWallet = async () => {
+        const value = await AsyncStorage.getItem('@auth_token');
         await axiosconfig.get(`admin/current_wallet`,
             {
                 headers: {
-                    Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+                    Authorization: 'Bearer ' + value //the token is a variable which holds the token
                 }
             }
         ).then((res: any) => {
-            myContext.setWalletAmount(res.data.wallet)
+            console.log(res.data.wallet, 'res.data.wallet')
+            myContext.setWalletAmount(res.data.wallet == undefined ? 0 : res.data.wallet)
         }).catch((err) => {
             console.log(err.response)
         })
@@ -101,11 +121,10 @@ const Home = ({ navigation, route }) => {
         await axiosconfig.get(`admin/my_data`,
             {
                 headers: {
-                    Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+                    Authorization: 'Bearer ' + value //the token is a variable which holds the token
                 }
             }
         ).then((res: any) => {
-
             myContext.setprofileImagee(res.data.image)
 
         }).catch((err) => {
@@ -114,14 +133,6 @@ const Home = ({ navigation, route }) => {
     }
 
     useEffect(() => {
-        // console.log(isFocused, 'isFocused')
-        // if(isFocused){
-        //     getWallet();
-        // }else{
-        //     getCurrentLocation();
-        //     getWallet()
-        // }
-
         if (route.params) {
             getRestaurents(route.params);
             setLocation(route.params);
@@ -140,7 +151,7 @@ const Home = ({ navigation, route }) => {
 
         <View style={styles.container}>
             <View style={{ width: '100%' }}>
-                <Header navigation={navigation} routes={location} />
+                <Header navigation={navigation} routes={location} address={address} />
             </View>
             {
                 loader ? (
