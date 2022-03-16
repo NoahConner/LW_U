@@ -68,13 +68,12 @@ const Home = ({ navigation, route }) => {
     }
 
   const getPysicalAddress = (location) => {
-    console.log(location, 'location')
     Geocoder.init("AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA");
     setTimeout(() => {
         Geocoder.from(location?.latitude, location?.longitude)
         .then(json => {
                 var addressComponent = json.results[0].formatted_address;
-            console.log(addressComponent, 'addressComponent');
+            console.log(json, 'addressComponent');
             // myContext.setaddress(addressComponent)
             setaddress(addressComponent)
         })
@@ -112,7 +111,6 @@ const Home = ({ navigation, route }) => {
                 }
             }
         ).then((res: any) => {
-            console.log(res.data.wallet, 'res.data.wallet')
             myContext.setWalletAmount(res.data.wallet == undefined ? 0 : res.data.wallet)
         }).catch((err) => {
             console.log(err.response)
@@ -126,10 +124,26 @@ const Home = ({ navigation, route }) => {
             }
         ).then((res: any) => {
             myContext.setprofileImagee(res.data.image)
-
+            adminData()
         }).catch((err) => {
             console.log(err.response)
         })
+    }
+
+    const adminData = async() => {
+        const value = await AsyncStorage.getItem('@auth_token');
+            await axiosconfig.get(`admin/admin_data_index`,
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + value //the token is a variable which holds the token
+                    }
+                }
+            ).then((res: any) => {
+                myContext.setappUrl( Platform.OS === 'ios' ? res.data.app_url_ios : res.data.app_url_android);
+                setmyD(res.data)
+            }).catch((err) => {
+                console.log(err.response)
+            })
     }
 
     useEffect(() => {

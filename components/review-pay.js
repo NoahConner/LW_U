@@ -1,4 +1,4 @@
-import React, { Component,useState,useContext } from "react";
+import React, { Component,useState,useContext, useEffect } from "react";
 import { StyleSheet, View, Switch,Modal,Alert,Pressable } from "react-native";
 import { CheckBox ,Button,Text,Icon,Image  } from 'react-native-elements'
 import ReviewImg from '../assets/svg/review.svg'
@@ -11,7 +11,7 @@ import {  moderateScale } from 'react-native-size-matters';
 import axiosconfig from '../providers/axios';
 import Loader from '../screens/loader';
 
-const ReviewPayment = ({navigation,amount,cardSelect})=>{
+const ReviewPayment = ({navigation,amount,cardSelect, cardSelected})=>{
 
     const myContext = useContext(AppContext);
     const [loader, setLoader] = useState(false);
@@ -62,7 +62,18 @@ const ReviewPayment = ({navigation,amount,cardSelect})=>{
         }).catch((err)=>{
             console.log(err.response);
         })
-      }
+    }
+
+    useEffect(() => {
+      console.log(cardSelected)
+    }, [])
+    
+    const splitNo = (c) => {
+        var splitt = c?.split(' ')
+        var lenghter = splitt.length
+        var cNoo = '**** '+splitt[lenghter-1]
+        return cNoo
+    }
 
     return(
         <View style={{padding:20}}>
@@ -85,9 +96,18 @@ const ReviewPayment = ({navigation,amount,cardSelect})=>{
 
             <View style={{alignItems: 'flex-end',justifyContent: 'space-between',flexDirection: 'row',marginBottom:40,marginTop:0}}>
                 <View style={{...styles.flexRow}}>
-                    <Text style={{fontSize:moderateScale(16),fontFamily:'Gilroy-Medium'}}>Pay with</Text>
-                    <VisaIcon style={{ height: 20, width: 30,marginLeft:10 }} />
-                    <Text style={{fontSize:moderateScale(16),color:'#666666',marginLeft:5,fontFamily:'Gilroy-Medium'}}>**** 1234</Text>
+                    <Text style={{fontSize:moderateScale(16),fontFamily:'Gilroy-Medium', marginRight:10}}>Pay with</Text>
+                    {/* <VisaIcon style={{ height: 20, width: 30,marginLeft:10 }} /> */}
+                    {
+                        cardSelected.card_type == 'visa' ? <VisaIcon style={{ height: moderateScale(20), width: moderateScale(30) }} /> :
+                        cardSelected.card_type == 'master-card' ? <MasterIcon style={{ height: moderateScale(20), width: moderateScale(30) }} /> :
+                        cardSelected.card_type == 'discover' ? <DiscIcon style={{ height: moderateScale(20), width: moderateScale(30) }} /> :
+                        cardSelected.card_type == 'jcb' ? <JcbIcon style={{ height: moderateScale(20), width: moderateScale(30) }} /> :
+                        cardSelected.card_type == 'american-express' ? <AmexIcon style={{ height: moderateScale(20), width: moderateScale(30) }} /> :
+                        cardSelected.card_type == 'diners-club' ? <DinnerClub style={{ height: moderateScale(20), width: moderateScale(30) }} /> :
+                        <PaymentIcon style={{ height: moderateScale(20), width: moderateScale(30) }}/>
+                    }
+                    <Text style={{fontSize:moderateScale(16),color:'#666666',marginLeft:5,fontFamily:'Gilroy-Medium'}}>{splitNo(cardSelected.card_no)}</Text>
                 </View>
                 <View style={{alignItems: 'flex-end',}}>
                     <Text style={{fontSize:moderateScale(16),color:'#666666',fontFamily:'Gilroy-Medium'}}>Total</Text>

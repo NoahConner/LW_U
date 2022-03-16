@@ -59,7 +59,7 @@ const App = (navigation) => {
   const [myDat,setmyDat] = useState({});
   const [profileImagee,setprofileImagee] = useState(null);
   const [userName,setuserName] = useState(null);
-  const [address,setaddress] = useState(null);
+  const [appUrl,setappUrl] = useState(null);
   const userSettings = {
     userToken: userToken,
     CongratesModalCon:CongratesModal,
@@ -76,7 +76,7 @@ const App = (navigation) => {
     myDat:myDat,
     userName:userName,
     currentLatLng:currentLatLng,
-    address:address,
+    appUrl:appUrl,
     setuserToken,
     setCongratesModal,
     setSorryModal,
@@ -92,7 +92,7 @@ const App = (navigation) => {
     setcurrentLatLng,
     setmyDat,
     setuserName,
-    setaddress
+    setappUrl
   };
 
   const Root = ({navigation}) => {

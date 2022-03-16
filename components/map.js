@@ -161,10 +161,16 @@ class MarkerTypes extends React.Component {
               // 'details' is provided when fetchDetails = true
               this.getPysicalAddress(data)
             }}
+            styles={{
+              color:'#000',
+              fontFamily:'Poppins-Medium'
+            }}
             query={{
               key: 'AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA',
               language: 'en',
             }}
+            currentLocation={true}
+            currentLocationLabel='Current location'
           />
         </View>
         <MapView

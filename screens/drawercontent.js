@@ -85,19 +85,22 @@ const DrawerContent = ({ navigation }) => {
     }
 
     const shareOptions = {
-        title: 'Share via',
-        message: 'some message',
-        url: 'some share url',
-        social: Share.Social.WHATSAPP,
-        whatsAppNumber: "9199999999",  // country code + phone number
-        filename: 'test' , // only for base64 file in Android
+        title: 'Leaper way',
+        // message: 'Leaper way Share Url',
+        url: myContext.appUrl,
       };
     
       const share = async () => {
-        Share.shareSingle(shareOptions)
-            .then((res) => { console.log(res) })
-            .catch((err) => { err && console.log(err); });
+        Share.open(shareOptions)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          err && console.log(err);
+        });
       }
+
+      
 
     return (
         <LinearGradient colors={['#FF3C40', '#FF3C40', '#C46163']} style={{ flex: 1, paddingBottom: 20 }}>
@@ -160,6 +163,12 @@ const DrawerContent = ({ navigation }) => {
                                 <Text style={styles.textStyle}>Deposit History</Text>
                             </View>
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={() => share('li')} >
+                            <View style={{ ...styles.flexCon, marginBottom: 35 }}>
+                                <DepoHis style={{ fill: '#fff', width: 28, height: 24 }} />
+                                <Text style={styles.textStyle}>Share Us</Text>
+                            </View>
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={() => setCollapse(!collapse)} >
                             <View style={{ ...styles.flexCon, marginBottom: 25, position: 'relative' }}>
                                 <LegalIcon style={{ width: 28, height: 24 }} />
@@ -194,7 +203,7 @@ const DrawerContent = ({ navigation }) => {
                             </Collapsible>
                         </View>
 
-                        <TouchableOpacity onPress={() => setCollapse2(!collapse2)} >
+                        {/* <TouchableOpacity onPress={() => setCollapse2(!collapse2)} >
                             <View style={{ ...styles.flexCon, marginBottom: 25, position: 'relative' }}>
                                 <SocialIcon style={{ width: 28, height: 24 }} />
                                 <Text style={styles.textStyle}>Share Us</Text>
@@ -260,7 +269,8 @@ const DrawerContent = ({ navigation }) => {
                                     </View>
                                 </TouchableOpacity>
                             </Collapsible>
-                        </View>
+                        </View> */}
+
                     </View>
                 </DrawerContentScrollView>
                 <SafeAreaView>

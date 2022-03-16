@@ -45,6 +45,7 @@ const ConfirmPayment = ({navigation,route })=>{
     const [loader, setLoader] = useState(false);
     // const [cards, setCards] = useState(myContext.paymentmethods)
     const [cardSelect,SetcardSelect] = useState();
+    const [cardSelected,SetcardSelected] = useState();
 
     const splitNo = (c) => {
         var splitt = c.split(' ')
@@ -80,7 +81,7 @@ const ConfirmPayment = ({navigation,route })=>{
                         type='font-awesome'
                         color={cardSelect == d.id ? '#1E3865' : '#E6E6E6'}
                         iconStyle={{ fontSize: moderateScale(26) }}
-                        onPress={()=> SetcardSelect(d.id)}
+                        onPress={()=> selCd(d.id, d)}
                     />
                     <CheckBox
                         title=''
@@ -113,6 +114,11 @@ const ConfirmPayment = ({navigation,route })=>{
             console.log(err)
             setLoader(false)
         })
+    }
+
+    const selCd = (i,d) => {
+        SetcardSelect(i)
+        SetcardSelected(d)
     }
 
     useEffect(() => {
@@ -218,7 +224,7 @@ const ConfirmPayment = ({navigation,route })=>{
                     }}
                     height={560}
                 >
-                    <ReviewPayment navigation={navigation} amount={amount}  statement={'deposite'} cardSelect={cardSelect} />
+                    <ReviewPayment navigation={navigation} amount={amount}  statement={'deposite'} cardSelect={cardSelect} cardSelected={cardSelected} />
                 </RBSheet>
 
             </View>
