@@ -37,6 +37,7 @@
     "react-native-image-crop-picker": "^0.36.2",
     "react-native-image-picker": "^4.7.3",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-location-enabler": "^4.1.0",
     "react-native-lottie-splash-screen": "^0.1.14",
     "react-native-maps": "^0.29.3",
     "react-native-modal": "^13.0.0",

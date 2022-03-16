@@ -13,6 +13,7 @@ import Loader from './loader';
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Geocoder from 'react-native-geocoding';
+import LocationEnabler from 'react-native-location-enabler';
 
 const mcCards = (d, i, navigation) => {
     return (
@@ -39,6 +40,35 @@ const mcCards = (d, i, navigation) => {
     )
 }
 
+
+const {
+    PRIORITIES: { HIGH_ACCURACY },
+    useLocationSettings,
+  } = LocationEnabler;
+  
+//   const LocationStatus = (props: { enabled: boolean | undefined }) => (
+//     <Text style={styles.status}>
+//       Location : [{' '}
+//       {props.enabled !== undefined && props.enabled ? (
+//         <Text style={styles.enabled}>Enabled</Text>
+//       ) : props.enabled !== undefined && !props.enabled ? (
+//         <Text style={styles.disabled}>Disabled</Text>
+//       ) : (
+//         <Text style={styles.undefined}>Undefined</Text>
+//       )}{' '}
+//       ]
+//     </Text>
+//   );
+  
+//   const RequestResolutionSettingsBtn = (props: { onPress: any }) => (
+//     <Button
+//       color="red"
+//       title="Request Resolution Location Settings"
+//       onPress={props.onPress}
+//     />
+//   );
+
+
 const Home = ({ navigation, route }) => {
 
     const myContext = useContext(AppContext)
@@ -50,6 +80,7 @@ const Home = ({ navigation, route }) => {
     const [address, setaddress] = useState(null);
 
     const getCurrentLocation = () => {
+        setLoader(true)
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 15000,
@@ -63,23 +94,24 @@ const Home = ({ navigation, route }) => {
                 setlocationon(false)
                 const { code, message } = error;
                 console.warn(code, message);
-                console.log(error.response)
+                console.log(error.response);
+                setLoader(false)
             })
     }
 
-  const getPysicalAddress = (location) => {
-    Geocoder.init("AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA");
-    setTimeout(() => {
-        Geocoder.from(location?.latitude, location?.longitude)
-        .then(json => {
-                var addressComponent = json.results[0].formatted_address;
-            console.log(json, 'addressComponent');
-            // myContext.setaddress(addressComponent)
-            setaddress(addressComponent)
-        })
-        .catch(error => console.warn(error));
-    }, 1000);
-  }
+    const getPysicalAddress = (location) => {
+        Geocoder.init("AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA");
+        setTimeout(() => {
+            Geocoder.from(location?.latitude, location?.longitude)
+            .then(json => {
+                    var addressComponent = json.results[0].formatted_address;
+                console.log(json, 'addressComponent');
+                // myContext.setaddress(addressComponent)
+                setaddress(addressComponent)
+            })
+            .catch(error => console.warn(error));
+        }, 1000);
+    }
 
     const getRestaurents = async (location) => {
         setlocationon(true)
@@ -161,12 +193,21 @@ const Home = ({ navigation, route }) => {
     }, [])
 
 
+    const [enabled, requestResolution] = useLocationSettings({
+        priority: HIGH_ACCURACY,
+        alwaysShow: true,
+        needBle: true,
+    });
+
+
     return (
 
         <View style={styles.container}>
             <View style={{ width: '100%' }}>
                 <Header navigation={navigation} routes={location} address={address} />
             </View>
+            {/* <LocationStatus enabled={enabled} />
+            {!enabled && <RequestResolutionSettingsBtn onPress={requestResolution} />} */}
             {
                 loader ? (
                     <>
@@ -176,7 +217,7 @@ const Home = ({ navigation, route }) => {
             }
             <SafeAreaView style={{ ...styles.container, paddingHorizontal: 20 }}>
                 {
-                    !locationon ? (
+                    !enabled ? (
                         <>
 
                             <View style={{width:'70%', marginLeft:'15%'}}>

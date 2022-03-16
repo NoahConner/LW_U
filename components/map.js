@@ -161,9 +161,31 @@ class MarkerTypes extends React.Component {
               // 'details' is provided when fetchDetails = true
               this.getPysicalAddress(data)
             }}
+            // textInput={{
+            //   color:'red',
+            //   fontFamily:'Poppins-Medium'
+            // }}
             styles={{
-              color:'#000',
-              fontFamily:'Poppins-Medium'
+              textInput: {
+                height: 42,
+                color: '#5d5d5d',
+                fontSize: 16,
+                color:'#000',
+                fontFamily:'Poppins-Medium',
+                paddingTop:10,
+                shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 4,
+},
+shadowOpacity: 0.32,
+shadowRadius: 5.46,
+
+elevation: 9,
+              },
+              predefinedPlacesDescription: {
+                color: '#1faadb',
+              },
             }}
             query={{
               key: 'AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA',
