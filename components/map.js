@@ -64,30 +64,31 @@ class MarkerTypes extends React.Component {
   }
 
   getPysicalAddress = (location) => {
+    console.log(location,'location')
     Geocoder.init("AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA");
     setTimeout(() => {
       Geocoder.from(location.description)
-      .then(json => {
-        var location = json.results[0].geometry.location;
-        console.log(location);
-        this.setState(
-          {
-            region: {
-              latitude: location.lat,
-              longitude: location.lng,
-              latitudeDelta: LATITUDE_DELTA,
-              longitudeDelta: LONGITUDE_DELTA,
+        .then(json => {
+          var location = json.results[0].geometry.location;
+          console.log(location);
+          this.setState(
+            {
+              region: {
+                latitude: location.lat,
+                longitude: location.lng,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA,
+              }
             }
-          }
-        )
-        mapRef.current.animateToRegion({
-          latitude: location.lat,
-          longitude: location.lng,
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.1
+          )
+          mapRef.current.animateToRegion({
+            latitude: location.lat,
+            longitude: location.lng,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          })
         })
-      })
-      .catch(error => console.warn(error));
+        .catch(error => console.warn(error));
     }, 1000);
   }
 
@@ -114,8 +115,8 @@ class MarkerTypes extends React.Component {
         mapRef.current.animateToRegion({
           latitude: location.latitude,
           longitude: location.longitude,
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.1
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
         })
         console.log(this.state.region)
       })
@@ -156,35 +157,32 @@ class MarkerTypes extends React.Component {
         </View>
         <View style={{ position: 'absolute', top: moderateScale(70), left: 0, zIndex: 9999, width: '100%', paddingHorizontal: 20 }}>
           <GooglePlacesAutocomplete
-            placeholder='Search'
+            placeholder='Enter Location'
+            minLength={2}
+            autoFocus={false}
+            returnKeyType={'default'}
+            fetchDetails={true}
             onPress={(data, details = null) => {
-              // 'details' is provided when fetchDetails = true
               this.getPysicalAddress(data)
             }}
-            // textInput={{
-            //   color:'red',
-            //   fontFamily:'Poppins-Medium'
-            // }}
             styles={{
               textInput: {
                 height: 42,
                 color: '#5d5d5d',
                 fontSize: 16,
-                color:'#000',
-                fontFamily:'Poppins-Medium',
-                paddingTop:10,
+                color: '#000',
                 shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 4,
-},
-shadowOpacity: 0.32,
-shadowRadius: 5.46,
+                shadowOffset: {
+                  width: 0,
+                  height: 4,
+                },
+                shadowOpacity: 0.32,
+                shadowRadius: 5.46,
 
-elevation: 9,
+                elevation: 9,
               },
               predefinedPlacesDescription: {
-                color: '#1faadb',
+                color: '#000',
               },
             }}
             query={{

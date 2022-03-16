@@ -45,29 +45,6 @@ const {
     PRIORITIES: { HIGH_ACCURACY },
     useLocationSettings,
   } = LocationEnabler;
-  
-//   const LocationStatus = (props: { enabled: boolean | undefined }) => (
-//     <Text style={styles.status}>
-//       Location : [{' '}
-//       {props.enabled !== undefined && props.enabled ? (
-//         <Text style={styles.enabled}>Enabled</Text>
-//       ) : props.enabled !== undefined && !props.enabled ? (
-//         <Text style={styles.disabled}>Disabled</Text>
-//       ) : (
-//         <Text style={styles.undefined}>Undefined</Text>
-//       )}{' '}
-//       ]
-//     </Text>
-//   );
-  
-//   const RequestResolutionSettingsBtn = (props: { onPress: any }) => (
-//     <Button
-//       color="red"
-//       title="Request Resolution Location Settings"
-//       onPress={props.onPress}
-//     />
-//   );
-
 
 const Home = ({ navigation, route }) => {
 
