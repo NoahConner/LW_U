@@ -128,7 +128,6 @@ class MarkerTypes extends React.Component {
 
   }
   saveReion() {
-    // this.context.setsetcurrentLatLng(this.state.region)
     this.props.navigation.navigate('Home', this.state.region)
   }
 
