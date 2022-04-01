@@ -154,9 +154,20 @@ const App = (navigation) => {
     }
   }
 
-  const myDataR = () => {
-    
-  }
+  const myDataR = async () => {
+    const value = await AsyncStorage.getItem('@auth_token');
+    await axiosconfig.get(`admin/my_data`,
+        {
+            headers: {
+                Authorization: 'Bearer ' + value //the token is a variable which holds the token
+            }
+        }
+    ).then((res: any) => {
+        setMyData(res.data)
+    }).catch((err) => {
+        console.log(err.response)
+    })
+}
 
   const getWallet = () => {
 
