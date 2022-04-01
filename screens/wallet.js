@@ -5,6 +5,10 @@ import PaymentIcon from '../assets/svg/paymentIconred.svg';
 import History from '../assets/svg/historyIconred.svg';
 import VisaIcon from '../assets/svg/visa.svg'
 import MasterIcon from '../assets/svg/master.svg'
+import AmexIcon from '../assets/svg/amex.svg'
+import DiscIcon from '../assets/svg/discover.svg'
+import JcbIcon from '../assets/svg/jcb.svg'
+import DinnerClub from '../assets/svg/diners-club.svg'
 import RBSheet from "react-native-raw-bottom-sheet";
 import AddCardSheet from '../components/add-card-sheet'
 import StackHeader from '../components/stackheader'
