@@ -8,6 +8,7 @@ import AmexIcon from '../assets/svg/amex.svg'
 import DiscIcon from '../assets/svg/discover.svg'
 import JcbIcon from '../assets/svg/jcb.svg'
 import DinnerClub from '../assets/svg/diners-club.svg'
+import PaymentIcon from '../assets/svg/paymentIconred.svg';
 import Tick from '../assets/svg/tick.svg'
 import AppContext from '../components/appcontext'
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
