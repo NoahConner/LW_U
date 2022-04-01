@@ -4,6 +4,10 @@ import { CheckBox ,Button,Text,Icon,Image  } from 'react-native-elements'
 import ReviewImg from '../assets/svg/review.svg'
 import VisaIcon from '../assets/svg/visa.svg'
 import MasterIcon from '../assets/svg/master.svg'
+import AmexIcon from '../assets/svg/amex.svg'
+import DiscIcon from '../assets/svg/discover.svg'
+import JcbIcon from '../assets/svg/jcb.svg'
+import DinnerClub from '../assets/svg/diners-club.svg'
 import Tick from '../assets/svg/tick.svg'
 import AppContext from '../components/appcontext'
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
@@ -65,7 +69,7 @@ const ReviewPayment = ({navigation,amount,cardSelect, cardSelected})=>{
     }
 
     useEffect(() => {
-      console.log(cardSelected)
+      console.log(cardSelected, 'cardSelected')
     }, [])
     
     const splitNo = (c) => {
