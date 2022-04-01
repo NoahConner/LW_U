@@ -13,9 +13,11 @@ import Loader from './loader';
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Geocoder from 'react-native-geocoding';
-import LocationEnabler from 'react-native-location-enabler';
+// import LocationEnabler from 'react-native-location-enabler';
 
 const mcCards = (d, i, navigation) => {
+    console.log(d)
+   if(d?.user?.status == '1'){
     return (
         <TouchableOpacity onPress={() => navigation.navigate('Resturants', d)}>
             <View style={[Platform.OS == 'ios' ? styles.mcCardIos : styles.mcCard]} key={d.id}>
@@ -38,13 +40,14 @@ const mcCards = (d, i, navigation) => {
             </View>
         </TouchableOpacity>
     )
+   }
 }
 
 
-const {
-    PRIORITIES: { HIGH_ACCURACY },
-    useLocationSettings,
-  } = LocationEnabler;
+// const {
+//     PRIORITIES: { HIGH_ACCURACY },
+//     useLocationSettings,
+//   } = LocationEnabler;
 
 const Home = ({ navigation, route }) => {
 
@@ -170,11 +173,11 @@ const Home = ({ navigation, route }) => {
     }, [])
 
 
-    const [enabled, requestResolution] = useLocationSettings({
-        priority: HIGH_ACCURACY,
-        alwaysShow: true,
-        needBle: true,
-    });
+    // const [enabled, requestResolution] = useLocationSettings({
+    //     priority: HIGH_ACCURACY,
+    //     alwaysShow: true,
+    //     needBle: true,
+    // });
 
 
     return (
@@ -194,21 +197,38 @@ const Home = ({ navigation, route }) => {
             }
             <SafeAreaView style={{ ...styles.container, paddingHorizontal: 20 }}>
                 {
-                    !enabled ? (
-                        <>
+                    // !enabled ? (
+                    //     <>
 
-                            <View style={{width:'70%', marginLeft:'15%'}}>
-                               <TouchableOpacity onPress={() => getCurrentLocation()}>
-                                <Text style={{fontSize:16, fontFamily:'Gilroy-Bold', color:'#000', textAlign:'center'}}>
-                                    Seems like your location is off! {'\n'}
-                                    Select from the map or turn on the location and refresh.
-                                </Text>
-                               </TouchableOpacity>
-                                {/* <Text style={{fontSize:16, fontFamily:'Gilroy-Bold', color:'#000', textAlign:'center'}}>Kindly turn on the loaction and <TouchableOpacity style={{transform:[{translateY:10}]}} onPress={() => getCurrentLocation()}><Text style={{fontSize:16, fontFamily:'Gilroy-Bold', color:'#4285f4'}}>refresh</Text></TouchableOpacity> the page or choose from the map.</Text> */}
-                            </View>
+                    //         <View style={{width:'70%', marginLeft:'15%'}}>
+                    //            <TouchableOpacity onPress={() => getCurrentLocation()}>
+                    //             <Text style={{fontSize:16, fontFamily:'Gilroy-Bold', color:'#000', textAlign:'center'}}>
+                    //                 Seems like your location is off! {'\n'}
+                    //                 Select from the map or turn on the location and refresh.
+                    //             </Text>
+                    //            </TouchableOpacity>
+                    //         </View>
 
-                        </>
-                    ) : (
+                    //     </>
+                    // ) : (
+                    //     <>
+                    //         <FlatList
+                    //             data={resTaurents}
+                    //             renderItem={({ item, index }) => (
+                    //                 mcCards(item, index, navigation)
+                    //             )}
+                    //             keyExtractor={item => item.id}
+                    //             showsVerticalScrollIndicator={false}
+                    //             showsHorizontalScrollIndicator={false}
+                    //             ListHeaderComponent={
+                    //                 <View style={{ padding: 20 }}>
+                    //                     <Text style={{ fontSize: moderateScale(17), fontFamily: 'Gilroy-Bold' }}>All Restaurants</Text>
+                    //                 </View>
+                    //             }
+                    //         />
+                    //     </>
+                    // )
+
                         <>
                             <FlatList
                                 data={resTaurents}
@@ -225,7 +245,6 @@ const Home = ({ navigation, route }) => {
                                 }
                             />
                         </>
-                    )
                 }
 
             </SafeAreaView>

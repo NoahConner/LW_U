@@ -14,6 +14,7 @@ import Geolocation from '@react-native-community/geolocation';
 import AppContext from '../components/appcontext'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Geocoder from 'react-native-geocoding';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width, height } = Dimensions.get('window');
 
@@ -128,70 +129,74 @@ class MarkerTypes extends React.Component {
 
   }
   saveReion() {
+    // this.context.setsetcurrentLatLng(this.state.region)
     this.props.navigation.navigate('Home', this.state.region)
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <SCheader navigation={this.props.navigation} backbutton={true} name={'Map'} wallet={false} />
-        <View style={{ position: 'absolute', bottom: moderateScale(50), left: 0, zIndex: 9999, width: '100%', paddingHorizontal: 20 }}>
-          <View>
-            <View style={{ alignItems: 'flex-end' }}>
-              <TouchableOpacity style={{ paddingVertical: 10, paddingHorizontal: 8, backgroundColor: '#fff', borderRadius: 50, elevation: 5, marginBottom: 20, width: 43 }} onPress={() => this.currentLocation()}>
-                <Cloc style={{ fill: '#2196F3', height: 25, width: 25 }} />
-              </TouchableOpacity>
-            </View>
-            <Button
-              title="Save"
-              type="solid"
-              onPress={() => this.saveReion()}
-              buttonStyle={{
-                backgroundColor: '#1E3865',
-                padding: 15,
-                borderRadius: 15,
+        <View style={{zIndex:12, position:'relative',  height:moderateScale(height-100, 0.1), width:'100%'}}>
+          <View style={{ position: 'absolute', top: moderateScale(70, 0.1), left: 0, zIndex: 9999, width: '100%', paddingHorizontal: 20 }}>
+            <GooglePlacesAutocomplete
+              placeholder='Enter Location'
+              minLength={2}
+              autoFocus={false}
+              returnKeyType={'default'}
+              fetchDetails={true}
+              onPress={(data, details = null) => {
+                this.getPysicalAddress(data)
               }}
+              styles={{
+                textInput: {
+                  height: 42,
+                  color: '#5d5d5d',
+                  fontSize: 16,
+                  color: '#000',
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 4,
+                  },
+                  shadowOpacity: 0.32,
+                  shadowRadius: 5.46,
+
+                  elevation: 9,
+                },
+                predefinedPlacesDescription: {
+                  color: '#000',
+                },
+              }}
+              query={{
+                key: 'AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA',
+                language: 'en',
+              }}
+              currentLocation={true}
+              currentLocationLabel='Current location'
             />
           </View>
         </View>
-        <View style={{ position: 'absolute', top: moderateScale(70), left: 0, zIndex: 9999, width: '100%', paddingHorizontal: 20 }}>
-          <GooglePlacesAutocomplete
-            placeholder='Enter Location'
-            minLength={2}
-            autoFocus={false}
-            returnKeyType={'default'}
-            fetchDetails={true}
-            onPress={(data, details = null) => {
-              this.getPysicalAddress(data)
-            }}
-            styles={{
-              textInput: {
-                height: 42,
-                color: '#5d5d5d',
-                fontSize: 16,
-                color: '#000',
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 4,
-                },
-                shadowOpacity: 0.32,
-                shadowRadius: 5.46,
 
-                elevation: 9,
-              },
-              predefinedPlacesDescription: {
-                color: '#000',
-              },
-            }}
-            query={{
-              key: 'AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA',
-              language: 'en',
-            }}
-            currentLocation={true}
-            currentLocationLabel='Current location'
-          />
-        </View>
+        <View style={{ position: 'absolute', bottom: moderateScale(60), left: 0, zIndex: 9999, width: '100%', paddingHorizontal: 20 }}>
+            <View>
+              <View style={{ alignItems: 'flex-end' }}>
+                <TouchableOpacity style={{ paddingVertical: 10, paddingHorizontal: 8, backgroundColor: '#fff', borderRadius: 50, elevation: 5, marginBottom: 20, width: 43 }} onPress={() => this.currentLocation()}>
+                  <Cloc style={{ fill: '#2196F3', height: 25, width: 25 }} />
+                </TouchableOpacity>
+              </View>
+              <Button
+                title="Save"
+                type="solid"
+                onPress={() => this.saveReion()}
+                buttonStyle={{
+                  backgroundColor: '#1E3865',
+                  padding: 15,
+                  borderRadius: 15,
+                }}
+              />
+            </View>
+          </View>
         <MapView
           ref={mapRef}
           provider={this.props.provider}
@@ -203,7 +208,7 @@ class MarkerTypes extends React.Component {
         <View style={styles.markerFixed}>
           <Image source={{ uri: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png" }} style={{ height: 35, width: 35 }} />
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }

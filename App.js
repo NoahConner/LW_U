@@ -155,34 +155,11 @@ const App = (navigation) => {
   }
 
   const myDataR = () => {
-    // axiosconfig.get(`admin/my_data`,
-    // {
-    //     headers: {
-    //       Authorization: 'Bearer ' + userToken //the token is a variable which holds the token
-    //     }
-    //    }
-    // ).then((res:any)=>{
-    //     console.log(res,'myData');
-    //     setMyData(res.data);
-    //     setprofileImagee(res.data.image);
-    // }).catch((err)=>{
-    //     console.log(err.response);
-    // })
+    
   }
 
   const getWallet = () => {
-    // axiosconfig.get(`admin/current_wallet`,
-    // {
-    //     headers: {
-    //       Authorization: 'Bearer ' + userToken //the token is a variable which holds the token
-    //     }
-    //    }
-    // ).then((res:any)=>{
-    //     console.log(res,'wallet')
-    //     setWalletAmount(res.data.wallet)
-    // }).catch((err)=>{
-    //     console.log(err.response);
-    // })
+
   }
 
   useEffect(() => {
@@ -208,8 +185,6 @@ const App = (navigation) => {
           drawerStyle: {
             drawerBackgroundColor: 'transparent',
             width: '80%',
-            // borderTopEndRadius:25,
-            // borderBottomEndRadius:25,
             overflow: 'hidden',
           },
           swipeEnabled: userToken == null ? false : true
@@ -237,3 +212,7 @@ const styles = StyleSheet.create({
     flex: 1
   }
 })
+
+
+
+ 
