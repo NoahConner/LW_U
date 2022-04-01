@@ -109,6 +109,7 @@ const ConfirmPayment = ({navigation,route })=>{
             setLoader(false)
             setCards(res.data)
             SetcardSelect(res.data[0].id)
+            SetcardSelected(res.data[0])
             // myContext.setpaymentmethods(res.data)
         }).catch((err)=>{
             console.log(err)
