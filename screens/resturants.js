@@ -80,7 +80,7 @@ const Resturants = ({route, navigation}) => {
 
     const generateCoupon = async()=>{
         console.log('abc')
-        if(leaperName == null){
+        if(leaperName == null || leaperName.trim() == ''){
             showToast('error', 'Leaper name required!')
             return false
         }
@@ -95,7 +95,7 @@ const Resturants = ({route, navigation}) => {
         let dt = {
             deal_id:currentDeal.id,
             user_id:myContext.myData.id,
-            leaper_name:leaperName.toLowerCase(),
+            leaper_name:leaperName.toLowerCase().trim(),
             leaper_dob:moment(datePick).format('MM-D-yy'),
             coupon:coupon
         }

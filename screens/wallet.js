@@ -246,7 +246,7 @@ const Wallet = ({ navigation }) => {
                                     )
                                 })
                             }
-                            <TouchableOpacity style={{ marginTop: 20, alignItems:'center' }} onPress={() => navigation.navigate('DonationHistory')}>
+                            <TouchableOpacity style={{ marginTop: 20, alignItems:'center' }} onPress={() => navigation.navigate('DepositHistory')}>
                                 <Text style={{ color: '#fff', textAlign: 'center', backgroundColor:'#00205b', width:moderateScale(90, 0.1), paddingVertical:moderateScale(8), borderRadius:10 }}>See More</Text>
                             </TouchableOpacity>
                         </SafeAreaView>
@@ -264,7 +264,7 @@ const Wallet = ({ navigation }) => {
                                     )
                                 })
                             }
-                            <TouchableOpacity style={{ marginTop: 20, alignItems:'center' }} onPress={() => navigation.navigate('DepositHistory')}>
+                            <TouchableOpacity style={{ marginTop: 20, alignItems:'center' }} onPress={() => navigation.navigate('DonationHistory')}>
                             <Text style={{ color: '#fff', textAlign: 'center', backgroundColor:'#00205b', width:moderateScale(90, 0.1), paddingVertical:moderateScale(8), borderRadius:10 }}>See More</Text>
                             </TouchableOpacity>
                         </View>
