@@ -10,7 +10,6 @@ import {  moderateScale } from 'react-native-size-matters';
 const SCheader = ({navigation,backbutton,name,wallet}) => {
 
     const appContext = useContext(AppContext)
-
     return(
         <View style={{position:'absolute',zIndex:1000,width:Dimensions.get('window').width}}>
            <SafeAreaView>

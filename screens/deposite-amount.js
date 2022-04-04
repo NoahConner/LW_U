@@ -12,10 +12,10 @@ const DepositeAmount = ({navigation})=>{
 
     const myContext = useContext(AppContext);
     const [customAmount,SetcustomAmount] = useState(null)
-    const createTwoButtonAlert = () =>
+    const createTwoButtonAlert = (m) =>
     Alert.alert(
       "Error",
-      "!Deposit amount must be greater or equal than $10.",
+      m,
     //   [
     //     {
     //       text: "Cancel",
@@ -27,7 +27,7 @@ const DepositeAmount = ({navigation})=>{
     );
     const verifyAmont = ()=> {
         if(customAmount < 10){
-            createTwoButtonAlert()
+            createTwoButtonAlert('!Deposit amount must be greater or equal than $10.')
         }else{
             navigation.navigate('ConfirmPayment',{amount:customAmount})
         }
@@ -75,6 +75,7 @@ const DepositeAmount = ({navigation})=>{
                         onChangeText={(amountt) => SetcustomAmount(amountt)}
                         inputStyle={{padding:0,margin:0,fontSize: moderateScale(13),fontFamily:'Gilroy-Medium'}}
                         leftIcon={{ type: 'font-awesome', name: 'dollar',color:'#666' }}
+                        keyboardType='numeric'
                     />
                 </View>
                 <View style={{position: 'absolute',bottom:15,width:'100%',left:20}}>

@@ -63,6 +63,7 @@ const Login = ({navigation})=>{
         setLoader(true)
         await axiosconfig.post('app/login',data).then((res:any)=>{
             setLoader(false)
+            console.log(res)
             if(res.data.error){
                 showToast('error',res.data.error_description);
             }else{
