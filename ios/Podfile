@@ -26,6 +26,8 @@ target 'LeaperWay' do
 
   pod 'RNShare', :path => '../node_modules/react-native-share'
 
+  pod 'RNInAppBrowser', :path => '../node_modules/react-native-inappbrowser-reborn'
+
   target 'LeaperWayTests' do
     inherit! :complete
     # Pods for testing

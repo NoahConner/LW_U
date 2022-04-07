@@ -85,18 +85,6 @@ const Profile = ({ navigation }) => {
               }}>
               First Name
             </Text>
-            {/* <Input
-              placeholder="Jacob"
-              containerStyle={{
-                ...styles.textContainerStyle,
-                marginBottom: 10,
-              }}
-              inputContainerStyle={{
-                ...styles.inputContainerStyle,
-              }}
-              onChangeText={t => setFormVal(t)}
-              value={myData?.name.split(' ')[0]}
-            /> */}
             <Input
               placeholder={myData?.name.split(' ')[0]}
               containerStyle={{
@@ -107,7 +95,6 @@ const Profile = ({ navigation }) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={(t) => setFormVal(t)}
-              // value={myData?.name.split(' ')[0]}
             />
           </>
         ) : editCOn == 'lstname' ? (
