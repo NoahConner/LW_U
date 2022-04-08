@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">LeaperWay</string>
+
+<string name="facebook_app_id">591276069021931</string>
+<string name="fb_login_protocol_scheme">fb591276069021931</string>
+<string name="facebook_client_token">997227308baa9a603d9ca7e8b450581b</string>
+
+
 </resources>
