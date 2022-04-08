@@ -21,18 +21,15 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-// import {LoginButton, ShareDialog, LoginManager} from 'react-native-fbsdk';
-import {LoginManager} from 'react-native-fbsdk';
-import {LoginButton, AccessToken} from 'react-native-fbsdk';
-
-const SHARE_LINK_CONTENT = {
-  contentType: 'link',
-  contentUrl: 'https://www.facebook.com/',
-};
+import {
+  LoginManager,
+  LoginButton,
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+} from 'react-native-fbsdk';
 
 const Login = ({navigation}) => {
-  const [loggedIn, setloggedIn] = useState(false);
-  const [userInfo, setuserInfo] = useState([]);
   const [loader, setLoader] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -47,6 +44,48 @@ const Login = ({navigation}) => {
         '985514740212-9eek8v9paecm235sik8nv150vcnuma2e.apps.googleusercontent.com',
     });
   }, []);
+
+  const infoRequest = new GraphRequest(
+    '/me',
+    {
+      parameters: {
+        fields: {
+          string: 'email,name,picture',
+        },
+      },
+    },
+    (err, res) => {
+      if (res) {
+        console.log('response', res);
+      } else {
+        console.log('err', err);
+      }
+    },
+  );
+
+  const facebookLogin = () => {
+    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+      function (result) {
+        if (result.isCancelled) {
+          console.log('Login cancelled');
+        } else {
+          console.log(
+            'Login success with permissions: ' +
+              result.grantedPermissions.toString(),
+          );
+          AccessToken.getCurrentAccessToken().then(data => {
+            console.log('access token', data.accessToken.toString());
+          });
+
+          new GraphRequestManager().addRequest(infoRequest).start();
+        }
+      },
+      function (error) {
+        console.log('Login fail with error: ' + error);
+      },
+    );
+  };
+
   const _signIn = async () => {
     await GoogleSignin.hasPlayServices();
     await GoogleSignin.signIn()
@@ -70,45 +109,6 @@ const Login = ({navigation}) => {
           // some other error happened
         }
       });
-  };
-  const _signInFB = async () => {
-    await LoginManager.logInWithPermissions(['public_profile']).then(
-      function (result) {
-        if (result.isCancelled) {
-          console.log('Login cancelled');
-        } else {
-          console.log(
-            'Login success with permissions: ' +
-              result.grantedPermissions.toString(),
-          );
-          AccessToken.getCurrentAccessToken().then(data => {
-            console.log(data.accessToken.toString());
-            console.log(result, 'result');
-            storeData(data.accessToken.toString());
-          });
-        }
-      },
-      function (error) {
-        console.log('Login fail with error: ' + error);
-      },
-    );
-  };
-  const _shareLinkWithShareDialog = async () => {
-    const canShow = await ShareDialog.canShow(SHARE_LINK_CONTENT);
-    if (canShow) {
-      try {
-        const {isCancelled, postId} = await ShareDialog.show(
-          SHARE_LINK_CONTENT,
-        );
-        if (isCancelled) {
-          alert('Share cancelled');
-        } else {
-          alert('Share success with postId: ' + postId);
-        }
-      } catch (error) {
-        alert('Share fail with error: ' + error);
-      }
-    }
   };
 
   const showToast = (t, e) => {
@@ -294,7 +294,7 @@ const Login = ({navigation}) => {
               color: '#1E3865',
               fontWeight: 'bold',
             }}
-            onPress={() => _signInFB()}
+            onPress={() => facebookLogin()}
             icon={
               <FacebookIcon
                 style={{
