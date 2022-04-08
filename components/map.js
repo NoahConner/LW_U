@@ -172,6 +172,7 @@ class MarkerTypes extends React.Component {
               onPress={(data, details = null) => {
                 this.getPysicalAddress(data);
               }}
+              textInputProps={{ placeholderTextColor: '#999' }}
               styles={{
                 textInput: {
                   height: 42,

@@ -1,5 +1,5 @@
-import React, { Component,useState,useContext, useEffect } from "react";
-import { StyleSheet, View, Switch,Modal,Alert,Pressable } from "react-native";
+import React, { useCallback,useState,useContext, useEffect } from "react";
+import { StyleSheet, View, Switch,Modal,Alert,Linking } from "react-native";
 import { CheckBox ,Button,Text,Icon,Image  } from 'react-native-elements'
 import ReviewImg from '../assets/svg/review.svg'
 import VisaIcon from '../assets/svg/visa.svg'
@@ -15,11 +15,16 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {  moderateScale } from 'react-native-size-matters';
 import axiosconfig from '../providers/axios';
 import Loader from '../screens/loader';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn'
+import {openLink, tryDeepLinking} from './../utils';
 
 const ReviewPayment = ({navigation,amount,cardSelect, cardSelected})=>{
 
     const myContext = useContext(AppContext);
     const [loader, setLoader] = useState(false);
+    const [url, setUrl] = useState('https://google.com');
+    const [statusBarStyle] = useState('dark-content');
+
     const depositeAmount = ()=>{
         // myContext.setWalletAmount(amount)
         // myContext.setCongratesModal(true)
@@ -46,7 +51,12 @@ const ReviewPayment = ({navigation,amount,cardSelect, cardSelected})=>{
             console.log(res, 'ress')
             setLoader(false)
             getWallet()
-            myContext.setCongratesModal(true)
+            // openLink(res.data.url)
+            setUrl(res.data.url)
+            setTimeout(() => {
+                onOpenLink(res.data.url)
+            });
+            // myContext.setCongratesModal(true)
         }).catch((err)=>{
             console.log(err.response,  'ress000')
             setLoader(false)
@@ -79,6 +89,54 @@ const ReviewPayment = ({navigation,amount,cardSelect, cardSelected})=>{
         var cNoo = '**** '+splitt[lenghter-1]
         return cNoo
     }
+
+    // const openLink = async(uri) => {
+    //     try {
+    //       const url = uri
+    //       if (await InAppBrowser.isAvailable()) {
+    //         const result = await InAppBrowser.open(url, {
+    //           // iOS Properties
+    //           dismissButtonStyle: 'cancel',
+    //           preferredBarTintColor: '#453AA4',
+    //           preferredControlTintColor: 'white',
+    //           readerMode: false,
+    //           animated: true,
+    //           modalPresentationStyle: 'fullScreen',
+    //           modalTransitionStyle: 'coverVertical',
+    //           modalEnabled: true,
+    //           enableBarCollapsing: false,
+    //           // Android Properties
+    //           showTitle: true,
+    //           toolbarColor: '#6200EE',
+    //           secondaryToolbarColor: 'black',
+    //           navigationBarColor: 'black',
+    //           navigationBarDividerColor: 'white',
+    //           enableUrlBarHiding: true,
+    //           enableDefaultShare: true,
+    //           forceCloseOnRedirection: false,
+    //           // Specify full animation resource identifier(package:anim/name)
+    //           // or only resource name(in case of animation bundled with app).
+    //           animations: {
+    //             startEnter: 'slide_in_right',
+    //             startExit: 'slide_out_left',
+    //             endEnter: 'slide_in_left',
+    //             endExit: 'slide_out_right'
+    //           },
+    //           headers: {
+    //             'my-custom-header': 'Leaperway Payment'
+    //           }
+    //         })
+    //         Alert.alert(JSON.stringify(result))
+    //       }
+    //       else Linking.openURL(url)
+    //     } catch (error) {
+    //       Alert.alert(error.message)
+    //     }
+    // }
+
+    const onOpenLink = useCallback(async (uri) => {
+        await openLink(uri, statusBarStyle);
+      }, [url, statusBarStyle]);
 
     return(
         <View style={{padding:20}}>
