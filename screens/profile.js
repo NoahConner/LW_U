@@ -116,7 +116,7 @@ const Profile = ({ navigation }) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={t => setFormVal(t)}
-              // value={myData?.name.split(' ')[1]}
+            // value={myData?.name.split(' ')[1]}
             />
           </>
         ) : editCOn == 'email' ? (
@@ -138,7 +138,7 @@ const Profile = ({ navigation }) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={t => setFormVal(t)}
-              // value={myData?.email}
+            // value={myData?.email}
             />
           </>
         ) : editCOn == 'phone' ? (
@@ -160,7 +160,7 @@ const Profile = ({ navigation }) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={t => setFormVal(t)}
-              // value={myData?.phone}
+            // value={myData?.phone}
             />
           </>
         ) : editCOn == 'password' ? (
@@ -197,7 +197,7 @@ const Profile = ({ navigation }) => {
   };
 
   const openCamer = c => {
- 
+
     if (c == 'g') {
       launchImageLibrary({
         width: 300,
@@ -208,10 +208,10 @@ const Profile = ({ navigation }) => {
       })
         .then(image => {
           myContext.setprofileImagee(image.assets[0].uri);
-      
+
           imageUpload(image);
         })
-        .catch(error => { 
+        .catch(error => {
           console.log(error)
         });
     } else if (c == 'c') {
@@ -223,13 +223,13 @@ const Profile = ({ navigation }) => {
         saveToPhotos: true
       })
         .then(image => {
-        
+
           myContext.setprofileImagee(image.assets[0].uri);
           imageUpload(image);
         })
         .catch(error => {
           console.log(error)
-         });
+        });
     }
     refRBSheet.current.close();
   };
@@ -263,6 +263,7 @@ const Profile = ({ navigation }) => {
 
   useEffect(() => {
     getRecords();
+    console.log('ki')
   }, []);
 
   const userForm = async () => {
@@ -291,7 +292,7 @@ const Profile = ({ navigation }) => {
 
   };
 
-  const updateData = async(data) => {
+  const updateData = async (data) => {
     setLoader(true);
     await axiosconfig
       .post(`admin/user_edit/${myContext.myData.id}`, data, {
@@ -313,32 +314,32 @@ const Profile = ({ navigation }) => {
 
   const imageUpload = async img => {
     let data = {
-      image:null
+      image: null
     }
     RNFS.readFile(img.assets[0].uri, 'base64')
       .then(res => {
-      
+
         data.image = res;
 
         setLoader(true);
-        axiosconfig.post('admin/react_image_upload', {image:res}, {
+        axiosconfig.post('admin/react_image_upload', { image: res }, {
           headers: {
             Authorization: 'Bearer ' + myContext.userToken, //the token is a variable which holds the token
           },
-        }).then((res)=>{
+        }).then((res) => {
           myContext.setprofileImagee(res.data.data.image_url);
-          updateData({image:res.data.data.image_url})
+          updateData({ image: res.data.data.image_url })
           setLoader(false);
-        }).catch(err=>{
+        }).catch(err => {
           console.log(err.response)
           setLoader(false);
         })
 
       });
 
-      
-      
-      // updateData(data)
+
+
+    // updateData(data)
   };
 
   return (
@@ -364,9 +365,9 @@ const Profile = ({ navigation }) => {
             <Image
               source={{
                 uri:
-                myContext?.profileImagee == null
-                  ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-                  : myContext?.profileImagee,
+                  myContext?.profileImagee == null
+                    ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                    : myContext?.profileImagee,
               }}
               style={{ width: 120, height: 120, resizeMode: 'cover' }}
               PlaceholderContent={<ActivityIndicator />}
@@ -402,11 +403,17 @@ const Profile = ({ navigation }) => {
         <View style={styles.mainCard}>
           <Text style={styles.nameF}>Email</Text>
           <Text style={styles.nameB}>{myData?.email}</Text>
-          <TouchableOpacity
-            style={{ position: 'absolute', right: 15, top: 10 }}
-            onPress={() => openSheet('email')}>
-            <EditIcon style={{ height: 35, width: 20 }} />
-          </TouchableOpacity>
+          {/* {
+            myData && myData.userfrom == 'NORMAL' ? (
+              <>
+                <TouchableOpacity
+                  style={{ position: 'absolute', right: 15, top: 10 }}
+                  onPress={() => openSheet('email')}>
+                  <EditIcon style={{ height: 35, width: 20 }} />
+                </TouchableOpacity>
+              </>
+            ) : null
+          } */}
         </View>
 
         <View style={styles.mainCard}>
@@ -422,11 +429,17 @@ const Profile = ({ navigation }) => {
         <View style={{ ...styles.mainCard, marginBottom: 40 }}>
           <Text style={styles.nameF}>Password</Text>
           <Text style={styles.nameB}>**********</Text>
-          <TouchableOpacity
-            style={{ position: 'absolute', right: 15, top: 10 }}
-            onPress={() => openSheet('password')}>
-            <EditIcon style={{ height: 35, width: 20 }} />
-          </TouchableOpacity>
+          {
+            myData && myData.userfrom == 'NORMAL' ? (
+              <>
+                <TouchableOpacity
+                  style={{ position: 'absolute', right: 15, top: 10 }}
+                  onPress={() => openSheet('password')}>
+                  <EditIcon style={{ height: 35, width: 20 }} />
+                </TouchableOpacity>
+              </>
+            ) : null
+          }
         </View>
       </ScrollView>
 

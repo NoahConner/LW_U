@@ -37,13 +37,12 @@ const SPACE = 0.01;
 const mapRef = React.createRef();
 
 function log(eventName, e) {
-  console.log(eventName, e.nativeEvent);
+
 }
 
 class MarkerTypes extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.route.params);
     this.state = {
       a: {
         latitude: props.route.params.latitude + SPACE,
@@ -63,7 +62,6 @@ class MarkerTypes extends React.Component {
   }
 
   setRegion = e => {
-    console.log(e);
     this.setState({
       region: {
         latitude: e.latitude,
@@ -75,13 +73,11 @@ class MarkerTypes extends React.Component {
   };
 
   getPysicalAddress = location => {
-    console.log(location, 'location');
     Geocoder.init('AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA');
     setTimeout(() => {
       Geocoder.from(location.description)
         .then(json => {
           var location = json.results[0].geometry.location;
-          console.log(location);
           this.setState({
             region: {
               latitude: location.lat,
@@ -110,7 +106,6 @@ class MarkerTypes extends React.Component {
       timeout: 15000,
     })
       .then(location => {
-        console.log(location, 'location');
         this.setState({
           region: {
             latitude: location.latitude,
@@ -125,7 +120,6 @@ class MarkerTypes extends React.Component {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         });
-        console.log(this.state.region);
       })
       .catch(error => {
         const {code, message} = error;

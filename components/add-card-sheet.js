@@ -18,7 +18,6 @@ const AddCardSheet = ({navigation,statement}) => {
     var allCards = myContext.paymentmethods
     const _onChange = (formData) => {
       newCard = formData
-      console.log(JSON.stringify(newCard, null, " "),'sd')
     };
     const _onFocus = (field) => console.log("focusing", field);
     const [checked,setChecked] = useState(true);
@@ -54,7 +53,6 @@ const AddCardSheet = ({navigation,statement}) => {
             }
            }
         ).then((res:any)=>{
-            console.log(res)
             setLoader(false)
             myContext.setcloseAllSheets(true)
         }).catch((err)=>{

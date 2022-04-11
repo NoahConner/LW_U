@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, CheckBox, Button } from 'react-native-elements';
 import FacebookIcon from '../assets/svg/facebook.svg'
@@ -8,21 +8,39 @@ import { moderateScale } from 'react-native-size-matters';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import axiosconfig from '../providers/axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppContext from '../components/appcontext';
 import Loader from './loader';
+import {
+    GoogleSignin,
+    GoogleSigninButton,
+    statusCodes,
+  } from '@react-native-google-signin/google-signin';
+  import {
+    LoginManager,
+    LoginButton,
+    AccessToken,
+    GraphRequest,
+    GraphRequestManager,
+  } from 'react-native-fbsdk';
 
 const windowHeight = Dimensions.get('window').height;
 const SignIn = ({ navigation }) => {
 
     const [remember, setRemember] = useState(false);
     const [signData, setSignData] = useState([]);
-    const [loader, setLoader] = useState(false)
+    const [loader, setLoader] = useState(false);
+    const context = useContext(AppContext);
 
     const showToast = (t, e) => {
 
-        Toast.show({
-            type: t,
-            text1: e,
-        })
+        Alert.alert(
+            t,
+            e,
+            [
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+        );
     }
 
     useEffect(() => {
@@ -35,10 +53,33 @@ const SignIn = ({ navigation }) => {
             'opt': null
         }
         setSignData(DoP);
+        GoogleSignin.configure({
+            androidClientId:
+              '985514740212-uiai0l1g8j0ha2eqlojfubgi737vd6bd.apps.googleusercontent.com',
+            webClientId:
+              '985514740212-9eek8v9paecm235sik8nv150vcnuma2e.apps.googleusercontent.com',
+        });
+        console.log('data')
     }, [])
 
+    const storeData = async (value) => {
+        try {
+          await AsyncStorage.setItem('@auth_token', value);
+          context.setuserToken(value);
+          setTimeout(() => {
+            navigation.navigate('Home')
+          }, 1000);
+        } catch (e) {
+    
+        }
+      }
+
     const setFormDatat = (e, t) => {
-        signData[t] = e;
+        if (t == 'email') {
+            signData[t] = e.toLowerCase();
+        } else {
+            signData[t] = e;
+        }
         setSignData(signData);
     }
 
@@ -62,21 +103,20 @@ const SignIn = ({ navigation }) => {
 
         setLoader(true)
 
-
-        await axiosconfig.get(`app/check-mail/${signData.email}`).then((res: any) => {
-
+        console.log(signData.email)
+        await axiosconfig.post('app/check-email', { email: signData.email }).then((res: any) => {
             if (res.status == 200) {
                 otpSend()
             } else {
                 setLoader(false)
                 showToast('error', res.data.message)
+                console.log(res)
             }
         }).catch((err) => {
-
             setLoader(false)
+            console.log(err.response)
             showToast('error', err.response.data.message)
         })
-
 
     }
 
@@ -98,6 +138,75 @@ const SignIn = ({ navigation }) => {
         else {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
+    }
+
+    const _signIn = async () => {
+        await GoogleSignin.hasPlayServices();
+        await GoogleSignin.signIn()
+          .then(user => {
+            checkMail(user.user)
+          })
+          .catch(error => {
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+              // user cancelled the login flow
+              alert('Cancel');
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+              alert('Signin in progress');
+              // operation (f.e. sign in) is in progress already
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+              alert('PLAY_SERVICES_NOT_AVAILABLE');
+              // play services not available or outdated
+            } else {
+              console.log('some other', error);
+              // some other error happened
+            }
+          });
+      };
+
+    const checkMail = async(d) => {
+        setLoader(true)
+
+        let data = {
+            name:d.name,
+            email:d.email,
+            password:d.id,
+            type:'user',
+            userfrom:'GOOGLE',
+            image:d.photo
+        }
+
+        console.log(data)
+
+        await axiosconfig.post('app/check-email', { email: data.email }).then((res: any) => {
+            if (res.status == 200) {
+                axiosconfig.post('app/google-register', data).then((res: any) => {
+                    setLoader(false)
+                    storeData(res.data.access_token)
+                }).catch((err) => {
+                    setLoader(false)
+                    showToast('error', err.response.data.message)
+                })
+            } else {
+                login(data)
+            }
+        }).catch((err) => {
+            login(data)
+        })
+    }
+
+    const login = (data) => {
+        axiosconfig.post('app/login', data).then((res: any) => {
+          setLoader(false);
+          if (res.data.error) {
+            showToast('error', res.data.error_description);
+          } else {
+            storeData(res.data.access_token);
+          }
+        })
+        .catch(err => {
+          setLoader(false);
+          showToast('error', 'Invalid Credentials');
+        });
     }
 
     return (
@@ -211,6 +320,7 @@ const SignIn = ({ navigation }) => {
                                 color: '#1E3865',
                                 fontWeight: 'bold',
                             }}
+                            onPress={() => _signIn()}
                             icon={
                                 <GoogleIcon
                                     style={{
@@ -245,7 +355,7 @@ const styles = StyleSheet.create({
         paddingLeft: 30,
         paddingRight: 30,
         paddingBottom: 20,
-        paddingTop:40
+        paddingTop: 40
     },
     textContainerStyle: {
         width: '100%',

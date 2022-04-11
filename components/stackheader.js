@@ -5,7 +5,7 @@ import {  moderateScale } from 'react-native-size-matters';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const StackHeader = ({navigation,name})=>{
-    console.log(name)
+   
     return(
         <View style={styles.header}>
             <SafeAreaView>

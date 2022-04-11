@@ -40,7 +40,6 @@ const ReviewPayment = ({navigation,amount,cardSelect, cardSelected})=>{
         }
 
         setLoader(true)
-        console.log(myContext.userToken, 'myContext.userToken')
         await axiosconfig.post(`admin/deposite`,data,
         {
             headers: {
@@ -48,7 +47,7 @@ const ReviewPayment = ({navigation,amount,cardSelect, cardSelected})=>{
             }
            }
         ).then((res:any)=>{
-            console.log(res, 'ress')
+      
             setLoader(false)
             getWallet()
             // openLink(res.data.url)
@@ -72,7 +71,7 @@ const ReviewPayment = ({navigation,amount,cardSelect, cardSelected})=>{
             }
            }
         ).then((res:any)=>{
-            console.log(res,'wallet')
+           
             myContext.setWalletAmount(res.data.wallet)
         }).catch((err)=>{
             console.log(err.response);
@@ -80,7 +79,7 @@ const ReviewPayment = ({navigation,amount,cardSelect, cardSelected})=>{
     }
 
     useEffect(() => {
-      console.log(cardSelected, 'cardSelected')
+      
     }, [])
     
     const splitNo = (c) => {
