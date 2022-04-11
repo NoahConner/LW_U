@@ -54,7 +54,6 @@ const DrawerContent = ({navigation}) => {
     } catch (e) {}
   };
 
-<<<<<<< HEAD
   const nameSpliter = n => {
     if (n) {
       let c = n?.split(' ');
@@ -63,73 +62,6 @@ const DrawerContent = ({navigation}) => {
       let c2 = '';
       if (c[1]) {
         c2 = c[1][0].toUpperCase();
-=======
-    const myContext = useContext(AppContext);
-    const [toggleIcon, settoggleIcon] = useState(false);
-    const [myD, setmyD] = useState(false);
-    const [collapse, setCollapse] = useState(true);
-    const [collapse2, setCollapse2] = useState(true);
-    const storeData = async (value) => {
-        try {
-            await AsyncStorage.removeItem('@auth_token');
-            myContext.setuserToken(value);
-        } catch (e) {
-
-        }
-    }
-
-    const nameSpliter = (n) => {
-
-        if (n) {
-            let c = n?.split(' ')
-            let c1  = c[0][0];
-            let c2 = '';
-            if(c[1]){
-                c2 = c[1][0].toUpperCase();
-            }
-            let sp = c1+c2
-            return sp
-        }
-    }
-
-    useEffect(() => {
-        myDataR();
-        setTimeout(() => {
-            myDataR();
-        }, 1000);
-    }, [])
-
-    const myDataR = async () => {
-        const value = await AsyncStorage.getItem('@auth_token');
-        await axiosconfig.get(`admin/my_data`,
-            {
-                headers: {
-                    Authorization: 'Bearer ' + value //the token is a variable which holds the token
-                }
-            }
-        ).then((res: any) => {
-            myContext.setMyData(res.data)
-            setmyD(res.data)
-        }).catch((err) => {
-            console.log(err.response)
-        })
-    }
-
-    const shareOptions = {
-        title: 'Leaper way',
-        // message: 'Leaper way Share Url',
-        url: myContext.appUrl,
-      };
-    
-      const share = async () => {
-        Share.open(shareOptions)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          err && console.log(err);
-        });
->>>>>>> 9ede95b1a4725a19a674a06732d4632a63e71e7f
       }
       let sp = c1 + c2;
       return sp;

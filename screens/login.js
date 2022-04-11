@@ -30,7 +30,6 @@ import {
 } from 'react-native-fbsdk-next';
 
 const Login = ({navigation}) => {
-  const [userToken, setUserToken] = useState('');
   const [loader, setLoader] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -58,10 +57,9 @@ const Login = ({navigation}) => {
     (err, res) => {
       if (res) {
         console.log('response', res);
-        alert(`${res.name} ${res.email} User Logged in Successfully`);
-        storeData(userToken);
+        loginForm(res, true);
       } else {
-        console.log('err', err);
+        showToast('error', err);
       }
     },
   );
@@ -71,22 +69,17 @@ const Login = ({navigation}) => {
       LoginManager.logInWithPermissions(['public_profile', 'email']).then(
         function (result) {
           if (result.isCancelled) {
-            console.log('Login cancelled');
+            alert('Login Cancelled');
           } else {
             console.log(
               'Login success with permissions: ' +
                 result.grantedPermissions.toString(),
             );
-
-            AccessToken.getCurrentAccessToken().then(data => {
-              console.log('access token', data.accessToken.toString());
-              setUserToken(data.accessToken.toString());
-            });
             new GraphRequestManager().addRequest(infoRequest).start();
           }
         },
         function (error) {
-          console.log('Login fail with error: ' + error);
+          alert('Login fail with error: ' + error);
         },
       );
     } catch (nativeError) {
@@ -95,20 +88,18 @@ const Login = ({navigation}) => {
         LoginManager.logInWithPermissions(['public_profile', 'email']).then(
           function (result) {
             if (result.isCancelled) {
-              console.log('Login cancelled');
+              showToast('Alert', 'Login Cancelled');
             } else {
               console.log(
                 'Login success with permissions: ' +
                   result.grantedPermissions.toString(),
               );
-              AccessToken.getCurrentAccessToken().then(data => {
-                console.log('access token', data.accessToken.toString());
-              });
+
               new GraphRequestManager().addRequest(infoRequest).start();
             }
           },
           function (error) {
-            console.log('Login fail with error: ' + error);
+            alert('Login fail with error: ' + error);
           },
         );
       } catch (webError) {
@@ -121,21 +112,20 @@ const Login = ({navigation}) => {
     await GoogleSignin.hasPlayServices();
     await GoogleSignin.signIn()
       .then(user => {
-        console.log('user', user);
-        storeData(user.idToken.toString());
+        loginForm(user.user, true);
       })
       .catch(error => {
         if (error.code === statusCodes.SIGN_IN_CANCELLED) {
           // user cancelled the login flow
-          alert('Cancel');
+          showToast('error', 'Cancel');
         } else if (error.code === statusCodes.IN_PROGRESS) {
-          alert('Signin in progress');
+          showToast('error', 'Signin in progress');
           // operation (f.e. sign in) is in progress already
         } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-          alert('PLAY_SERVICES_NOT_AVAILABLE');
+          showToast('Error', 'PLAY_SERVICES_NOT_AVAILABLE');
           // play services not available or outdated
         } else {
-          console.log('some other', error);
+          showToast('Error', error);
           // some other error happened
         }
       });
@@ -156,24 +146,24 @@ const Login = ({navigation}) => {
     } catch (e) {}
   };
 
-  const loginForm = async () => {
+  const loginForm = async (d, option) => {
     let data = {
-      email: email,
-      password: password,
+      email: option ? d.email : email,
+      password: option ? d.id : password,
       type: 'user',
     };
     var emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-    if (!emailReg.test(email)) {
+    if (!emailReg.test(data.email)) {
       showToast('error', 'Email Invalid!');
       return false;
     }
 
-    if (email == '' || email == null) {
+    if (data.email == '' || data.email == null) {
       showToast('error', 'Email Required!');
       return false;
     }
-    if (password == '' || password == null) {
+    if (data.password == '' || data.password == null) {
       showToast('error', 'Password Required!');
       return false;
     }
