@@ -27,9 +27,10 @@ import {
   AccessToken,
   GraphRequest,
   GraphRequestManager,
-} from 'react-native-fbsdk';
+} from 'react-native-fbsdk-next';
 
 const Login = ({navigation}) => {
+  const [userToken, setUserToken] = useState('');
   const [loader, setLoader] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -57,33 +58,63 @@ const Login = ({navigation}) => {
     (err, res) => {
       if (res) {
         console.log('response', res);
+        alert(`${res.name} ${res.email} User Logged in Successfully`);
+        storeData(userToken);
       } else {
         console.log('err', err);
       }
     },
   );
-
   const facebookLogin = () => {
-    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
-      function (result) {
-        if (result.isCancelled) {
-          console.log('Login cancelled');
-        } else {
-          console.log(
-            'Login success with permissions: ' +
-              result.grantedPermissions.toString(),
-          );
-          AccessToken.getCurrentAccessToken().then(data => {
-            console.log('access token', data.accessToken.toString());
-          });
+    try {
+      LoginManager.setLoginBehavior('NATIVE_ONLY');
+      LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+        function (result) {
+          if (result.isCancelled) {
+            console.log('Login cancelled');
+          } else {
+            console.log(
+              'Login success with permissions: ' +
+                result.grantedPermissions.toString(),
+            );
 
-          new GraphRequestManager().addRequest(infoRequest).start();
-        }
-      },
-      function (error) {
-        console.log('Login fail with error: ' + error);
-      },
-    );
+            AccessToken.getCurrentAccessToken().then(data => {
+              console.log('access token', data.accessToken.toString());
+              setUserToken(data.accessToken.toString());
+            });
+            new GraphRequestManager().addRequest(infoRequest).start();
+          }
+        },
+        function (error) {
+          console.log('Login fail with error: ' + error);
+        },
+      );
+    } catch (nativeError) {
+      try {
+        LoginManager.setLoginBehavior('WEB_ONLY');
+        LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+          function (result) {
+            if (result.isCancelled) {
+              console.log('Login cancelled');
+            } else {
+              console.log(
+                'Login success with permissions: ' +
+                  result.grantedPermissions.toString(),
+              );
+              AccessToken.getCurrentAccessToken().then(data => {
+                console.log('access token', data.accessToken.toString());
+              });
+              new GraphRequestManager().addRequest(infoRequest).start();
+            }
+          },
+          function (error) {
+            console.log('Login fail with error: ' + error);
+          },
+        );
+      } catch (webError) {
+        alert('facebook login failed ', webError);
+      }
+    }
   };
 
   const _signIn = async () => {
@@ -91,8 +122,7 @@ const Login = ({navigation}) => {
     await GoogleSignin.signIn()
       .then(user => {
         console.log('user', user);
-        storeData(user.idToken);
-        setuserInfo(user);
+        storeData(user.idToken.toString());
       })
       .catch(error => {
         if (error.code === statusCodes.SIGN_IN_CANCELLED) {
