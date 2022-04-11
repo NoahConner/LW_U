@@ -56,7 +56,6 @@ const DrawerContent = ({ navigation }) => {
 
         if (n) {
             let c = n?.split(' ')
-            console.log(c, 'cc')
             let c1  = c[0][0];
             let c2 = '';
             if(c[1]){

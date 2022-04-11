@@ -144,7 +144,6 @@ const App = (navigation) => {
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('@auth_token');
-      console.log(value,'token')
       if(value !== null) {
         setuserToken(value)
       }
@@ -182,7 +181,6 @@ const App = (navigation) => {
 
     init().finally(async () => {
        setTimeout(() => {  RNBootSplash.hide({ fade: true }); },1000)
-      console.log("Bootsplash has been hidden successfully");
     });
   }, []);
 

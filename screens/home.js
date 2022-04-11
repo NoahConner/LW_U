@@ -16,7 +16,7 @@ import Geocoder from 'react-native-geocoding';
 // import LocationEnabler from 'react-native-location-enabler';
 
 const mcCards = (d, i, navigation) => {
-    console.log(d)
+ 
    if(d?.user?.status == '1'){
     return (
         <TouchableOpacity onPress={() => navigation.navigate('Resturants', d)}>
@@ -85,7 +85,7 @@ const Home = ({ navigation, route }) => {
             Geocoder.from(location?.latitude, location?.longitude)
             .then(json => {
                     var addressComponent = json.results[0].formatted_address;
-                console.log(json, 'addressComponent');
+              
                 // myContext.setaddress(addressComponent)
                 setaddress(addressComponent)
             })
