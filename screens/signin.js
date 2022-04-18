@@ -59,7 +59,6 @@ const SignIn = ({navigation}) => {
       webClientId:
         '985514740212-9eek8v9paecm235sik8nv150vcnuma2e.apps.googleusercontent.com',
     });
-    console.log('data');
   }, []);
 
   const storeData = async value => {

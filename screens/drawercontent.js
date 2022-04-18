@@ -51,7 +51,9 @@ const DrawerContent = ({navigation}) => {
     try {
       await AsyncStorage.removeItem('@auth_token');
       myContext.setuserToken(value);
-    } catch (e) {}
+    } catch (e) {
+      console.log(e)
+    }
   };
 
   const nameSpliter = n => {
@@ -108,6 +110,7 @@ const DrawerContent = ({navigation}) => {
       });
   };
   const logOut = async () => {
+    storeData(null);
     const isSignedIn = await GoogleSignin.isSignedIn();
     if (isSignedIn) {
       await GoogleSignin.revokeAccess();
@@ -117,7 +120,6 @@ const DrawerContent = ({navigation}) => {
       LoginManager.logOut();
       console.log('Logout Successfully');
     }
-    storeData(null);
   };
 
   return (

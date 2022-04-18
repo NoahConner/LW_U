@@ -51,10 +51,12 @@ const ReviewPayment = ({navigation,amount,cardSelect, cardSelected})=>{
             setLoader(false)
             getWallet()
             // openLink(res.data.url)
+            console.log(res)
             setUrl(res.data.url)
             setTimeout(() => {
                 onOpenLink(res.data.url)
             });
+            navigation.navigate('Home')
             // myContext.setCongratesModal(true)
         }).catch((err)=>{
             console.log(err.response,  'ress000')
