@@ -63,48 +63,30 @@ const Login = ({navigation}) => {
       }
     },
   );
-  const facebookLogin = () => {
+  const facebookLogin = async () => {
+    let result;
     try {
       LoginManager.setLoginBehavior('NATIVE_ONLY');
-      LoginManager.logInWithPermissions(['public_profile', 'email']).then(
-        function (result) {
-          if (result.isCancelled) {
-            alert('Login Cancelled');
-          } else {
-            console.log(
-              'Login success with permissions: ' +
-                result.grantedPermissions.toString(),
-            );
-            new GraphRequestManager().addRequest(infoRequest).start();
-          }
-        },
-        function (error) {
-          alert('Login fail with error: ' + error);
-        },
+      result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+    } catch (error) {
+      console.log(error);
+      LoginManager.setLoginBehavior('WEB_ONLY');
+      result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+    }
+    if (result.isCancelled) {
+      Alert.alert('Login Cancelled');
+    } else {
+      console.log(
+        'Login success with permissions: ' +
+          result.grantedPermissions.toString(),
       );
-    } catch (nativeError) {
-      try {
-        LoginManager.setLoginBehavior('WEB_ONLY');
-        LoginManager.logInWithPermissions(['public_profile', 'email']).then(
-          function (result) {
-            if (result.isCancelled) {
-              showToast('Alert', 'Login Cancelled');
-            } else {
-              console.log(
-                'Login success with permissions: ' +
-                  result.grantedPermissions.toString(),
-              );
-
-              new GraphRequestManager().addRequest(infoRequest).start();
-            }
-          },
-          function (error) {
-            alert('Login fail with error: ' + error);
-          },
-        );
-      } catch (webError) {
-        alert('facebook login failed ', webError);
-      }
+      new GraphRequestManager().addRequest(infoRequest).start();
     }
   };
 
