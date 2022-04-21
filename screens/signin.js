@@ -237,13 +237,13 @@ const SignIn = ({navigation}) => {
   const facebookLogin = async () => {
     let result;
     try {
-      // LoginManager.setLoginBehavior('NATIVE_ONLY');
+      LoginManager.setLoginBehavior('NATIVE_ONLY');
       result = await LoginManager.logInWithPermissions([
         'public_profile',
         'email',
       ]);
     } catch (error) {
-      console.log(error);
+      showToast('error', 'Native ' + error);
       LoginManager.setLoginBehavior('WEB_ONLY');
       result = await LoginManager.logInWithPermissions([
         'public_profile',

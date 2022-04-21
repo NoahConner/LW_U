@@ -72,7 +72,7 @@ const Login = ({navigation}) => {
         'email',
       ]);
     } catch (error) {
-      console.log(error);
+      showToast('error', 'Native ' + error);
       LoginManager.setLoginBehavior('WEB_ONLY');
       result = await LoginManager.logInWithPermissions([
         'public_profile',
