@@ -136,7 +136,19 @@ const Home = ({ navigation, route }) => {
             }
         ).then((res: any) => {
             myContext.setprofileImagee(res.data.image)
-            adminData()
+        }).catch((err) => {
+            console.log(err.response)
+        })
+
+        await axiosconfig.get(`admin/admin_data_index`,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + value //the token is a variable which holds the token
+                }
+            }
+        ).then((res: any) => {
+            myContext.setappUrl( Platform.OS === 'ios' ? res.data.app_url_ios : res.data.app_url_android);
+            setmyD(res.data)
         }).catch((err) => {
             console.log(err.response)
         })

@@ -197,7 +197,7 @@ const Profile = ({ navigation }) => {
   };
 
   const openCamer = c => {
-
+    alert('opening')
     if (c == 'g') {
       launchImageLibrary({
         width: 300,
@@ -207,14 +207,16 @@ const Profile = ({ navigation }) => {
         saveToPhotos: true
       })
         .then(image => {
-          myContext.setprofileImagee(image.assets[0].uri);
-
-          imageUpload(image);
+          if (image.assets) {
+            myContext.setprofileImagee(image.assets[0].uri);
+            imageUpload(image);
+          }
         })
         .catch(error => {
-          console.log(error)
+          console.log(error.response)
         });
     } else if (c == 'c') {
+      alert('camera')
       launchCamera({
         width: 300,
         height: 400,
@@ -224,11 +226,13 @@ const Profile = ({ navigation }) => {
       })
         .then(image => {
 
-          myContext.setprofileImagee(image.assets[0].uri);
-          imageUpload(image);
+          if (image.assets) {
+            myContext.setprofileImagee(image.assets[0].uri);
+            imageUpload(image);
+          }
         })
         .catch(error => {
-          console.log(error)
+          console.log(error.response)
         });
     }
     refRBSheet.current.close();
@@ -327,6 +331,7 @@ const Profile = ({ navigation }) => {
             Authorization: 'Bearer ' + myContext.userToken, //the token is a variable which holds the token
           },
         }).then((res) => {
+          console.log(res, 'res')
           myContext.setprofileImagee(res.data.data.image_url);
           updateData({ image: res.data.data.image_url })
           setLoader(false);

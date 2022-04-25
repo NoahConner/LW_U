@@ -200,7 +200,6 @@ const DrawerContent = ({navigation}) => {
                   marginLeft: 0,
                 }}
                 numberOfLines={1}>
-                {' '}
                 ${myContext?.WalletAmount}
               </Title>
             </View>

@@ -88,7 +88,7 @@ const AddCardSheet = ({navigation,statement}) => {
                 onChange={e => _onChange(e)} />
 
                 <View>
-                  {
+                  {/* {
                     statement != 'payment-method' ?
                     (
                       <>
@@ -107,9 +107,10 @@ const AddCardSheet = ({navigation,statement}) => {
                     (
                       null
                     )
-                  }
+                  } */}
                     
-                    <View style={{paddingHorizontal:20
+                    <View style={{paddingHorizontal:20,
+                    marginTop:20
                     }}>
                         <Button
                             title="Save"
