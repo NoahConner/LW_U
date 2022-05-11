@@ -36,9 +36,7 @@ const LONGITUDE_DELTA = 0.0421;
 const SPACE = 0.01;
 const mapRef = React.createRef();
 
-function log(eventName, e) {
-
-}
+function log(eventName, e) {}
 
 class MarkerTypes extends React.Component {
   constructor(props) {
@@ -166,7 +164,7 @@ class MarkerTypes extends React.Component {
               onPress={(data, details = null) => {
                 this.getPysicalAddress(data);
               }}
-              textInputProps={{ placeholderTextColor: '#999' }}
+              textInputProps={{placeholderTextColor: '#999'}}
               styles={{
                 textInput: {
                   height: 42,
@@ -273,7 +271,7 @@ const styles = StyleSheet.create({
     marginTop: -48,
     position: 'absolute',
     top: '50%',
-    
+
     zIndex: 999,
   },
 });
