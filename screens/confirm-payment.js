@@ -188,7 +188,8 @@ const ConfirmPayment = ({navigation, route}) => {
         style={{
           padding: 20,
           width: '100%',
-          height: Dimensions.get('window').height - 100,
+          height: moderateScale(Dimensions.get('window').height - 110, 0.1),
+          paddingBottom:moderateScale(120, 0.1)
         }}>
         <View style={{...styles.flexRow, justifyContent: 'space-between'}}>
           <Text

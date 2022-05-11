@@ -59,7 +59,6 @@ const DrawerContent = ({navigation}) => {
   const nameSpliter = n => {
     if (n) {
       let c = n?.split(' ');
-      console.log(c, 'cc');
       let c1 = c[0][0];
       let c2 = '';
       if (c[1]) {
@@ -75,6 +74,7 @@ const DrawerContent = ({navigation}) => {
     setTimeout(() => {
       myDataR();
     }, 1000);
+    console.log('drawer')
   }, []);
 
   const myDataR = async () => {
@@ -111,15 +111,18 @@ const DrawerContent = ({navigation}) => {
   };
   const logOut = async () => {
     storeData(null);
-    const isSignedIn = await GoogleSignin.isSignedIn();
-    if (isSignedIn) {
-      await GoogleSignin.revokeAccess();
+    await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      console.log('Google Logout');
-    } else {
       LoginManager.logOut();
-      console.log('Logout Successfully');
-    }
+    const isSignedIn = await GoogleSignin.isSignedIn();
+    // if (isSignedIn) {
+    //   await GoogleSignin.revokeAccess();
+    //   await GoogleSignin.signOut();
+    //   console.log('Google Logout');
+    // } else {
+    //   LoginManager.logOut();
+    //   console.log('Logout Successfully');
+    // }
   };
 
   return (

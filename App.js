@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
-import React,{useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { createStackNavigator,HeaderStyleInterpolators } from '@react-navigation/stack';
+import { createStackNavigator, HeaderStyleInterpolators } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,7 +9,7 @@ import Toast from 'react-native-toast-message';
 import axiosconfig from './providers/axios';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import AppContext  from './components/appcontext';
+import AppContext from './components/appcontext';
 import Home from './screens/home'
 import PreLogin from './screens/prelogin'
 import Login from './screens/login'
@@ -30,13 +30,14 @@ import PrivacyPolicy from './screens/privacy-policy'
 import MapModal from './components/map'
 import OPT from './screens/opt';
 import NewPassword from './screens/newPassword';
+import LocationChecker from './screens/locationchecker';
 
 const defaultCad = [
   {
-    "cvc": "636", 
-    "expiry": "03/30", 
-    "name": "Noah Conner", 
-    "number": "6011 6011 6011 6611", 
+    "cvc": "636",
+    "expiry": "03/30",
+    "name": "Noah Conner",
+    "number": "6011 6011 6011 6611",
     "type": "discover",
     "id": 1
   }
@@ -45,38 +46,40 @@ const defaultCad = [
 const App = (navigation) => {
 
   const [userToken, setuserToken] = useState(null);
-  const [CongratesModal,setCongratesModal] = useState(false);
-  const [SorryModal,setSorryModal] = useState(false);
-  const [CouponModal,setCouponModal] = useState(false);
-  const [CurrentCoupon,setCurrentCoupon] = useState('N/A');
-  const [WalletAmount,setWalletAmount] = useState(0);
+  const [CongratesModal, setCongratesModal] = useState(false);
+  const [SorryModal, setSorryModal] = useState(false);
+  const [CouponModal, setCouponModal] = useState(false);
+  const [CurrentCoupon, setCurrentCoupon] = useState('N/A');
+  const [WalletAmount, setWalletAmount] = useState(0);
   const [mapModal, setmapModal] = useState(false);
   const [paymentmethods, setpaymentmethods] = useState(defaultCad);
   const [closeAllSheets, setcloseAllSheets] = useState(false)
-  const [modalOpens,setmodalOpens] = useState(false);
-  const [myData,setMyData] = useState()
-  const [currentLatLng,setcurrentLatLng] = useState()
-  const [myDat,setmyDat] = useState({});
-  const [profileImagee,setprofileImagee] = useState(null);
-  const [userName,setuserName] = useState(null);
-  const [appUrl,setappUrl] = useState(null);
+  const [modalOpens, setmodalOpens] = useState(false);
+  const [myData, setMyData] = useState()
+  const [currentLatLng, setcurrentLatLng] = useState()
+  const [myDat, setmyDat] = useState({});
+  const [profileImagee, setprofileImagee] = useState(null);
+  const [userName, setuserName] = useState(null);
+  const [appUrl, setappUrl] = useState(null);
+  const [cardAddModal, setcardAddModal] = useState(false);
   const userSettings = {
     userToken: userToken,
-    CongratesModalCon:CongratesModal,
-    SorryModalCon:SorryModal,
-    CouponModalCon:CouponModal,
-    CurrentCoupon:CurrentCoupon,
-    WalletAmount:WalletAmount,
-    profileImagee:profileImagee,
-    mapModal:mapModal,
-    paymentmethods:paymentmethods,
-    closeAllSheets:closeAllSheets,
-    modalOpens:modalOpens,
-    myData:myData,
-    myDat:myDat,
-    userName:userName,
-    currentLatLng:currentLatLng,
-    appUrl:appUrl,
+    CongratesModalCon: CongratesModal,
+    SorryModalCon: SorryModal,
+    CouponModalCon: CouponModal,
+    CurrentCoupon: CurrentCoupon,
+    WalletAmount: WalletAmount,
+    profileImagee: profileImagee,
+    mapModal: mapModal,
+    paymentmethods: paymentmethods,
+    closeAllSheets: closeAllSheets,
+    modalOpens: modalOpens,
+    myData: myData,
+    myDat: myDat,
+    userName: userName,
+    currentLatLng: currentLatLng,
+    appUrl: appUrl,
+    cardAddModal:cardAddModal,
     setuserToken,
     setCongratesModal,
     setSorryModal,
@@ -92,62 +95,41 @@ const App = (navigation) => {
     setcurrentLatLng,
     setmyDat,
     setuserName,
-    setappUrl
+    setappUrl,
+    setcardAddModal
   };
 
-  const Root = ({navigation}) => {
-    const isSignout = true
-    if(userToken == null){
+  const isSignout = true
+  const Root = ({ navigation }) => {
+    if (userToken == null) {
       navigation.closeDrawer();
     }
 
     return (
       <Stack.Navigator >
-        {userToken == null ? (
-          <>
-            <Stack.Screen
-              name="PreLogin"
-              component={PreLogin}
-              options={{
-                title: '',
-                animationTypeForReplace: isSignout ? 'pop' : 'push',
-                headerShown:false,
-                headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
-              }}
-            />
-            <Stack.Screen name="Login" component={Login} options={{headerShown:false}} />
-            <Stack.Screen name="SignIn" component={SignIn} options={{headerShown:false}}  />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{headerShown:false}}  />
-            <Stack.Screen name="OPT" component={OPT} options={{headerShown:false}}  />
-            <Stack.Screen name="NewPassword" component={NewPassword} options={{headerShown:false}}  />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="Home" component={Home} options={{headerShown:false}} onPress={()=>navigation.navigate('Home',{data:userToken})} />
-            <Stack.Screen name="DonationHistory" component={DonationHistory} options={{headerShown:false}}/>
-            <Stack.Screen name="PaymentMethod" component={PaymentMethod} options={{headerShown:false}}/>
-            <Stack.Screen name="DepositeAmount" component={DepositeAmount} options={{headerShown:false}}/>
-            <Stack.Screen name="ConfirmPayment" component={ConfirmPayment} options={{headerShown:false}}/>
-            <Stack.Screen name="Resturants" component={Resturants} options={{headerShown:false}}/>
-            <Stack.Screen name="Wallet" component={Wallet} options={{headerShown:false}}/>
-            <Stack.Screen name="Profile" component={Profile} options={{headerShown:false}}/>
-            <Stack.Screen name="DepositHistory" component={DepositHistory} options={{headerShown:false}}/>
-            <Stack.Screen name="TermCondition" component={TermCondition} options={{headerShown:false}}/>
-            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{headerShown:false}}/>
-            <Stack.Screen name="MapModal" component={MapModal} options={{headerShown:false}}/>
-          </>
-
-        )}
+            {/* <Stack.Screen name="LocationChecker" component={LocationChecker} options={{ headerShown: false }} /> */}
+            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} onPress={() => navigation.navigate('Home', { data: userToken })} />
+            <Stack.Screen name="DonationHistory" component={DonationHistory} options={{ headerShown: false }} />
+            <Stack.Screen name="PaymentMethod" component={PaymentMethod} options={{ headerShown: false }} />
+            <Stack.Screen name="DepositeAmount" component={DepositeAmount} options={{ headerShown: false }} />
+            <Stack.Screen name="ConfirmPayment" component={ConfirmPayment} options={{ headerShown: false }} />
+            <Stack.Screen name="Resturants" component={Resturants} options={{ headerShown: false }} />
+            <Stack.Screen name="Wallet" component={Wallet} options={{ headerShown: false }} />
+            <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+            <Stack.Screen name="DepositHistory" component={DepositHistory} options={{ headerShown: false }} />
+            <Stack.Screen name="TermCondition" component={TermCondition} options={{ headerShown: false }} />
+            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown: false }} />
+            <Stack.Screen name="MapModal" component={MapModal} options={{ headerShown: false }} />
       </Stack.Navigator>
     );
   }
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('@auth_token');
-      if(value !== null) {
+      if (value !== null) {
         setuserToken(value)
       }
-    } catch(e) {
+    } catch (e) {
       console.log(e)
       setuserToken(null)
     }
@@ -156,17 +138,17 @@ const App = (navigation) => {
   const myDataR = async () => {
     const value = await AsyncStorage.getItem('@auth_token');
     await axiosconfig.get(`admin/my_data`,
-        {
-            headers: {
-                Authorization: 'Bearer ' + value //the token is a variable which holds the token
-            }
+      {
+        headers: {
+          Authorization: 'Bearer ' + value //the token is a variable which holds the token
         }
+      }
     ).then((res: any) => {
-        setMyData(res.data)
+      setMyData(res.data)
     }).catch((err) => {
-        console.log(err.response)
+      console.log(err.response)
     })
-}
+  }
 
   const getWallet = () => {
 
@@ -180,34 +162,60 @@ const App = (navigation) => {
     };
 
     init().finally(async () => {
-       setTimeout(() => {  RNBootSplash.hide({ fade: true }); },1000)
+      setTimeout(() => { RNBootSplash.hide({ fade: true }); }, 1000)
     });
   }, []);
 
-  return(
-  <AppContext.Provider value={userSettings}>
-    <SafeAreaProvider>
-    <NavigationContainer>
-       <Drawer.Navigator
-       drawerBackgroundColor= {'black'}
-        screenOptions={{
-          drawerStyle: {
-            drawerBackgroundColor: 'transparent',
-            width: '80%',
-            overflow: 'hidden',
-          },
-          swipeEnabled: userToken == null ? false : true
-        }}
+  return (
+    <AppContext.Provider value={userSettings}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          {
+            userToken == null ? (
+              <>
+                <Stack.Navigator>
+                  <Stack.Screen
+                    name="PreLogin"
+                    component={PreLogin}
+                    options={{
+                      title: '',
+                      animationTypeForReplace: isSignout ? 'pop' : 'push',
+                      headerShown: false,
+                      headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
+                    }}
+                  />
+                  <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+                  <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
+                  <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false }} />
+                  <Stack.Screen name="OPT" component={OPT} options={{ headerShown: false }} />
+                  <Stack.Screen name="NewPassword" component={NewPassword} options={{ headerShown: false }} />
+                </Stack.Navigator>
+              </>
+            ) : (
+              <>
+                <Drawer.Navigator
+                  drawerBackgroundColor={'black'}
+                  screenOptions={{
+                    drawerStyle: {
+                      drawerBackgroundColor: 'transparent',
+                      width: '80%',
+                      overflow: 'hidden',
+                    },
+                    swipeEnabled: userToken == null ? false : true
+                  }}
 
-        drawerContent={(props) => <DrawerContent {...props} />}
-        initialRouteName="Root"
-        >
-        <Drawer.Screen name="List" options={{headerShown:false}} component={Root} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-    </SafeAreaProvider>
-    <Toast />
-  </AppContext.Provider>
+                  drawerContent={(props) => <DrawerContent {...props} />}
+                  initialRouteName="Root"
+                >
+                  <Drawer.Screen name="List" options={{ headerShown: false }} component={Root} />
+                </Drawer.Navigator>
+              </>
+            )
+          }
+        </NavigationContainer>
+      </SafeAreaProvider>
+      <Toast />
+    </AppContext.Provider>
   );
 }
 
@@ -224,4 +232,3 @@ const styles = StyleSheet.create({
 
 
 
- 

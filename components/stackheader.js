@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         borderBottomStartRadius:15,
         justifyContent: 'space-between',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex:9
     }
 })

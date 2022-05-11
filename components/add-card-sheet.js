@@ -29,12 +29,7 @@ const AddCardSheet = ({navigation,statement}) => {
         alert('Invalid Card!')
       }
       else if(newCard.valid){
-        // var iddf = Math.floor(Math.random() * 100);
-        // newCard.values["id"] = iddf
-        // console.log(newCard.values);
-        // allCards.push(newCard.values);
-        // myContext.setpaymentmethods(allCards);
-        // myContext.setcloseAllSheets(true)
+
         
         let cardData = {
           user_id:myContext.myData.id,

@@ -140,7 +140,7 @@ class MarkerTypes extends React.Component {
         />
         <View
           style={{
-            zIndex: 1000,
+            // zIndex: 1000,
             position: 'relative',
             height: moderateScale(height - 100, 0.1),
             width: '100%',

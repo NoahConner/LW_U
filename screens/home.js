@@ -115,6 +115,7 @@ const Home = ({ navigation, route }) => {
     }
 
     const getWallet = async () => {
+        console.log('home')
         const value = await AsyncStorage.getItem('@auth_token');
         await axiosconfig.get(`admin/current_wallet`,
             {
@@ -148,26 +149,9 @@ const Home = ({ navigation, route }) => {
             }
         ).then((res: any) => {
             myContext.setappUrl( Platform.OS === 'ios' ? res.data.app_url_ios : res.data.app_url_android);
-            setmyD(res.data)
         }).catch((err) => {
             console.log(err.response)
         })
-    }
-
-    const adminData = async() => {
-        const value = await AsyncStorage.getItem('@auth_token');
-            await axiosconfig.get(`admin/admin_data_index`,
-                {
-                    headers: {
-                        Authorization: 'Bearer ' + value //the token is a variable which holds the token
-                    }
-                }
-            ).then((res: any) => {
-                myContext.setappUrl( Platform.OS === 'ios' ? res.data.app_url_ios : res.data.app_url_android);
-                setmyD(res.data)
-            }).catch((err) => {
-                console.log(err.response)
-            })
     }
 
     useEffect(() => {
@@ -184,22 +168,12 @@ const Home = ({ navigation, route }) => {
         getCurrentLocation();
     }, [])
 
-
-    // const [enabled, requestResolution] = useLocationSettings({
-    //     priority: HIGH_ACCURACY,
-    //     alwaysShow: true,
-    //     needBle: true,
-    // });
-
-
     return (
 
         <View style={styles.container}>
             <View style={{ width: '100%' }}>
                 <Header navigation={navigation} routes={location} address={address} />
             </View>
-            {/* <LocationStatus enabled={enabled} />
-            {!enabled && <RequestResolutionSettingsBtn onPress={requestResolution} />} */}
             {
                 loader ? (
                     <>
@@ -209,37 +183,6 @@ const Home = ({ navigation, route }) => {
             }
             <SafeAreaView style={{ ...styles.container, paddingHorizontal: 20 }}>
                 {
-                    // !enabled ? (
-                    //     <>
-
-                    //         <View style={{width:'70%', marginLeft:'15%'}}>
-                    //            <TouchableOpacity onPress={() => getCurrentLocation()}>
-                    //             <Text style={{fontSize:16, fontFamily:'Gilroy-Bold', color:'#000', textAlign:'center'}}>
-                    //                 Seems like your location is off! {'\n'}
-                    //                 Select from the map or turn on the location and refresh.
-                    //             </Text>
-                    //            </TouchableOpacity>
-                    //         </View>
-
-                    //     </>
-                    // ) : (
-                    //     <>
-                    //         <FlatList
-                    //             data={resTaurents}
-                    //             renderItem={({ item, index }) => (
-                    //                 mcCards(item, index, navigation)
-                    //             )}
-                    //             keyExtractor={item => item.id}
-                    //             showsVerticalScrollIndicator={false}
-                    //             showsHorizontalScrollIndicator={false}
-                    //             ListHeaderComponent={
-                    //                 <View style={{ padding: 20 }}>
-                    //                     <Text style={{ fontSize: moderateScale(17), fontFamily: 'Gilroy-Bold' }}>All Restaurants</Text>
-                    //                 </View>
-                    //             }
-                    //         />
-                    //     </>
-                    // )
 
                         <>
                             <FlatList

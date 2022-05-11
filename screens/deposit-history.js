@@ -95,13 +95,13 @@ const DepositHistory = ({navigation}) => {
                             <View style={{...styles.flexRow,justifyContent:'space-between'}}>
                                 <Text style={{fontWeight:'bold',fontSize:moderateScale(13),marginRight:0}}>Deposited</Text>
                                 <Text style={{...styles.dater}}>{moment(d?.created_at).format('DD MMM, yy')}</Text>
-                                <Text style={{fontWeight:'bold',fontSize:moderateScale(15)}}>-${d?.amount}</Text>
+                                <Text style={{fontWeight:'bold',fontSize:moderateScale(15)}}>${d?.amount}</Text>
                             </View>
                             {/* <Text style={styles.dater}>*** 1234</Text> */}
                             <View style={{...styles.flexRow,justifyContent:'space-between'}}>
                                 <Text style={styles.dater}>{splitNo(d?.card?.card_no)}</Text>
                                 <Text style={styles.dater}>Processing Fee:</Text>
-                                <Text style={{...styles.dater,marginTop:2}}>-${d?.processing_fee}</Text>
+                                <Text style={{...styles.dater,marginTop:2}}>${d?.processing_fee}</Text>
                             </View>
                         </View>
                     </View>
@@ -228,20 +228,20 @@ const DepositHistory = ({navigation}) => {
                     <View style={{...styles.flexRow,marginTop:15}}>
                         <View style={{...styles.flexRow,alignItems: "flex-start"}}>
                             <Text style={{fontSize:moderateScale(15),fontFamily:'Gilroy-Bold',marginTop:-3,...styles.redColor}}>Amount:</Text>
-                            <Text style={{fontSize:moderateScale(12),marginLeft: 16,flexShrink: 1,fontFamily:'Gilroy-Medium',color:'#696868' }}>-${selectedCard?.amount}</Text>
+                            <Text style={{fontSize:moderateScale(12),marginLeft: 16,flexShrink: 1,fontFamily:'Gilroy-Medium',color:'#696868' }}>${selectedCard?.amount}</Text>
                         </View>
                     </View>
 
                     <View style={{...styles.flexRow,marginTop:15}}>
                         <View style={{...styles.flexRow,alignItems: "flex-start"}}>
                             <Text style={{fontSize:moderateScale(15),fontFamily:'Gilroy-Bold',marginTop:-3,...styles.redColor}}>Processing Fee:</Text>
-                            <Text style={{fontSize:moderateScale(12),marginLeft: 16,flexShrink: 1,fontFamily:'Gilroy-Medium',color:'#696868' }}>-${selectedCard?.processing_fee}</Text>
+                            <Text style={{fontSize:moderateScale(12),marginLeft: 16,flexShrink: 1,fontFamily:'Gilroy-Medium',color:'#696868' }}>${selectedCard?.processing_fee}</Text>
                         </View>
                     </View>
                     <View style={{...styles.flexRow,marginTop:15}}>
                         <View style={{...styles.flexRow,alignItems: "flex-start"}}>
                             <Text style={{fontSize:moderateScale(15),fontFamily:'Gilroy-Bold',marginTop:-3,...styles.redColor}}>Total:</Text>
-                            <Text style={{fontSize:moderateScale(12),marginLeft: 16,flexShrink: 1,fontFamily:'Gilroy-Medium',color:'#696868' }}>-${Number(selectedCard?.processing_fee)+Number(selectedCard?.amount)}</Text>
+                            <Text style={{fontSize:moderateScale(12),marginLeft: 16,flexShrink: 1,fontFamily:'Gilroy-Medium',color:'#696868' }}>${Number(selectedCard?.processing_fee)+Number(selectedCard?.amount)}</Text>
                         </View>
                     </View>
 
