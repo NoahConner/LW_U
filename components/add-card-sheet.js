@@ -115,7 +115,7 @@ const AddCardSheet = ({navigation,statement}) => {
 
                         <View style={{flexDirection:'row',alignItems: 'center',justifyContent:'center',marginTop:15,marginBottom:10}}>
                             <Safe  />
-                            <Text style={{fontSize:moderateScale(16),color:'#666666',marginLeft:10}}>We`ll keep your payment details safe</Text>
+                            <Text style={{fontSize:moderateScale(16),color:'#666666',marginLeft:10}}>We'll keep your payment details safe</Text>
                         </View>
                     </View>
                 </View>

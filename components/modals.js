@@ -92,7 +92,7 @@ const Modals = ({ navigation }) => {
                                         <>
 
                                             <Text style={{ color: '#FF3C40', fontSize: moderateScale(16,0.1), fontFamily: 'Gilroy-Bold' }}>Sorry :(</Text>
-                                            <Text style={{ textAlign: 'center', color: '#666666', fontSize: RFPercentage(1.8), marginTop: 10, fontFamily: 'Gilroy-Medium' }}>you don't have insufficient balance in your wallet, Please deposit money on you wallet</Text>
+                                            <Text style={{ textAlign: 'center', color: '#666666', fontSize: RFPercentage(1.8), marginTop: 10, fontFamily: 'Gilroy-Medium' }}>you don't have insufficient money in your wallet, please deposit money on you wallet</Text>
                                             <Button
                                                 title="Deposit"
                                                 type="solid"

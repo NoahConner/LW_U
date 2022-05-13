@@ -77,7 +77,7 @@ const Resturants = ({ route, navigation }) => {
             deal_id: currentDeal.id,
             user_id: myContext.myData.id,
             leaper_name: leaperName.toLowerCase().trim(),
-            leaper_dob: moment(datePick).format('DD MMM, yy'),
+            leaper_dob: moment(datePick).format('MMMM d, y'),
             coupon: coupon
         }
 
@@ -170,6 +170,7 @@ const Resturants = ({ route, navigation }) => {
     }, [])
 
     const goOnDeposit = () => {
+        setModalVisible1(false)
         navigation.navigate('DepositeAmount')
     }
 
@@ -320,7 +321,7 @@ const Resturants = ({ route, navigation }) => {
                                     <ImageBackground source={require('../assets/svg/modal-back.png')} resizeMode="cover" style={styles.image}>
                                         <View style={{ paddingHorizontal: myContext.CouponModalCon ? 30 : 50, alignItems: 'center' }}>
                                             <Text style={{ color: '#FF3C40', fontSize: moderateScale(16, 0.1), fontFamily: 'Gilroy-Bold' }}>Sorry :(</Text>
-                                            <Text style={{ textAlign: 'center', color: '#666666', fontSize: RFPercentage(1.8), marginTop: 10, fontFamily: 'Gilroy-Medium' }}>you don't have insufficient balance in your wallet, Please deposit money on you wallet</Text>
+                                            <Text style={{ textAlign: 'center', color: '#666666', fontSize: RFPercentage(1.8), marginTop: 10, fontFamily: 'Gilroy-Medium' }}>You don't have insufficient money in your wallet, please deposit money on you wallet</Text>
                                             <Button
                                                 title="Deposit"
                                                 type="solid"
