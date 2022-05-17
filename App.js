@@ -30,20 +30,8 @@ import PrivacyPolicy from './screens/privacy-policy'
 import MapModal from './components/map'
 import OPT from './screens/opt';
 import NewPassword from './screens/newPassword';
-import LocationChecker from './screens/locationchecker';
 
-const defaultCad = [
-  {
-    "cvc": "636",
-    "expiry": "03/30",
-    "name": "Noah Conner",
-    "number": "6011 6011 6011 6611",
-    "type": "discover",
-    "id": 1
-  }
-]
-
-const App = (navigation) => {
+const App = ({}) => {
 
   const [userToken, setuserToken] = useState(null);
   const [CongratesModal, setCongratesModal] = useState(false);
@@ -52,7 +40,7 @@ const App = (navigation) => {
   const [CurrentCoupon, setCurrentCoupon] = useState('N/A');
   const [WalletAmount, setWalletAmount] = useState(0);
   const [mapModal, setmapModal] = useState(false);
-  const [paymentmethods, setpaymentmethods] = useState(defaultCad);
+  const [paymentmethods, setpaymentmethods] = useState(null);
   const [closeAllSheets, setcloseAllSheets] = useState(false)
   const [modalOpens, setmodalOpens] = useState(false);
   const [myData, setMyData] = useState()
@@ -99,30 +87,6 @@ const App = (navigation) => {
     setcardAddModal
   };
 
-  const isSignout = true
-  const Root = ({ navigation }) => {
-    if (userToken == null) {
-      navigation.closeDrawer();
-    }
-
-    return (
-      <Stack.Navigator >
-            {/* <Stack.Screen name="LocationChecker" component={LocationChecker} options={{ headerShown: false }} /> */}
-            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} onPress={() => navigation.navigate('Home', { data: userToken })} />
-            <Stack.Screen name="DonationHistory" component={DonationHistory} options={{ headerShown: false }} />
-            <Stack.Screen name="PaymentMethod" component={PaymentMethod} options={{ headerShown: false }} />
-            <Stack.Screen name="DepositeAmount" component={DepositeAmount} options={{ headerShown: false }} />
-            <Stack.Screen name="ConfirmPayment" component={ConfirmPayment} options={{ headerShown: false }} />
-            <Stack.Screen name="Resturants" component={Resturants} options={{ headerShown: false }} />
-            <Stack.Screen name="Wallet" component={Wallet} options={{ headerShown: false }} />
-            <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-            <Stack.Screen name="DepositHistory" component={DepositHistory} options={{ headerShown: false }} />
-            <Stack.Screen name="TermCondition" component={TermCondition} options={{ headerShown: false }} />
-            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown: false }} />
-            <Stack.Screen name="MapModal" component={MapModal} options={{ headerShown: false }} />
-      </Stack.Navigator>
-    );
-  }
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('@auth_token');
@@ -150,15 +114,34 @@ const App = (navigation) => {
     })
   }
 
-  const getWallet = () => {
-
+  const isSignout = true
+  const Root = ({ navigation }) => {
+    if (userToken == null) {
+      navigation.closeDrawer();
+    }
+    return (
+      <Stack.Navigator >
+            {/* <Stack.Screen name="LocationChecker" component={LocationChecker} options={{ headerShown: false }} /> */}
+            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} onPress={() => navigation.navigate('Home', { data: userToken })} />
+            <Stack.Screen name="DonationHistory" component={DonationHistory} options={{ headerShown: false }} />
+            <Stack.Screen name="PaymentMethod" component={PaymentMethod} options={{ headerShown: false }} />
+            <Stack.Screen name="DepositeAmount" component={DepositeAmount} options={{ headerShown: false }} />
+            <Stack.Screen name="ConfirmPayment" component={ConfirmPayment} options={{ headerShown: false }} />
+            <Stack.Screen name="Resturants" component={Resturants} options={{ headerShown: false }} />
+            <Stack.Screen name="Wallet" component={Wallet} options={{ headerShown: false }} />
+            <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+            <Stack.Screen name="DepositHistory" component={DepositHistory} options={{ headerShown: false }} />
+            <Stack.Screen name="TermCondition" component={TermCondition} options={{ headerShown: false }} />
+            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown: false }} />
+            <Stack.Screen name="MapModal" component={MapModal} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    );
   }
 
   useEffect(() => {
     const init = async () => {
       getData()
       myDataR()
-      getWallet()
     };
 
     init().finally(async () => {
@@ -216,7 +199,7 @@ const App = (navigation) => {
       </SafeAreaProvider>
       <Toast />
     </AppContext.Provider>
-  );
+  )
 }
 
 export default App;
@@ -229,6 +212,3 @@ const styles = StyleSheet.create({
     flex: 1
   }
 })
-
-
-

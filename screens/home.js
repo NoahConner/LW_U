@@ -13,41 +13,63 @@ import Loader from './loader';
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Geocoder from 'react-native-geocoding';
-// import LocationEnabler from 'react-native-location-enabler';
+import LocationEnabler from 'react-native-location-enabler'; /* comment this on ios */
 
 const mcCards = (d, i, navigation) => {
- 
-   if(d?.user?.status == '1'){
-    return (
-        <TouchableOpacity onPress={() => navigation.navigate('Resturants', d)}>
-            <View style={[Platform.OS == 'ios' ? styles.mcCardIos : styles.mcCard]} key={d.id}>
-                <View style={{ backgroundColor: '#fff', borderRadius: 8, overflow: 'hidden' }}>
-                    <Image
-                        source={{ uri: d.user.image }}
-                        style={{ width: 65, height: 70, resizeMode: 'contain' }}
-                        PlaceholderContent={<ActivityIndicator />}
-                    />
-                </View>
-                <View style={{ marginLeft: 15, width: '100%', paddingRight: 100 }}>
-                    <Text style={{ fontFamily: 'Gilroy-Bold', fontSize: moderateScale(15), marginBottom: 5 }}>{d.user.name}</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Location
-                            style={{ height: 16, width: 13, marginRight: 10 }}
+    if (d?.user?.status == '1') {
+        return (
+            <TouchableOpacity onPress={() => navigation.navigate('Resturants', d)}>
+                <View style={[Platform.OS == 'ios' ? styles.mcCardIos : styles.mcCard]} key={d.id}>
+                    <View style={{ backgroundColor: '#fff', borderRadius: 8, overflow: 'hidden' }}>
+                        <Image
+                            source={{ uri: d.user.image }}
+                            style={{ width: 65, height: 70, resizeMode: 'contain' }}
+                            PlaceholderContent={<ActivityIndicator />}
                         />
-                        <Text numberOfLines={1} style={{ fontSize: moderateScale(12), fontFamily: 'Gilroy-Medium' }}>{d.distance_in_km_meters} </Text>
+                    </View>
+                    <View style={{ marginLeft: 15, width: '100%', paddingRight: 100 }}>
+                        <Text style={{ fontFamily: 'Gilroy-Bold', fontSize: moderateScale(15), marginBottom: 5 }}>{d.user.name}</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Location
+                                style={{ height: 16, width: 13, marginRight: 10 }}
+                            />
+                            <Text numberOfLines={1} style={{ fontSize: moderateScale(12), fontFamily: 'Gilroy-Medium' }}>{d.distance_in_km_meters} </Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </TouchableOpacity>
-    )
-   }
+            </TouchableOpacity>
+        )
+    }
 }
 
+// comment this on ios
+const {
+    PRIORITIES: { HIGH_ACCURACY },
+    useLocationSettings,
+} = LocationEnabler;
 
-// const {
-//     PRIORITIES: { HIGH_ACCURACY },
-//     useLocationSettings,
-//   } = LocationEnabler;
+const LocationStatus = (props: { enabled: boolean | undefined }) => (
+    <Text style={{ ...styles.status, marginBottom: 10 }}>
+        Location : [{' '}
+        {props.enabled !== undefined && props.enabled ? (
+            <Text style={{ ...styles.enabled, color: '#000' }}>Enabled</Text>
+        ) : props.enabled !== undefined && !props.enabled ? (
+            <Text style={{ ...styles.disabled, color: '#000' }}>Turn on your device location for this application</Text>
+        ) : (
+            <Text style={{ ...styles.undefined, color: '#000' }}>Undefined</Text>
+        )}{' '}
+        ]
+    </Text>
+);
+
+const RequestResolutionSettingsBtn = (props: { onPress: any }) => (
+    <Button
+        color="red"
+        title="Request Resolution Location Settings"
+        onPress={props.onPress}
+    />
+);
+// comment this on ios
 
 const Home = ({ navigation, route }) => {
 
@@ -58,6 +80,17 @@ const Home = ({ navigation, route }) => {
     const isFocused = useIsFocused();
     const [locationon, setlocationon] = useState(true);
     const [address, setaddress] = useState(null);
+    const [enabled, requestResolution] = useLocationSettings({
+        priority: HIGH_ACCURACY,
+        alwaysShow: true,
+        needBle: true,
+    });
+
+    useEffect(() => {
+        if (enabled) {
+            getCurrentLocation();
+        }
+    }, [enabled])
 
     const getCurrentLocation = () => {
         setLoader(true)
@@ -83,13 +116,13 @@ const Home = ({ navigation, route }) => {
         Geocoder.init("AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA");
         setTimeout(() => {
             Geocoder.from(location?.latitude, location?.longitude)
-            .then(json => {
+                .then(json => {
                     var addressComponent = json.results[0].formatted_address;
-              
-                // myContext.setaddress(addressComponent)
-                setaddress(addressComponent)
-            })
-            .catch(error => console.warn(error));
+
+                    // myContext.setaddress(addressComponent)
+                    setaddress(addressComponent)
+                })
+                .catch(error => console.warn(error));
         }, 1000);
     }
 
@@ -148,7 +181,7 @@ const Home = ({ navigation, route }) => {
                 }
             }
         ).then((res: any) => {
-            myContext.setappUrl( Platform.OS === 'ios' ? res.data.app_url_ios : res.data.app_url_android);
+            myContext.setappUrl(Platform.OS === 'ios' ? res.data.app_url_ios : res.data.app_url_android);
         }).catch((err) => {
             console.log(err.response)
         })
@@ -162,47 +195,57 @@ const Home = ({ navigation, route }) => {
             getCurrentLocation();
         }
 
-    }, [route, isFocused])
-
-    useEffect(() => {
-        getCurrentLocation();
-    }, [])
+    }, [route, isFocused, enabled])
 
     return (
 
         <View style={styles.container}>
-            <View style={{ width: '100%' }}>
-                <Header navigation={navigation} routes={location} address={address} />
-            </View>
             {
-                loader ? (
+                !enabled && Platform.OS != 'ios' ? (
                     <>
-                        <Loader />
+                        <View style={{ padding: 20 }}>
+                            <LocationStatus enabled={enabled}  />
+                            <RequestResolutionSettingsBtn onPress={requestResolution} />
+                        </View>
                     </>
-                ) : null
+                ) : (
+                    <>
+                        <View style={{ width: '100%' }}>
+                            <Header navigation={navigation} routes={location} address={address} />
+                        </View>
+                        {
+                            loader ? (
+                                <>
+                                    <Loader />
+                                </>
+                            ) : null
+                        }
+                        <SafeAreaView style={{ ...styles.container, paddingHorizontal: 20 }}>
+                            {
+
+                                <>
+                                    <FlatList
+                                        data={resTaurents}
+                                        renderItem={({ item, index }) => (
+                                            mcCards(item, index, navigation)
+                                        )}
+                                        keyExtractor={item => item.id}
+                                        showsVerticalScrollIndicator={false}
+                                        showsHorizontalScrollIndicator={false}
+                                        ListHeaderComponent={
+                                            <View style={{ padding: 20 }}>
+                                                <Text style={{ fontSize: moderateScale(17), fontFamily: 'Gilroy-Bold' }}>All Restaurants</Text>
+                                            </View>
+                                        }
+                                    />
+                                </>
+                            }
+
+                        </SafeAreaView>
+                    </>
+                )
             }
-            <SafeAreaView style={{ ...styles.container, paddingHorizontal: 20 }}>
-                {
-
-                        <>
-                            <FlatList
-                                data={resTaurents}
-                                renderItem={({ item, index }) => (
-                                    mcCards(item, index, navigation)
-                                )}
-                                keyExtractor={item => item.id}
-                                showsVerticalScrollIndicator={false}
-                                showsHorizontalScrollIndicator={false}
-                                ListHeaderComponent={
-                                    <View style={{ padding: 20 }}>
-                                        <Text style={{ fontSize: moderateScale(17), fontFamily: 'Gilroy-Bold' }}>All Restaurants</Text>
-                                    </View>
-                                }
-                            />
-                        </>
-                }
-
-            </SafeAreaView>
+            {/*  */}
         </View>
     )
 }

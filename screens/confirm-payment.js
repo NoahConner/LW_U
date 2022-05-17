@@ -198,7 +198,7 @@ const ConfirmPayment = ({navigation, route}) => {
               fontSize: moderateScale(16),
               fontFamily: 'Gilroy-Medium',
             }}>
-            Deposit Amont
+            Deposit Amount
           </Text>
           <Text
             style={{

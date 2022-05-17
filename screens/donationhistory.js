@@ -49,7 +49,7 @@ const DonationHistory = ({ navigation }) => {
                             <Coupon style={{ marginRight: 15 }} />
                             <View style={{ flexDirection: 'column', width: '83%' }}>
                                 <View style={{ ...styles.flexRow, justifyContent: 'space-between' }}>
-                                    <Text style={{ fontWeight: 'bold', fontSize: moderateScale(13), marginRight: 0 }}>Donated</Text>
+                                    <Text style={{ fontWeight: 'bold', fontSize: moderateScale(13), marginRight: 0 , textTransform: 'capitalize'}}>{d?.leaper_name}</Text>
                                     <Text style={{ ...styles.dater }}>{moment(d?.created_at).format('DD MMM, yy')}</Text>
                                     <Text style={{ fontWeight: 'bold', fontSize: moderateScale(15) }}>${d?.deal?.deal_price}</Text>
                                 </View>
@@ -182,8 +182,8 @@ const DonationHistory = ({ navigation }) => {
 
                         <View style={{ ...styles.flexRow, marginTop: 15 }}>
                             <View style={{ ...styles.flexRow, alignItems: "flex-start" }}>
-                                <Text style={{ fontSize: moderateScale(15), fontFamily: 'Gilroy-Bold', marginTop: -3, ...styles.redColor }}>Leaper Name:</Text>
-                                <Text style={{ fontSize: moderateScale(12), marginLeft: 16, flexShrink: 1, fontFamily: 'Gilroy-Medium', color: '#696868' }}>{currentDeal?.leaper_name}</Text>
+                                <Text style={{ fontSize: moderateScale(15), fontFamily: 'Gilroy-Bold', marginTop: -3, ...styles.redColor, textTransform: 'capitalize' }}>Leaper Name:</Text>
+                                <Text style={{ fontSize: moderateScale(12), marginLeft: 16, flexShrink: 1, fontFamily: 'Gilroy-Medium', color: '#696868', textTransform: 'capitalize' }}>{currentDeal?.leaper_name}</Text>
                             </View>
                         </View>
 

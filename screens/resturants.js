@@ -77,7 +77,7 @@ const Resturants = ({ route, navigation }) => {
             deal_id: currentDeal.id,
             user_id: myContext.myData.id,
             leaper_name: leaperName.toLowerCase().trim(),
-            leaper_dob: moment(datePick).format('MMMM d, y'),
+            leaper_dob:datePick,
             coupon: coupon
         }
 
