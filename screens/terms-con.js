@@ -22,11 +22,9 @@ const TermCondition = ({navigation}) => {
         ).then((res: any) => {
            
             setPara(res.data.paragraph)
-            console.log(res, 'privacy')
             setLoader(false)
 
         }).catch((err) => {
-            console.log(err.response)
             setLoader(false)
         })
     }

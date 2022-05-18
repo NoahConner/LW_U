@@ -15,6 +15,7 @@ import axiosconfig from '../providers/axios';
 import Loader from './loader';
 import Toast from 'react-native-toast-message';
 import Modal from "react-native-modal";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Tick from '../assets/svg/tick.svg'
 
 const Resturants = ({ route, navigation }) => {
@@ -60,7 +61,8 @@ const Resturants = ({ route, navigation }) => {
     }
 
     const generateCoupon = async () => {
-        console.log('abc')
+       
+        // return
         if (leaperName == null || leaperName.trim() == '') {
             showToast('error', 'Leaper name required!')
             return false
@@ -72,7 +74,7 @@ const Resturants = ({ route, navigation }) => {
         }
 
         let coupon = Math.random().toString(36).substr(2, 8).toUpperCase()
-        console.log(currentDeal)
+    
         let dt = {
             deal_id: currentDeal.id,
             user_id: myContext.myData.id,
@@ -91,35 +93,38 @@ const Resturants = ({ route, navigation }) => {
         ).then((res: any) => {
 
             setLoader(false)
-            refRBSheet.current.close()
+            
             setcouponcode(coupon)
-            // myContext.setCurrentCoupon(coupon);
-            // myContext.setCouponModal(true);
-            setModalVisible2(true)
             setdatePick(null)
             setleaperName(null)
-            getWallet()
+
+            refRBSheet.current.close()
+
+            setTimeout(() => {
+                console.log('yu')
+                setModalVisible2(true)
+            }, 1000);
         }).catch((err) => {
-            console.log(err.response)
+           
             setLoader(false)
         })
     }
 
-    const getWallet = async () => {
-        const value = await AsyncStorage.getItem('@auth_token');
-        await axiosconfig.get(`admin/current_wallet`,
-            {
-                headers: {
-                    Authorization: 'Bearer ' + value //the token is a variable which holds the token
-                }
-            }
-        ).then((res: any) => {
-            console.log('wallrt')
-            myContext.setWalletAmount(res.data.wallet)
-        }).catch((err) => {
-            console.log(err.response)
-        })
-    }
+    // const getWallet = async () => {
+    //     const value = await AsyncStorage.getItem('@auth_token');
+    //     await axiosconfig.get(`admin/current_wallet`,
+    //         {
+    //             headers: {
+    //                 Authorization: 'Bearer ' + value //the token is a variable which holds the token
+    //             }
+    //         }
+    //     ).then((res: any) => {
+            
+    //         // myContext.setWalletAmount(res.data.wallet)
+    //     }).catch((err) => {
+           
+    //     })
+    // }
 
     const modalConditionsClose = () => {
         setModalVisible1(false)
@@ -166,7 +171,7 @@ const Resturants = ({ route, navigation }) => {
     useEffect(() => {
 
         setResData(route.params)
-        console.log(route.params)
+       
     }, [])
 
     const goOnDeposit = () => {
@@ -308,45 +313,6 @@ const Resturants = ({ route, navigation }) => {
 
             </RBSheet>
             {/* <Modals navigation={navigation} /> */}
-
-            {
-                modalVisible1 ? (
-                    <>
-                        <View >
-                            <Modal isVisible={modalVisible1}
-                                onBackdropPress={() => modalConditionsClose()}
-                                avoidKeyboard={true}
-                            >
-                                <View style={{ backgroundColor: '#fff', height: 280, borderRadius: 20 }}>
-                                    <ImageBackground source={require('../assets/svg/modal-back.png')} resizeMode="cover" style={styles.image}>
-                                        <View style={{ paddingHorizontal: myContext.CouponModalCon ? 30 : 50, alignItems: 'center' }}>
-                                            <Text style={{ color: '#FF3C40', fontSize: moderateScale(16, 0.1), fontFamily: 'Gilroy-Bold' }}>Sorry :(</Text>
-                                            <Text style={{ textAlign: 'center', color: '#666666', fontSize: RFPercentage(1.8), marginTop: 10, fontFamily: 'Gilroy-Medium' }}>You don't have insufficient money in your wallet, please deposit money on you wallet</Text>
-                                            <Button
-                                                title="Deposit"
-                                                type="solid"
-                                                buttonStyle={{
-                                                    backgroundColor: '#1E3865',
-                                                    paddingHorizontal: 15,
-                                                    paddingVertical: 15,
-                                                    borderRadius: 15,
-                                                }}
-                                                titleStyle={{
-                                                    fontSize: RFPercentage(2.3),
-                                                    fontFamily: 'Gilroy-Bold'
-                                                }}
-                                                containerStyle={{ width: '100%', marginTop: 30 }}
-                                                onPress={() => goOnDeposit()}
-                                            />
-                                        </View>
-                                    </ImageBackground>
-                                </View>
-                            </Modal>
-                        </View>
-                    </>
-                ) : null
-            }
-
             {
                 modalVisible2 ? (
                     <>
@@ -394,6 +360,45 @@ const Resturants = ({ route, navigation }) => {
                     </>
                 ) : null
             }
+            {
+                modalVisible1 ? (
+                    <>
+                        <View >
+                            <Modal isVisible={modalVisible1}
+                                onBackdropPress={() => modalConditionsClose()}
+                                avoidKeyboard={true}
+                            >
+                                <View style={{ backgroundColor: '#fff', height: 280, borderRadius: 20 }}>
+                                    <ImageBackground source={require('../assets/svg/modal-back.png')} resizeMode="cover" style={styles.image}>
+                                        <View style={{ paddingHorizontal: myContext.CouponModalCon ? 30 : 50, alignItems: 'center' }}>
+                                            <Text style={{ color: '#FF3C40', fontSize: moderateScale(16, 0.1), fontFamily: 'Gilroy-Bold' }}>Sorry :(</Text>
+                                            <Text style={{ textAlign: 'center', color: '#666666', fontSize: RFPercentage(1.8), marginTop: 10, fontFamily: 'Gilroy-Medium' }}>You don't have insufficient money in your wallet, please deposit money on you wallet</Text>
+                                            <Button
+                                                title="Deposit"
+                                                type="solid"
+                                                buttonStyle={{
+                                                    backgroundColor: '#1E3865',
+                                                    paddingHorizontal: 15,
+                                                    paddingVertical: 15,
+                                                    borderRadius: 15,
+                                                }}
+                                                titleStyle={{
+                                                    fontSize: RFPercentage(2.3),
+                                                    fontFamily: 'Gilroy-Bold'
+                                                }}
+                                                containerStyle={{ width: '100%', marginTop: 30 }}
+                                                onPress={() => goOnDeposit()}
+                                            />
+                                        </View>
+                                    </ImageBackground>
+                                </View>
+                            </Modal>
+                        </View>
+                    </>
+                ) : null
+            }
+
+
 
 
         </View>

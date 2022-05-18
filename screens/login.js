@@ -58,7 +58,7 @@ const Login = ({navigation}) => {
     },
     (err, res) => {
       if (res) {
-        console.log('response', res);
+        
         loginForm(res, true);
       } else {
         showToast('error', err);
@@ -84,10 +84,6 @@ const Login = ({navigation}) => {
     if (result.isCancelled) {
       Alert.alert('Login Cancelled');
     } else {
-      console.log(
-        'Login success with permissions: ' +
-          result.grantedPermissions.toString(),
-      );
       new GraphRequestManager().addRequest(infoRequest).start();
     }
   };
@@ -269,22 +265,7 @@ const Login = ({navigation}) => {
             Or
           </Text>
 
-          {/* <LoginButton
-            onLoginFinished={(error, result) => {
-              if (error) {
-                console.log('login has error: ' + result.error);
-              } else if (result.isCancelled) {
-                console.log('login is cancelled.');
-              } else {
-                AccessToken.getCurrentAccessToken().then(data => {
-                  console.log(data.accessToken.toString());
-                  console.log(result, 'result');
-                  storeData(data.accessToken.toString());
-                });
-              }
-            }}
-            onLogoutFinished={() => console.log('logout.')}
-          /> */}
+          
 
           <Button
             title="Continue with Facebook"
@@ -384,65 +365,4 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
 });
-// import React, {Component} from 'react';
-// import {View, Text} from 'react-native';
-// import {
-//   LoginButton,
-//   AccessToken,
-//   GraphRequest,
-//   GraphRequestManager,
-// } from 'react-native-fbsdk';
 
-// export default class Login extends Component {
-//   state = {userInfo: {}};
-
-//   getInfoFromToken = token => {
-//     alert('hi');
-//     const PROFILE_REQUEST_PARAMS = {
-//       fields: {
-//         string: 'id, name,  first_name, last_name',
-//       },
-//     };
-//     const profileRequest = new GraphRequest(
-//       '/me',
-//       {token, parameters: PROFILE_REQUEST_PARAMS},
-//       (error, result) => {
-//         if (error) {
-//           console.log('login info has error: ' + error);
-//         } else {
-//           this.setState({userInfo: result});
-//           console.log('result:', result);
-//         }
-//       },
-//     );
-//     new GraphRequestManager().addRequest(profileRequest).start();
-//   };
-
-//   render() {
-//     return (
-//       <View style={{flex: 1, margin: 50}}>
-//         <LoginButton
-//           onLoginFinished={(error, result) => {
-//             if (error) {
-//               console.log('login has error: ' + result.error);
-//             } else if (result.isCancelled) {
-//               console.log('login is cancelled.');
-//             } else {
-//               console.log('login is done.');
-//               AccessToken.getCurrentAccessToken().then(data => {
-//                 const accessToken = data.accessToken.toString();
-//                 this.getInfoFromToken(accessToken);
-//               });
-//             }
-//           }}
-//           onLogoutFinished={() => this.setState({userInfo: {}})}
-//         />
-//         {this.state.userInfo.name && (
-//           <Text style={{fontSize: 16, marginVertical: 16}}>
-//             Logged in As {this.state.userInfo.name}
-//           </Text>
-//         )}
-//       </View>
-//     );
-//   }
-// }

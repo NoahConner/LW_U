@@ -52,7 +52,7 @@ const DrawerContent = ({navigation}) => {
       await AsyncStorage.removeItem('@auth_token');
       myContext.setuserToken(value);
     } catch (e) {
-      console.log(e)
+  
     }
   };
 
@@ -74,7 +74,7 @@ const DrawerContent = ({navigation}) => {
     setTimeout(() => {
       myDataR();
     }, 1000);
-    console.log('drawer')
+  
   }, []);
 
   const myDataR = async () => {
@@ -90,7 +90,7 @@ const DrawerContent = ({navigation}) => {
         setmyD(res.data);
       })
       .catch(err => {
-        console.log(err.response);
+        
       });
   };
 
@@ -103,10 +103,10 @@ const DrawerContent = ({navigation}) => {
   const share = async () => {
     Share.open(shareOptions)
       .then(res => {
-        console.log(res);
+     
       })
       .catch(err => {
-        err && console.log(err);
+        
       });
   };
   const logOut = async () => {
@@ -115,14 +115,6 @@ const DrawerContent = ({navigation}) => {
       await GoogleSignin.signOut();
       LoginManager.logOut();
     const isSignedIn = await GoogleSignin.isSignedIn();
-    // if (isSignedIn) {
-    //   await GoogleSignin.revokeAccess();
-    //   await GoogleSignin.signOut();
-    //   console.log('Google Logout');
-    // } else {
-    //   LoginManager.logOut();
-    //   console.log('Logout Successfully');
-    // }
   };
 
   return (
@@ -214,7 +206,7 @@ const DrawerContent = ({navigation}) => {
               marginTop: 0,
               paddingLeft: 20,
               paddingRight: 20,
-              paddingBottom: 30,
+              paddingBottom: 10,
             }}>
             <TouchableOpacity
               onPress={() => navigation.navigate('DepositeAmount')}>

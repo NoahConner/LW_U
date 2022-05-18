@@ -40,7 +40,7 @@ const SignIn = ({navigation}) => {
   const context = useContext(AppContext);
 
   const showToast = (t, e) => {
-    Alert.alert(t, e, [{text: 'OK', onPress: () => console.log('OK Pressed')}]);
+    Alert.alert(t, e, [{text: 'OK'}]);
   };
 
   useEffect(() => {
@@ -101,7 +101,6 @@ const SignIn = ({navigation}) => {
 
     setLoader(true);
 
-    console.log(signData.email);
     await axiosconfig
       .post('app/check-email', {email: signData.email})
       .then((res: any) => {
@@ -110,12 +109,10 @@ const SignIn = ({navigation}) => {
         } else {
           setLoader(false);
           showToast('error', res.data.message);
-          console.log(res);
         }
       })
       .catch(err => {
         setLoader(false);
-        console.log(err.response);
         showToast('error', err.response.data.message);
       });
   };
@@ -144,7 +141,7 @@ const SignIn = ({navigation}) => {
     await GoogleSignin.hasPlayServices();
     await GoogleSignin.signIn()
       .then(user => {
-        console.log(user);
+       
         checkMail(user.user, 'GOOGLE');
       })
       .catch(error => {
@@ -175,8 +172,6 @@ const SignIn = ({navigation}) => {
       userfrom: option === 'GOOGLE' ? 'GOOGLE' : 'FACEBOOK',
       image: option === 'GOOGLE' ? d.photo : d.picture.data.url,
     };
-
-    console.log(data);
 
     await axiosconfig
       .post('app/check-email', {email: data.email})
@@ -228,10 +223,10 @@ const SignIn = ({navigation}) => {
     },
     (err, res) => {
       if (res) {
-        console.log('response', res);
+        
         checkMail(res, 'FACEBOOK');
       } else {
-        console.log('err', err);
+        
       }
     },
   );
@@ -255,10 +250,6 @@ const SignIn = ({navigation}) => {
     if (result.isCancelled) {
       Alert.alert('Login Cancelled');
     } else {
-      console.log(
-        'Login success with permissions: ' +
-          result.grantedPermissions.toString(),
-      );
       new GraphRequestManager().addRequest(infoRequest).start();
     }
   };

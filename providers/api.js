@@ -16,7 +16,7 @@ const Api = () => {
         ).then((res:any)=>{
             myContext.setWalletAmount(res.data.wallet)
         }).catch((err)=>{
-            console.log(err.response)
+           
         })
     }
 

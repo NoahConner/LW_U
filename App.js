@@ -94,7 +94,6 @@ const App = ({}) => {
         setuserToken(value)
       }
     } catch (e) {
-      console.log(e)
       setuserToken(null)
     }
   }
@@ -110,7 +109,7 @@ const App = ({}) => {
     ).then((res: any) => {
       setMyData(res.data)
     }).catch((err) => {
-      console.log(err.response)
+    
     })
   }
 
@@ -186,7 +185,6 @@ const App = ({}) => {
                     },
                     swipeEnabled: userToken == null ? false : true
                   }}
-
                   drawerContent={(props) => <DrawerContent {...props} />}
                   initialRouteName="Root"
                 >

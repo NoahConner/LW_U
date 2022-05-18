@@ -1,4 +1,4 @@
-import React, {useState, useRef, useContext, useEffect} from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,24 +9,24 @@ import {
   ActivityIndicator,
   PermissionsAndroid,
 } from 'react-native';
-import {Icon, CheckBox, Input, Button} from 'react-native-elements';
+import { Icon, CheckBox, Input, Button } from 'react-native-elements';
 import StackHeader from '../components/stackheader';
 import EditIcon from '../assets/svg/edit.svg';
-import {ScrollView} from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import ImagePickerCropper from 'react-native-image-crop-picker';
 import CameraIcon from '../assets/svg/camera.svg';
 import GalleryIcon from '../assets/svg/gallery.svg';
 import AppContext from '../components/appcontext';
-import {moderateScale} from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
 import Loader from './loader';
 import axiosconfig from '../providers/axios';
 import Toast from 'react-native-toast-message';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
 
-const Profile = ({navigation}) => {
+const Profile = ({ navigation }) => {
   const refRBSheet = useRef();
   const [editCOn, seteditCOn] = useState('camera');
   const [formVal, setFormVal] = useState(null);
@@ -83,7 +83,7 @@ const Profile = ({navigation}) => {
             <TouchableOpacity
               style={styles.flexRow}
               onPress={() => openCamer('c')}>
-              <CameraIcon style={{height: 30, width: 30}} />
+              <CameraIcon style={{ height: 30, width: 30 }} />
               <Text
                 style={{
                   fontFamily: 'Gilroy-Medium',
@@ -105,7 +105,7 @@ const Profile = ({navigation}) => {
             <TouchableOpacity
               style={styles.flexRow}
               onPress={() => openCamer('g')}>
-              <GalleryIcon style={{height: 30, width: 30}} />
+              <GalleryIcon style={{ height: 30, width: 30 }} />
               <Text
                 style={{
                   fontFamily: 'Gilroy-Medium',
@@ -156,7 +156,7 @@ const Profile = ({navigation}) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={t => setFormVal(t)}
-              // value={myData?.name.split(' ')[1]}
+            // value={myData?.name.split(' ')[1]}
             />
           </>
         ) : editCOn == 'email' ? (
@@ -178,7 +178,7 @@ const Profile = ({navigation}) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={t => setFormVal(t)}
-              // value={myData?.email}
+            // value={myData?.email}
             />
           </>
         ) : editCOn == 'phone' ? (
@@ -200,7 +200,7 @@ const Profile = ({navigation}) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={t => setFormVal(t)}
-              // value={myData?.phone}
+            // value={myData?.phone}
             />
           </>
         ) : editCOn == 'password' ? (
@@ -240,25 +240,8 @@ const Profile = ({navigation}) => {
     let isCameraPermitted = await requestCameraPermission();
     let isStoragePermitted = await requestExternalWritePermission();
     if (c == 'g') {
-      launchImageLibrary({
-        width: 300,
-        height: 400,
-        cropping: true,
-        freeStyleCropEnabled: true,
-        saveToPhotos: true,
-      })
-        .then(image => {
-          if (image.assets) {
-            myContext.setprofileImagee(image.assets[0].uri);
-            imageUpload(image);
-          }
-        })
-        .catch(error => {
-          console.log(error.response);
-        });
-    } else if (c == 'c') {
-      if (isCameraPermitted && isStoragePermitted) {
-        launchCamera({
+      setTimeout(() => {
+        launchImageLibrary({
           width: 300,
           height: 400,
           cropping: true,
@@ -272,9 +255,30 @@ const Profile = ({navigation}) => {
             }
           })
           .catch(error => {
-            console.log(error.response);
+
           });
-      }
+      }, 1000);
+    } else if (c == 'c') {
+      setTimeout(() => {
+        if (isCameraPermitted && isStoragePermitted) {
+          launchCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+            freeStyleCropEnabled: true,
+            saveToPhotos: true,
+          })
+            .then(image => {
+              if (image.assets) {
+                myContext.setprofileImagee(image.assets[0].uri);
+                imageUpload(image);
+              }
+            })
+            .catch(error => {
+
+            });
+        }
+      }, 1000);
     }
     refRBSheet.current.close();
   };
@@ -294,7 +298,7 @@ const Profile = ({navigation}) => {
         setMyData(res.data);
       })
       .catch(err => {
-        console.log(err.response);
+
         setLoader(false);
       });
   };
@@ -308,7 +312,7 @@ const Profile = ({navigation}) => {
 
   useEffect(() => {
     getRecords();
-    console.log('ki');
+
   }, []);
 
   const userForm = async () => {
@@ -350,7 +354,7 @@ const Profile = ({navigation}) => {
         getRecords();
       })
       .catch(err => {
-        console.log(err);
+
         setLoader(false);
         getRecords();
       });
@@ -367,7 +371,7 @@ const Profile = ({navigation}) => {
       axiosconfig
         .post(
           'admin/react_image_upload',
-          {image: res},
+          { image: res },
           {
             headers: {
               Authorization: 'Bearer ' + myContext.userToken, //the token is a variable which holds the token
@@ -375,13 +379,13 @@ const Profile = ({navigation}) => {
           },
         )
         .then(res => {
-          console.log(res, 'res');
+
           myContext.setprofileImagee(res.data.data.image_url);
-          updateData({image: res.data.data.image_url});
+          updateData({ image: res.data.data.image_url });
           setLoader(false);
         })
         .catch(err => {
-          console.log(err.response);
+
           setLoader(false);
         });
     });
@@ -397,8 +401,8 @@ const Profile = ({navigation}) => {
         </>
       ) : null}
       <StackHeader navigation={navigation} name={'Profile'} />
-      <ScrollView style={{padding: 20, marginTop: 10, marginBottom: 0}}>
-        <View style={{alignItems: 'center', marginBottom: 50}}>
+      <ScrollView style={{ padding: 20, marginTop: 10, marginBottom: 0 }}>
+        <View style={{ alignItems: 'center', marginBottom: 50 }}>
           <TouchableOpacity
             style={{
               position: 'relative',
@@ -416,13 +420,13 @@ const Profile = ({navigation}) => {
                     ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
                     : myContext?.profileImagee,
               }}
-              style={{width: 120, height: 120, resizeMode: 'cover'}}
+              style={{ width: 120, height: 120, resizeMode: 'cover' }}
               PlaceholderContent={<ActivityIndicator />}
             />
             <TouchableOpacity
-              style={{position: 'absolute', right: 10, bottom: 10}}
+              style={{ position: 'absolute', right: 10, bottom: 10 }}
               onPress={() => openSheet('camera')}>
-              <EditIcon style={{height: 35, width: 20}} />
+              <EditIcon style={{ height: 35, width: 20 }} />
             </TouchableOpacity>
           </TouchableOpacity>
         </View>
@@ -431,9 +435,9 @@ const Profile = ({navigation}) => {
           <Text style={styles.nameF}>First Name</Text>
           <Text style={styles.nameB}>{myData?.name.split(' ')[0]}</Text>
           <TouchableOpacity
-            style={{position: 'absolute', right: 15, top: 10}}
+            style={{ position: 'absolute', right: 15, top: 10 }}
             onPress={() => openSheet('frstname')}>
-            <EditIcon style={{height: 35, width: 20}} />
+            <EditIcon style={{ height: 35, width: 20 }} />
           </TouchableOpacity>
         </View>
 
@@ -441,9 +445,9 @@ const Profile = ({navigation}) => {
           <Text style={styles.nameF}>Last Name</Text>
           <Text style={styles.nameB}>{myData?.name.split(' ')[1]}</Text>
           <TouchableOpacity
-            style={{position: 'absolute', right: 15, top: 10}}
+            style={{ position: 'absolute', right: 15, top: 10 }}
             onPress={() => openSheet('lstname')}>
-            <EditIcon style={{height: 35, width: 20}} />
+            <EditIcon style={{ height: 35, width: 20 }} />
           </TouchableOpacity>
         </View>
 
@@ -467,21 +471,21 @@ const Profile = ({navigation}) => {
           <Text style={styles.nameF}>Phone</Text>
           <Text style={styles.nameB}>{myData?.phone}</Text>
           <TouchableOpacity
-            style={{position: 'absolute', right: 15, top: 10}}
+            style={{ position: 'absolute', right: 15, top: 10 }}
             onPress={() => openSheet('phone')}>
-            <EditIcon style={{height: 35, width: 20}} />
+            <EditIcon style={{ height: 35, width: 20 }} />
           </TouchableOpacity>
         </View>
 
-        <View style={{...styles.mainCard, marginBottom: 40}}>
+        <View style={{ ...styles.mainCard, marginBottom: 40 }}>
           <Text style={styles.nameF}>Password</Text>
           <Text style={styles.nameB}>**********</Text>
           {myData && myData.userfrom == 'NORMAL' ? (
             <>
               <TouchableOpacity
-                style={{position: 'absolute', right: 15, top: 10}}
+                style={{ position: 'absolute', right: 15, top: 10 }}
                 onPress={() => openSheet('password')}>
-                <EditIcon style={{height: 35, width: 20}} />
+                <EditIcon style={{ height: 35, width: 20 }} />
               </TouchableOpacity>
             </>
           ) : null}
@@ -506,7 +510,7 @@ const Profile = ({navigation}) => {
           },
         }}
         height={editCOn != 'camera' ? 280 : 160}>
-        <View style={{padding: 20}}>
+        <View style={{ padding: 20 }}>
           {editCard()}
           {editCOn != 'camera' ? (
             <>

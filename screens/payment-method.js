@@ -80,7 +80,6 @@ const PaymentMethod = ({ navigation }) => {
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
         { text: "OK", onPress: () => removeCard(id) }

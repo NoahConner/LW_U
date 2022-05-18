@@ -51,7 +51,7 @@ const AddCardSheet = ({navigation,statement}) => {
             setLoader(false)
             myContext.setcloseAllSheets(true)
         }).catch((err)=>{
-            console.log(err)
+         
             setLoader(false)
         })
       }
@@ -79,7 +79,7 @@ const AddCardSheet = ({navigation,statement}) => {
                 placeholderColor={"darkgray"}
                 inputContainerStyle={s.Cinput}
 
-                onFocus={e => _onFocus(e)}
+         
                 onChange={e => _onChange(e)} />
 
                 <View>

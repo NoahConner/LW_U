@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { View, SafeAreaView, Text, StyleSheet, Alert, Platform, ActivityIndicator, TouchableOpacity, FlatList, Modal } from 'react-native';
+import { View, SafeAreaView, Text, StyleSheet, RefreshControl, Platform, ActivityIndicator, TouchableOpacity, FlatList, Modal } from 'react-native';
 import { Image, Button, Icon } from 'react-native-elements';
 import Header from '../components/header'
 import Location from '../assets/svg/location.svg';
@@ -13,7 +13,7 @@ import Loader from './loader';
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Geocoder from 'react-native-geocoding';
-import LocationEnabler from 'react-native-location-enabler'; /* comment this on ios */
+// import LocationEnabler from 'react-native-location-enabler'; /* comment this on ios */
 
 const mcCards = (d, i, navigation) => {
     if (d?.user?.status == '1') {
@@ -43,33 +43,33 @@ const mcCards = (d, i, navigation) => {
 }
 
 // comment this on ios
-const {
-    PRIORITIES: { HIGH_ACCURACY },
-    useLocationSettings,
-} = LocationEnabler;
+// const {
+//     PRIORITIES: { HIGH_ACCURACY },
+//     useLocationSettings,
+// } = LocationEnabler;
 
-const LocationStatus = (props: { enabled: boolean | undefined }) => (
-    <Text style={{ ...styles.status, marginBottom: 10 }}>
-        Location : [{' '}
-        {props.enabled !== undefined && props.enabled ? (
-            <Text style={{ ...styles.enabled, color: '#000' }}>Enabled</Text>
-        ) : props.enabled !== undefined && !props.enabled ? (
-            <Text style={{ ...styles.disabled, color: '#000' }}>Turn on your device location for this application</Text>
-        ) : (
-            <Text style={{ ...styles.undefined, color: '#000' }}>Undefined</Text>
-        )}{' '}
-        ]
-    </Text>
-);
+// const LocationStatus = (props: { enabled: boolean | undefined }) => (
+//     <Text style={{ ...styles.status, marginBottom: 10 }}>
+//         Location : [{' '}
+//         {props.enabled !== undefined && props.enabled ? (
+//             <Text style={{ ...styles.enabled, color: '#000' }}>Enabled</Text>
+//         ) : props.enabled !== undefined && !props.enabled ? (
+//             <Text style={{ ...styles.disabled, color: '#000' }}>Turn on your device location for this application</Text>
+//         ) : (
+//             <Text style={{ ...styles.undefined, color: '#000' }}>Undefined</Text>
+//         )}{' '}
+//         ]
+//     </Text>
+// );
 
-const RequestResolutionSettingsBtn = (props: { onPress: any }) => (
-    <Button
-        color="red"
-        title="Request Resolution Location Settings"
-        onPress={props.onPress}
-    />
-);
-// comment this on ios
+// const RequestResolutionSettingsBtn = (props: { onPress: any }) => (
+//     <Button
+//         color="red"
+//         title="Request Resolution Location Settings"
+//         onPress={props.onPress}
+//     />
+// );
+// // comment this on ios
 
 const Home = ({ navigation, route }) => {
 
@@ -80,17 +80,27 @@ const Home = ({ navigation, route }) => {
     const isFocused = useIsFocused();
     const [locationon, setlocationon] = useState(true);
     const [address, setaddress] = useState(null);
-    const [enabled, requestResolution] = useLocationSettings({
-        priority: HIGH_ACCURACY,
-        alwaysShow: true,
-        needBle: true,
-    });
+    // const [enabled, requestResolution] = useLocationSettings({
+    //     priority: HIGH_ACCURACY,
+    //     alwaysShow: true,
+    //     needBle: true,
+    // });
 
     useEffect(() => {
-        if (enabled) {
-            getCurrentLocation();
-        }
-    }, [enabled])
+        getCurrentLocation();
+    }, [])
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+      setRefreshing(true);
+      if (route.params) {
+        getRestaurents(route.params);
+        setLocation(route.params);
+    } else {
+        getCurrentLocation();
+    }
+    }, []);
 
     const getCurrentLocation = () => {
         setLoader(true)
@@ -106,8 +116,8 @@ const Home = ({ navigation, route }) => {
             .catch(error => {
                 setlocationon(false)
                 const { code, message } = error;
-                console.warn(code, message);
-                console.log(error.response);
+
+
                 setLoader(false)
             })
     }
@@ -141,14 +151,15 @@ const Home = ({ navigation, route }) => {
             setLoader(false)
             getWallet();
             getPysicalAddress(location)
+            setRefreshing(false)
         }).catch((err) => {
-            console.log(err.response)
+
             setLoader(false)
         })
     }
 
     const getWallet = async () => {
-        console.log('home')
+
         const value = await AsyncStorage.getItem('@auth_token');
         await axiosconfig.get(`admin/current_wallet`,
             {
@@ -159,7 +170,7 @@ const Home = ({ navigation, route }) => {
         ).then((res: any) => {
             myContext.setWalletAmount(res.data.wallet == undefined ? 0 : res.data.wallet)
         }).catch((err) => {
-            console.log(err.response)
+
         })
 
         await axiosconfig.get(`admin/my_data`,
@@ -171,7 +182,7 @@ const Home = ({ navigation, route }) => {
         ).then((res: any) => {
             myContext.setprofileImagee(res.data.image)
         }).catch((err) => {
-            console.log(err.response)
+
         })
 
         await axiosconfig.get(`admin/admin_data_index`,
@@ -183,7 +194,7 @@ const Home = ({ navigation, route }) => {
         ).then((res: any) => {
             myContext.setappUrl(Platform.OS === 'ios' ? res.data.app_url_ios : res.data.app_url_android);
         }).catch((err) => {
-            console.log(err.response)
+
         })
     }
 
@@ -195,57 +206,49 @@ const Home = ({ navigation, route }) => {
             getCurrentLocation();
         }
 
-    }, [route, isFocused, enabled])
+    }, [route, isFocused])
 
     return (
 
         <View style={styles.container}>
+            <View style={{ width: '100%' }}>
+                <Header navigation={navigation} routes={location} address={address} />
+            </View>
             {
-                !enabled && Platform.OS != 'ios' ? (
+                loader ? (
                     <>
-                        <View style={{ padding: 20 }}>
-                            <LocationStatus enabled={enabled}  />
-                            <RequestResolutionSettingsBtn onPress={requestResolution} />
-                        </View>
+                        <Loader />
                     </>
-                ) : (
-                    <>
-                        <View style={{ width: '100%' }}>
-                            <Header navigation={navigation} routes={location} address={address} />
-                        </View>
-                        {
-                            loader ? (
-                                <>
-                                    <Loader />
-                                </>
-                            ) : null
-                        }
-                        <SafeAreaView style={{ ...styles.container, paddingHorizontal: 20 }}>
-                            {
-
-                                <>
-                                    <FlatList
-                                        data={resTaurents}
-                                        renderItem={({ item, index }) => (
-                                            mcCards(item, index, navigation)
-                                        )}
-                                        keyExtractor={item => item.id}
-                                        showsVerticalScrollIndicator={false}
-                                        showsHorizontalScrollIndicator={false}
-                                        ListHeaderComponent={
-                                            <View style={{ padding: 20 }}>
-                                                <Text style={{ fontSize: moderateScale(17), fontFamily: 'Gilroy-Bold' }}>All Restaurants</Text>
-                                            </View>
-                                        }
-                                    />
-                                </>
-                            }
-
-                        </SafeAreaView>
-                    </>
-                )
+                ) : null
             }
-            {/*  */}
+            <SafeAreaView style={{ ...styles.container, paddingHorizontal: 20 }}>
+                {
+
+                    <>
+                        <FlatList
+                            refreshControl={
+                            <RefreshControl
+                              refreshing={refreshing}
+                              onRefresh={onRefresh}
+                            />
+                          }
+                            data={resTaurents}
+                            renderItem={({ item, index }) => (
+                                mcCards(item, index, navigation)
+                            )}
+                            keyExtractor={item => item.id}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            ListHeaderComponent={
+                                <View style={{ padding: 20 }}>
+                                    <Text style={{ fontSize: moderateScale(17), fontFamily: 'Gilroy-Bold' }}>All Restaurants</Text>
+                                </View>
+                            }
+                        />
+                    </>
+                }
+
+            </SafeAreaView>
         </View>
     )
 }

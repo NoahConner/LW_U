@@ -162,7 +162,7 @@ const ConfirmPayment = ({navigation, route}) => {
         // myContext.setpaymentmethods(res.data)
       })
       .catch(err => {
-        console.log(err);
+      
         setLoader(false);
       });
   };

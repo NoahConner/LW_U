@@ -11,7 +11,7 @@ const Loader = ({navigation}) => {
         <View style={styles.cont}>
             <Image
                 style={styles.logo}
-                source={require('../assets/gif/loader1.gif')}
+                source={require('../assets/gif/loader.gif')}
             />
             {/* <LoaderImg/> */}
         </View>

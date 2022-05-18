@@ -51,15 +51,15 @@ const ReviewPayment = ({ navigation, amount, cardSelect, cardSelected }) => {
             setLoader(false)
             getWallet()
             // openLink(res.data.url)
-            console.log(res)
+          
             setUrl(res.data.url)
             setTimeout(() => {
                 onOpenLink(res.data.url)
-            });
-            navigation.navigate('Home')
+            },1000);
+            
             // myContext.setCongratesModal(true)
         }).catch((err) => {
-            console.log(err.response, 'ress000')
+          
             setLoader(false)
         })
     }
@@ -76,7 +76,7 @@ const ReviewPayment = ({ navigation, amount, cardSelect, cardSelected }) => {
 
             myContext.setWalletAmount(res.data.wallet)
         }).catch((err) => {
-            console.log(err.response);
+           
         })
     }
 
@@ -131,7 +131,9 @@ const ReviewPayment = ({ navigation, amount, cardSelect, cardSelected }) => {
                 'my-custom-header': 'Leaperway Payment'
               }
             })
+            navigation.navigate('Home')
             getWallet()
+            
           }
           else Linking.openURL(url)
         } catch (error) {

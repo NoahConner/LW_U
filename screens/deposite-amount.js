@@ -16,14 +16,6 @@ const DepositeAmount = ({navigation})=>{
     Alert.alert(
       "Error",
       m,
-    //   [
-    //     {
-    //       text: "Cancel",
-    //       onPress: () => console.log("Cancel Pressed"),
-    //       style: "cancel"
-    //     },
-    //     { text: "OK", onPress: () => console.log("OK Pressed") }
-    //   ]
     );
     const verifyAmont = ()=> {
         if(customAmount < 10){
