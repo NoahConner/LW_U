@@ -69,9 +69,9 @@ class MarkerTypes extends React.Component {
       },
     });
   };
-
+  // AIzaSyDSD6okXBL6Qt0DaJJMlSFVNMuzz6ZTyWY
   getPysicalAddress = location => {
-    Geocoder.init('AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA');
+    Geocoder.init('AIzaSyDSD6okXBL6Qt0DaJJMlSFVNMuzz6ZTyWY');
     setTimeout(() => {
       Geocoder.from(location.description)
         .then(json => {
@@ -185,7 +185,7 @@ class MarkerTypes extends React.Component {
                 },
               }}
               query={{
-                key: 'AIzaSyDpjC5dmFxhdUHi24y0ZH6PGD_NhOLFCMA',
+                key: 'AIzaSyDSD6okXBL6Qt0DaJJMlSFVNMuzz6ZTyWY',
                 language: 'en',
               }}
               currentLocation={true}

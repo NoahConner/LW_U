@@ -43,7 +43,7 @@ const DonationHistory = ({ navigation }) => {
     const dCards = (d, i, refRBSheet) => {
         return (
             <TouchableOpacity onPress={() => openSheet(d)}>
-                <View style={{ ...styles.flexRow, paddingHorizontal: 20, justifyContent: 'space-between', width: '100%', marginTop: i == 0 ? 20 : 50 }}>
+                <View style={{ ...styles.flexRow, paddingHorizontal: 20, justifyContent: 'space-between', width: '100%', marginTop: i == 0 ? 20 : 50, marginBottom: i == (recors.length -1) ? 100 : 0 }}>
                     <View style={{ ...styles.flexRow, justifyContent: 'space-between', width: '100%' }} key={i}>
                         <View style={{ flexDirection: 'row', width: '100%' }}>
                             <Coupon style={{ marginRight: 15 }} />
@@ -75,7 +75,7 @@ const DonationHistory = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {
                 loader ? (
                     <>
@@ -86,7 +86,7 @@ const DonationHistory = ({ navigation }) => {
             <StackHeader navigation={navigation} name={'Donation History'} />
             <View style={{ marginTop: 10 }}>
 
-                <SafeAreaView >
+                <SafeAreaView>
                     <View style={{ paddingHorizontal: 20 }}>
                         <Text style={{ fontSize: moderateScale(18), fontFamily: 'Gilroy-Bold', marginBottom: 20 }}>Donation History</Text>
                     </View>
@@ -199,7 +199,7 @@ const DonationHistory = ({ navigation }) => {
                     </View>
                 </ScrollView>
             </RBSheet>
-        </View>
+        </SafeAreaView>
     )
 }
 

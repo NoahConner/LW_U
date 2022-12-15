@@ -1,4 +1,4 @@
-package com.leaperway;
+package com.leaperwayapp;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;
