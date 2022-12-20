@@ -69,7 +69,7 @@ class MarkerTypes extends React.Component {
       },
     });
   };
-  // AIzaSyDSD6okXBL6Qt0DaJJMlSFVNMuzz6ZTyWY
+
   getPysicalAddress = location => {
     Geocoder.init('AIzaSyDSD6okXBL6Qt0DaJJMlSFVNMuzz6ZTyWY');
     setTimeout(() => {

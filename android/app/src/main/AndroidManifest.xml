@@ -1,6 +1,6 @@
 <manifest
   xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.leaperwayapp"
+  package="com.leaperway"
 >
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -37,11 +37,11 @@
     />
       <activity
       android:name=".MainActivity"
-      android:exported="true"
       android:label="@string/app_name"
       android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
       android:launchMode="singleTask"
       android:windowSoftInputMode="adjustResize"
+      android:exported="true"
     >
     
         <intent-filter>

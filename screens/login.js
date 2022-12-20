@@ -41,9 +41,9 @@ const Login = ({navigation}) => {
       androidClientId:
         '985514740212-uiai0l1g8j0ha2eqlojfubgi737vd6bd.apps.googleusercontent.com',
       webClientId:
-        '985514740212-9eek8v9paecm235sik8nv150vcnuma2e.apps.googleusercontent.com',
+        '781921654869-goc7pjatjjrh4vn5sllnhfchhss5hau6.apps.googleusercontent.com',
       iosClientId:
-        '985514740212-jelhod0v2kbl36j1pc1trfl5nr138640.apps.googleusercontent.com',
+        '9781921654869-i9qh50gfnmtj2jeiqefddb9toeqo650s.apps.googleusercontent.com',
     });
   }, []);
 
