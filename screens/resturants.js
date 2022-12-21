@@ -277,7 +277,7 @@ const Resturants = ({ route, navigation }) => {
                                     {
                                         datePick == null ? (
                                             <>
-                                                <Text style={{ fontSize: moderateScale(16), color: 'grey' }}>DD/MM/YY</Text>
+                                                <Text style={{ fontSize: moderateScale(16), color: 'grey' }}>Date of birth</Text>
                                             </>
                                         ) : (
                                             <>

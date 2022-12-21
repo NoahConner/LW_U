@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,12 +7,12 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Input, CheckBox, Button} from 'react-native-elements';
+import { Input, CheckBox, Button } from 'react-native-elements';
 import FacebookIcon from '../assets/svg/facebook.svg';
 import GoogleIcon from '../assets/svg/google.svg';
 import AppContext from '../components/appcontext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {moderateScale} from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
 import Loader from './loader';
 import Toast from 'react-native-toast-message';
 import axiosconfig from '../providers/axios';
@@ -29,7 +29,7 @@ import {
   GraphRequestManager,
 } from 'react-native-fbsdk-next';
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const [loader, setLoader] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -37,14 +37,15 @@ const Login = ({navigation}) => {
   const myContext = useContext(AppContext);
 
   useEffect(() => {
-    GoogleSignin.configure({
-      androidClientId:
-        '985514740212-uiai0l1g8j0ha2eqlojfubgi737vd6bd.apps.googleusercontent.com',
-      webClientId:
-        '781921654869-goc7pjatjjrh4vn5sllnhfchhss5hau6.apps.googleusercontent.com',
-      iosClientId:
-        '9781921654869-i9qh50gfnmtj2jeiqefddb9toeqo650s.apps.googleusercontent.com',
-    });
+    // GoogleSignin.configure({
+    //   androidClientId:
+    //     '985514740212-uiai0l1g8j0ha2eqlojfubgi737vd6bd.apps.googleusercontent.com',
+    //   webClientId:
+    //     '781921654869-goc7pjatjjrh4vn5sllnhfchhss5hau6.apps.googleusercontent.com',
+    //   iosClientId:
+    //     '9781921654869-i9qh50gfnmtj2jeiqefddb9toeqo650s.apps.googleusercontent.com',
+    // });
+    GoogleSignin.configure()
   }, []);
 
   const infoRequest = new GraphRequest(
@@ -58,7 +59,7 @@ const Login = ({navigation}) => {
     },
     (err, res) => {
       if (res) {
-        
+
         loginForm(res, true);
       } else {
         showToast('error', err);
@@ -89,26 +90,22 @@ const Login = ({navigation}) => {
   };
 
   const _signIn = async () => {
-    await GoogleSignin.hasPlayServices();
-    await GoogleSignin.signIn()
-      .then(user => {
-        loginForm(user.user, true);
-      })
-      .catch(error => {
-        if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-          // user cancelled the login flow
-          showToast('error', 'Login Cancelled');
-        } else if (error.code === statusCodes.IN_PROGRESS) {
-          alert('Signin in progress');
-          // operation (f.e. sign in) is in progress already
-        } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-          showToast('error', 'PLAY_SERVICES_NOT_AVAILABLE');
-          // play services not available or outdated
-        } else {
-          showToast('error', error);
-          // some other error happened
-        }
-      });
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      loginForm(userInfo?.user, true);
+    } catch (error) {
+      console.log(error, 'error');
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
   };
 
   const showToast = (t, e) => {
@@ -123,13 +120,13 @@ const Login = ({navigation}) => {
       await AsyncStorage.setItem('@auth_token', value);
       myContext.setuserToken(value);
       navigation.navigate('Home');
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const loginForm = async (d, option) => {
     let data = {
       email: option ? d.email : email,
-      password: option ? d.id : password,
+      password: option ? d.email+'leaperway' : password,
       type: 'user',
     };
     var emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -171,7 +168,7 @@ const Login = ({navigation}) => {
           <Loader />
         </>
       ) : null}
-      <View style={{alignItems: 'center', width: '100%'}}>
+      <View style={{ alignItems: 'center', width: '100%' }}>
         <Text
           style={{
             color: '#E83131',
@@ -192,7 +189,7 @@ const Login = ({navigation}) => {
           }}>
           Donate Food to Poor people in just 3 easy steps
         </Text>
-        <View style={{width: '100%'}}>
+        <View style={{ width: '100%' }}>
           <Input
             placeholder="Email Adress"
             containerStyle={{
@@ -240,10 +237,10 @@ const Login = ({navigation}) => {
           />
           <TouchableOpacity
             onPress={() => navigation.navigate('ForgotPassword')}>
-            <Text style={{color: '#0071BC'}}>Forgot Password?</Text>
+            <Text style={{ color: '#0071BC' }}>Forgot Password?</Text>
           </TouchableOpacity>
         </View>
-        <View style={{width: '100%', marginTop: 30}}>
+        <View style={{ width: '100%', marginTop: 30 }}>
           <Button
             title="Log In"
             type="solid"
@@ -265,9 +262,9 @@ const Login = ({navigation}) => {
             Or
           </Text>
 
-          
 
-          <Button
+
+          {/* <Button
             title="Continue with Facebook"
             type="solid"
             buttonStyle={{
@@ -290,7 +287,7 @@ const Login = ({navigation}) => {
                 }}
               />
             }
-          />
+          /> */}
           <Button
             title="Continue with Google"
             type="solid"
@@ -325,11 +322,11 @@ const Login = ({navigation}) => {
               justifyContent: 'center',
               marginTop: 20,
             }}>
-            <Text style={{color: '#707070', textAlign: 'center'}}>
+            <Text style={{ color: '#707070', textAlign: 'center' }}>
               Don`t have an account?{' '}
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-              <Text style={{color: '#0071BC', textAlign: 'center'}}>
+              <Text style={{ color: '#0071BC', textAlign: 'center' }}>
                 Sign Up
               </Text>
             </TouchableOpacity>

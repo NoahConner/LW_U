@@ -11,17 +11,16 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2A3A1DE82952F18800EF493B /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A3A1DE32952F18800EF493B /* Gilroy-Bold.ttf */; };
+		2A3A1DE92952F18800EF493B /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A3A1DE42952F18800EF493B /* Gilroy-Medium.ttf */; };
+		2A3A1DEA2952F18800EF493B /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A3A1DE52952F18800EF493B /* Gilroy-Regular.ttf */; };
+		2A3A1DEB2952F18800EF493B /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A3A1DE62952F18800EF493B /* Gilroy-Heavy.ttf */; };
+		2A3A1DEC2952F18800EF493B /* Gilroy-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A3A1DE72952F18800EF493B /* Gilroy-Light.ttf */; };
 		2A9B1BF92811651900737E9C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9B1BF82811651900737E9C /* File.swift */; };
-		582CE615E2326CDD34C6FFAC /* libPods-LeaperWay-LeaperWayTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B73226D4A503B2DD385F1B97 /* libPods-LeaperWay-LeaperWayTests.a */; };
+		7EE7B6DAFA13356E1B8A0A5A /* libPods-LeaperWay-LeaperWayTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD6F07BB69CBF1C90D0ECBF6 /* libPods-LeaperWay-LeaperWayTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		843FE87F27D0AA12009E2C85 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FE87E27D0AA12009E2C85 /* BootSplash.storyboard */; };
-		8450FA3727D096D700553A09 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8450FA3627D096D700553A09 /* Poppins-SemiBold.ttf */; };
-		8450FA3927D096EC00553A09 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8450FA3827D096EC00553A09 /* Poppins-Regular.ttf */; };
-		84F7A21527CF7CCC00BCC4AD /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84F7A21427CF7CCC00BCC4AD /* Gilroy-Bold.ttf */; };
-		84F7A21727CF7CEF00BCC4AD /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84F7A21627CF7CEF00BCC4AD /* Gilroy-Regular.ttf */; };
-		84F7A21927CF7D0C00BCC4AD /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84F7A21827CF7D0C00BCC4AD /* Gilroy-Medium.ttf */; };
-		84F7A23227CF7D5000BCC4AD /* Gilroy-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84F7A23127CF7D5000BCC4AD /* Gilroy-Light.ttf */; };
-		9AD351A9689FEA77F0696B55 /* libPods-LeaperWay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 506E1D1FA32E46B8CFD9DF6A /* libPods-LeaperWay.a */; };
+		8C50059925DBD5AC2C72D96D /* libPods-LeaperWay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19DC6BFE66185E46CD25C37B /* libPods-LeaperWay.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,41 +37,42 @@
 		00E356EE1AD99517003FC87E /* LeaperWayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeaperWayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* LeaperWayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeaperWayTests.m; sourceTree = "<group>"; };
-		08232E528B1B2B791938835F /* Pods-LeaperWay-LeaperWayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaperWay-LeaperWayTests.debug.xcconfig"; path = "Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0D6E1C3E2B67C954CDCD9D12 /* Pods-LeaperWay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaperWay.release.xcconfig"; path = "Target Support Files/Pods-LeaperWay/Pods-LeaperWay.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* LeaperWay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeaperWay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LeaperWay/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LeaperWay/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LeaperWay/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LeaperWay/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LeaperWay/main.m; sourceTree = "<group>"; usesTabs = 1; };
-		13C82E013D783B1AA0C1F302 /* Pods-LeaperWay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaperWay.release.xcconfig"; path = "Target Support Files/Pods-LeaperWay/Pods-LeaperWay.release.xcconfig"; sourceTree = "<group>"; };
 		192785BB0E9246B29A9B5317 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		19DC6BFE66185E46CD25C37B /* libPods-LeaperWay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeaperWay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD44D4720FE4E8EA2D1E81D /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		1CFEFC7ABE574392A36E72C6 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		286A0932AFFF4A4498E3A1CF /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		2A3A1DE32952F18800EF493B /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Bold.ttf"; path = "../../../../fonts/gilroy/Gilroy-Bold.ttf"; sourceTree = "<group>"; };
+		2A3A1DE42952F18800EF493B /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Medium.ttf"; path = "../../../../fonts/gilroy/Gilroy-Medium.ttf"; sourceTree = "<group>"; };
+		2A3A1DE52952F18800EF493B /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Regular.ttf"; path = "../../../../fonts/gilroy/Gilroy-Regular.ttf"; sourceTree = "<group>"; };
+		2A3A1DE62952F18800EF493B /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Heavy.ttf"; path = "../../../../fonts/gilroy/Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
+		2A3A1DE72952F18800EF493B /* Gilroy-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Light.ttf"; path = "../../../../fonts/gilroy/Gilroy-Light.ttf"; sourceTree = "<group>"; };
 		2A3C1D4728114F9700A98D47 /* LeaperWay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LeaperWay.entitlements; path = LeaperWay/LeaperWay.entitlements; sourceTree = "<group>"; };
 		2A9B1BF72811651800737E9C /* LeaperWay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LeaperWay-Bridging-Header.h"; sourceTree = "<group>"; };
 		2A9B1BF82811651900737E9C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		2F863AF0C4B6452CB4EB5AB1 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		3C975A97FD0745CB9B40F208 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		506E1D1FA32E46B8CFD9DF6A /* libPods-LeaperWay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeaperWay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60942CA410264EB0969B2E10 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		6DCE69B3A78B44E1998512BB /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		710C2B4153754071A8AA3B83 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		775817E07765A921134D79E4 /* Pods-LeaperWay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaperWay.debug.xcconfig"; path = "Target Support Files/Pods-LeaperWay/Pods-LeaperWay.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LeaperWay/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		843FE87E27D0AA12009E2C85 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = LeaperWay/BootSplash.storyboard; sourceTree = "<group>"; };
-		8450FA3627D096D700553A09 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBold.ttf"; path = "../../../fonts/Poppins/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
-		8450FA3827D096EC00553A09 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Regular.ttf"; path = "../../../fonts/Poppins/Poppins-Regular.ttf"; sourceTree = "<group>"; };
-		84F7A21427CF7CCC00BCC4AD /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Bold.ttf"; path = "../../../fonts/gilroy/Gilroy-Bold.ttf"; sourceTree = "<group>"; };
-		84F7A21627CF7CEF00BCC4AD /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Regular.ttf"; path = "../../../fonts/gilroy/Gilroy-Regular.ttf"; sourceTree = "<group>"; };
-		84F7A21827CF7D0C00BCC4AD /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Medium.ttf"; path = "../../../fonts/gilroy/Gilroy-Medium.ttf"; sourceTree = "<group>"; };
-		84F7A23127CF7D5000BCC4AD /* Gilroy-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gilroy-Light.ttf"; path = "../../../fonts/gilroy/Gilroy-Light.ttf"; sourceTree = "<group>"; };
+		8AA51AC8A140CF32E442397D /* Pods-LeaperWay-LeaperWayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaperWay-LeaperWayTests.debug.xcconfig"; path = "Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		961393AFC9B543639DB1D2A8 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		99AB02C3617E4F439284B5AA /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		A085338642F14584AFF464AA /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		A8ABC58B2D7B45F5BC759A26 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Bold.ttf"; path = "../assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; };
+		AA8CF234CF9789EC38E5639A /* Pods-LeaperWay-LeaperWayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaperWay-LeaperWayTests.release.xcconfig"; path = "Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests.release.xcconfig"; sourceTree = "<group>"; };
+		AD6F07BB69CBF1C90D0ECBF6 /* libPods-LeaperWay-LeaperWayTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeaperWay-LeaperWayTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADD164FA43E545B6AA541232 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		B73226D4A503B2DD385F1B97 /* libPods-LeaperWay-LeaperWayTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeaperWay-LeaperWayTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8F1A849409C4375AB7E372A /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		B913C0D2338C496EA716CC34 /* Gilroy-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Light.ttf"; path = "../assets/fonts/Gilroy-Light.ttf"; sourceTree = "<group>"; };
 		BF7F6952132B4E46ABB559FD /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
@@ -80,8 +80,6 @@
 		BFBD248FDD534B8B8CE5AA59 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Medium.ttf"; path = "../assets/fonts/Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 		C3072DDA75A74C6BB959477B /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		CAF9DFD1D847407BA3BF6F85 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		D4EED9AED65386A65485659B /* Pods-LeaperWay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaperWay.debug.xcconfig"; path = "Target Support Files/Pods-LeaperWay/Pods-LeaperWay.debug.xcconfig"; sourceTree = "<group>"; };
-		E14F4958C750FBB43717E3FD /* Pods-LeaperWay-LeaperWayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaperWay-LeaperWayTests.release.xcconfig"; path = "Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FBD08A3A4E3442498B9F926B /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				582CE615E2326CDD34C6FFAC /* libPods-LeaperWay-LeaperWayTests.a in Frameworks */,
+				7EE7B6DAFA13356E1B8A0A5A /* libPods-LeaperWay-LeaperWayTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AD351A9689FEA77F0696B55 /* libPods-LeaperWay.a in Frameworks */,
+				8C50059925DBD5AC2C72D96D /* libPods-LeaperWay.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,10 +124,10 @@
 		10DB26FAA9C3B3F353BD6D0E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D4EED9AED65386A65485659B /* Pods-LeaperWay.debug.xcconfig */,
-				13C82E013D783B1AA0C1F302 /* Pods-LeaperWay.release.xcconfig */,
-				08232E528B1B2B791938835F /* Pods-LeaperWay-LeaperWayTests.debug.xcconfig */,
-				E14F4958C750FBB43717E3FD /* Pods-LeaperWay-LeaperWayTests.release.xcconfig */,
+				775817E07765A921134D79E4 /* Pods-LeaperWay.debug.xcconfig */,
+				0D6E1C3E2B67C954CDCD9D12 /* Pods-LeaperWay.release.xcconfig */,
+				8AA51AC8A140CF32E442397D /* Pods-LeaperWay-LeaperWayTests.debug.xcconfig */,
+				AA8CF234CF9789EC38E5639A /* Pods-LeaperWay-LeaperWayTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -137,14 +135,13 @@
 		13B07FAE1A68108700A75B9A /* LeaperWay */ = {
 			isa = PBXGroup;
 			children = (
+				2A3A1DE32952F18800EF493B /* Gilroy-Bold.ttf */,
+				2A3A1DE62952F18800EF493B /* Gilroy-Heavy.ttf */,
+				2A3A1DE72952F18800EF493B /* Gilroy-Light.ttf */,
+				2A3A1DE42952F18800EF493B /* Gilroy-Medium.ttf */,
+				2A3A1DE52952F18800EF493B /* Gilroy-Regular.ttf */,
 				2A3C1D4728114F9700A98D47 /* LeaperWay.entitlements */,
 				843FE87E27D0AA12009E2C85 /* BootSplash.storyboard */,
-				8450FA3827D096EC00553A09 /* Poppins-Regular.ttf */,
-				8450FA3627D096D700553A09 /* Poppins-SemiBold.ttf */,
-				84F7A23127CF7D5000BCC4AD /* Gilroy-Light.ttf */,
-				84F7A21827CF7D0C00BCC4AD /* Gilroy-Medium.ttf */,
-				84F7A21627CF7CEF00BCC4AD /* Gilroy-Regular.ttf */,
-				84F7A21427CF7CCC00BCC4AD /* Gilroy-Bold.ttf */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -190,8 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				506E1D1FA32E46B8CFD9DF6A /* libPods-LeaperWay.a */,
-				B73226D4A503B2DD385F1B97 /* libPods-LeaperWay-LeaperWayTests.a */,
+				19DC6BFE66185E46CD25C37B /* libPods-LeaperWay.a */,
+				AD6F07BB69CBF1C90D0ECBF6 /* libPods-LeaperWay-LeaperWayTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -235,12 +232,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "LeaperWayTests" */;
 			buildPhases = (
-				9C0937D3B23B7697B7D67C1E /* [CP] Check Pods Manifest.lock */,
+				97167910E0A8934087DDC83D /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				8F55C2845FD6BA65A8F5B835 /* [CP] Embed Pods Frameworks */,
-				D7416C70B957D9928F1E6120 /* [CP] Copy Pods Resources */,
+				531C536CF5AE89C1F7BAA15C /* [CP] Embed Pods Frameworks */,
+				2A834D84770506C513B21A8E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -256,14 +253,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LeaperWay" */;
 			buildPhases = (
-				139B780CE69366B2890C556D /* [CP] Check Pods Manifest.lock */,
+				F43144AF4317F63281E8FDE3 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				1E7CFE5B30F7626952CD4350 /* [CP] Embed Pods Frameworks */,
-				14E0170C5D6E4971DC090D8F /* [CP] Copy Pods Resources */,
+				9C158C7688C447A99DB5EC85 /* [CP] Embed Pods Frameworks */,
+				DB405DDEF64B6CAC576BF42B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -322,15 +319,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84F7A21527CF7CCC00BCC4AD /* Gilroy-Bold.ttf in Resources */,
-				8450FA3727D096D700553A09 /* Poppins-SemiBold.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				2A3A1DEA2952F18800EF493B /* Gilroy-Regular.ttf in Resources */,
 				843FE87F27D0AA12009E2C85 /* BootSplash.storyboard in Resources */,
-				84F7A21927CF7D0C00BCC4AD /* Gilroy-Medium.ttf in Resources */,
-				84F7A23227CF7D5000BCC4AD /* Gilroy-Light.ttf in Resources */,
+				2A3A1DE92952F18800EF493B /* Gilroy-Medium.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				84F7A21727CF7CEF00BCC4AD /* Gilroy-Regular.ttf in Resources */,
-				8450FA3927D096EC00553A09 /* Poppins-Regular.ttf in Resources */,
+				2A3A1DE82952F18800EF493B /* Gilroy-Bold.ttf in Resources */,
+				2A3A1DEB2952F18800EF493B /* Gilroy-Heavy.ttf in Resources */,
+				2A3A1DEC2952F18800EF493B /* Gilroy-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,63 +347,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		139B780CE69366B2890C556D /* [CP] Check Pods Manifest.lock */ = {
+		2A834D84770506C513B21A8E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LeaperWay-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		14E0170C5D6E4971DC090D8F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1E7CFE5B30F7626952CD4350 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8F55C2845FD6BA65A8F5B835 /* [CP] Embed Pods Frameworks */ = {
+		531C536CF5AE89C1F7BAA15C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -424,7 +381,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9C0937D3B23B7697B7D67C1E /* [CP] Check Pods Manifest.lock */ = {
+		97167910E0A8934087DDC83D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -446,21 +403,60 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D7416C70B957D9928F1E6120 /* [CP] Copy Pods Resources */ = {
+		9C158C7688C447A99DB5EC85 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LeaperWay-LeaperWayTests/Pods-LeaperWay-LeaperWayTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB405DDEF64B6CAC576BF42B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LeaperWay/Pods-LeaperWay-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F43144AF4317F63281E8FDE3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LeaperWay-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -516,7 +512,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 08232E528B1B2B791938835F /* Pods-LeaperWay-LeaperWayTests.debug.xcconfig */;
+			baseConfigurationReference = 8AA51AC8A140CF32E442397D /* Pods-LeaperWay-LeaperWayTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -544,7 +540,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E14F4958C750FBB43717E3FD /* Pods-LeaperWay-LeaperWayTests.release.xcconfig */;
+			baseConfigurationReference = AA8CF234CF9789EC38E5639A /* Pods-LeaperWay-LeaperWayTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -569,14 +565,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4EED9AED65386A65485659B /* Pods-LeaperWay.debug.xcconfig */;
+			baseConfigurationReference = 775817E07765A921134D79E4 /* Pods-LeaperWay.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = LeaperWay/LeaperWay.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4BAA94W5H2;
+				DEVELOPMENT_TEAM = WFBXVN8Y8B;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LeaperWay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -584,12 +580,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = app.leaperway;
 				PRODUCT_NAME = LeaperWay;
 				SWIFT_OBJC_BRIDGING_HEADER = "LeaperWay-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -600,26 +597,27 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13C82E013D783B1AA0C1F302 /* Pods-LeaperWay.release.xcconfig */;
+			baseConfigurationReference = 0D6E1C3E2B67C954CDCD9D12 /* Pods-LeaperWay.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = LeaperWay/LeaperWay.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4BAA94W5H2;
+				DEVELOPMENT_TEAM = WFBXVN8Y8B;
 				INFOPLIST_FILE = LeaperWay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = app.leaperway;
 				PRODUCT_NAME = LeaperWay;
 				SWIFT_OBJC_BRIDGING_HEADER = "LeaperWay-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

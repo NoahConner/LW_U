@@ -53,7 +53,7 @@ const ConfirmPayment = ({navigation, route}) => {
   const [loader, setLoader] = useState(false);
   // const [cards, setCards] = useState(myContext.paymentmethods)
   const [cardSelect, SetcardSelect] = useState();
-  const [cardSelected, SetcardSelected] = useState();
+  const [cardSelected, SetcardSelected] = useState(null);
 
   const splitNo = c => {
     var splitt = c.split(' ');
@@ -172,6 +172,10 @@ const ConfirmPayment = ({navigation, route}) => {
     SetcardSelected(d);
   };
 
+  const openreview = () => {
+    refRBSheetReview.current.open()
+  }
+
   useEffect(() => {
     getCards();
   }, []);
@@ -261,13 +265,14 @@ const ConfirmPayment = ({navigation, route}) => {
           style={{position: 'absolute', bottom: 15, width: '100%', left: 20}}>
           <SafeAreaView>
             <Button
+              disabled={cardSelected == null}
               title="Review"
               buttonStyle={styles.NextBtns}
               titleStyle={{
                 fontSize: moderateScale(15),
                 fontFamily: 'Gilroy-Bold',
               }}
-              onPress={() => refRBSheetReview.current.open()}
+              onPress={() => openreview()}
             />
           </SafeAreaView>
         </View>

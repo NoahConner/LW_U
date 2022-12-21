@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -9,11 +9,11 @@ import {
   Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Input, CheckBox, Button} from 'react-native-elements';
+import { Input, CheckBox, Button } from 'react-native-elements';
 import FacebookIcon from '../assets/svg/facebook.svg';
 import GoogleIcon from '../assets/svg/google.svg';
-import {moderateScale} from 'react-native-size-matters';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { moderateScale } from 'react-native-size-matters';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import axiosconfig from '../providers/axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -33,14 +33,14 @@ import {
 } from 'react-native-fbsdk-next';
 
 const windowHeight = Dimensions.get('window').height;
-const SignIn = ({navigation}) => {
+const SignIn = ({ navigation }) => {
   const [remember, setRemember] = useState(false);
   const [signData, setSignData] = useState([]);
   const [loader, setLoader] = useState(false);
   const context = useContext(AppContext);
 
   const showToast = (t, e) => {
-    Alert.alert(t, e, [{text: 'OK'}]);
+    Alert.alert(t, e, [{ text: 'OK' }]);
   };
 
   useEffect(() => {
@@ -53,14 +53,15 @@ const SignIn = ({navigation}) => {
       opt: null,
     };
     setSignData(DoP);
-    GoogleSignin.configure({
-      androidClientId:
-        '985514740212-uiai0l1g8j0ha2eqlojfubgi737vd6bd.apps.googleusercontent.com',
-      webClientId:
-        '781921654869-goc7pjatjjrh4vn5sllnhfchhss5hau6.apps.googleusercontent.com',
-      iosClientId:
-        '9781921654869-i9qh50gfnmtj2jeiqefddb9toeqo650s.apps.googleusercontent.com',
-    });
+    // GoogleSignin.configure({
+    //   androidClientId:
+    //     '985514740212-uiai0l1g8j0ha2eqlojfubgi737vd6bd.apps.googleusercontent.com',
+    //   webClientId:
+    //     '781921654869-goc7pjatjjrh4vn5sllnhfchhss5hau6.apps.googleusercontent.com',
+    //   iosClientId:
+    //     '9781921654869-i9qh50gfnmtj2jeiqefddb9toeqo650s.apps.googleusercontent.com',
+    // });
+    GoogleSignin.configure()
   }, []);
 
   const storeData = async value => {
@@ -70,7 +71,7 @@ const SignIn = ({navigation}) => {
       setTimeout(() => {
         navigation.navigate('Home');
       }, 1000);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const setFormDatat = (e, t) => {
@@ -102,7 +103,7 @@ const SignIn = ({navigation}) => {
     setLoader(true);
 
     await axiosconfig
-      .post('app/check-email', {email: signData.email})
+      .post('app/check-email', { email: signData.email })
       .then((res: any) => {
         if (res.status == 200) {
           otpSend();
@@ -119,7 +120,7 @@ const SignIn = ({navigation}) => {
 
   const otpSend = async () => {
     await axiosconfig
-      .post('app/otp', {email: signData.email})
+      .post('app/otp', { email: signData.email })
       .then((res: any) => {
         setLoader(false);
         navigation.navigate('OPT', signData);
@@ -138,27 +139,22 @@ const SignIn = ({navigation}) => {
   };
 
   const _signIn = async () => {
-    await GoogleSignin.hasPlayServices();
-    await GoogleSignin.signIn()
-      .then(user => {
-       
-        checkMail(user.user, 'GOOGLE');
-      })
-      .catch(error => {
-        if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-          // user cancelled the login flow
-          showToast('error', 'Login Cancelled');
-        } else if (error.code === statusCodes.IN_PROGRESS) {
-          alert('Signin in progress');
-          // operation (f.e. sign in) is in progress already
-        } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-          showToast('error', 'PLAY_SERVICES_NOT_AVAILABLE');
-          // play services not available or outdated
-        } else {
-          showToast('error', error);
-          // some other error happened
-        }
-      });
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      checkMail(userInfo.user, 'GOOGLE');
+    } catch (error) {
+      console.log(error, 'error');
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
   };
 
   const checkMail = async (d, option) => {
@@ -167,14 +163,14 @@ const SignIn = ({navigation}) => {
     let data = {
       name: d.name,
       email: d.email,
-      password: d.id,
+      password: d.email+'leaperway',
       type: 'user',
       userfrom: option === 'GOOGLE' ? 'GOOGLE' : 'FACEBOOK',
       image: option === 'GOOGLE' ? d.photo : d.picture.data.url,
     };
 
     await axiosconfig
-      .post('app/check-email', {email: data.email})
+      .post('app/check-email', { email: data.email })
       .then((res: any) => {
         if (res.status == 200) {
           axiosconfig
@@ -223,10 +219,10 @@ const SignIn = ({navigation}) => {
     },
     (err, res) => {
       if (res) {
-        
+
         checkMail(res, 'FACEBOOK');
       } else {
-        
+
       }
     },
   );
@@ -265,7 +261,7 @@ const SignIn = ({navigation}) => {
         </>
       ) : null}
       <View style={styles.container}>
-        <View style={{alignItems: 'center', width: '100%'}}>
+        <View style={{ alignItems: 'center', width: '100%' }}>
           <Text
             style={{
               color: '#E83131',
@@ -286,7 +282,7 @@ const SignIn = ({navigation}) => {
             }}>
             Donate Food to Poor people in just 3 easy steps
           </Text>
-          <View style={{width: '100%'}}>
+          <View style={{ width: '100%' }}>
             <Input
               placeholder="Full Name"
               containerStyle={{
@@ -335,7 +331,7 @@ const SignIn = ({navigation}) => {
             />
           </View>
 
-          <View style={{width: '100%', marginTop: 20}}>
+          <View style={{ width: '100%', marginTop: 20 }}>
             <Button
               title="Sign Up"
               type="solid"
@@ -356,7 +352,7 @@ const SignIn = ({navigation}) => {
               }}>
               Or
             </Text>
-            <Button
+            {/* <Button
               title="Continue with Facebook"
               type="solid"
               buttonStyle={{
@@ -379,7 +375,7 @@ const SignIn = ({navigation}) => {
                   }}
                 />
               }
-            />
+            /> */}
             <Button
               title="Continue with Google"
               type="solid"
@@ -412,11 +408,11 @@ const SignIn = ({navigation}) => {
                 justifyContent: 'center',
                 marginTop: 20,
               }}>
-              <Text style={{color: '#707070', textAlign: 'center'}}>
+              <Text style={{ color: '#707070', textAlign: 'center' }}>
                 Already have an account?{' '}
               </Text>
               <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text style={{color: '#0071BC', textAlign: 'center'}}>
+                <Text style={{ color: '#0071BC', textAlign: 'center' }}>
                   Sign In
                 </Text>
               </TouchableOpacity>
