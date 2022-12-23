@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Platform,
+  Share
 } from 'react-native';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {
@@ -36,7 +37,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
 import {moderateScale} from 'react-native-size-matters';
 import axiosconfig from '../providers/axios';
-import Share from 'react-native-share';
+// import Share from 'react-native-share';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {LoginManager} from 'react-native-fbsdk-next';
@@ -308,74 +309,6 @@ const DrawerContent = ({navigation}) => {
                 </TouchableOpacity>
               </Collapsible>
             </View>
-
-            {/* <TouchableOpacity onPress={() => setCollapse2(!collapse2)} >
-                            <View style={{ ...styles.flexCon, marginBottom: 25, position: 'relative' }}>
-                                <SocialIcon style={{ width: 28, height: 24 }} />
-                                <Text style={styles.textStyle}>Share Us</Text>
-
-                                <Icon
-                                    name='angle-down'
-                                    type='font-awesome'
-                                    color='#fff'
-                                    containerStyle={{
-                                        position: 'absolute',
-                                        right: 0,
-                                        transform: [{ rotate: !collapse2 ? "180deg" : '360deg' }]
-                                    }}
-                                />
-                            </View>
-                        </TouchableOpacity>
-                        <View style={{ marginBottom: collapse2 ? 0 : 20 }}>
-                            <Collapsible collapsed={collapse2} style={{ backgroundColor: '#f1f1f1', padding: 20, borderRadius: 10 }}>
-                                <TouchableOpacity onPress={() => share('fb')}>
-                                    <View style={{ ...styles.flexCon, marginBottom: 20 }}>
-
-                                        <Icon
-                                            name='facebook-square'
-                                            type='font-awesome'
-                                            color='#1877f2'
-                                            iconStyle={{ fontSize: moderateScale(26), width: 28 }}
-                                        />
-                                        <Text style={{ ...styles.textStyle, fontSize: moderateScale(12), color: '#666' }}>Facebook</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => share('li')}>
-                                    <View style={{ ...styles.flexCon, marginBottom: 20 }}>
-
-                                        <Icon
-                                            name='linkedin'
-                                            type='font-awesome'
-                                            color='#0073b1'
-                                            iconStyle={{ fontSize: moderateScale(26), width: 28 }}
-                                        />
-                                        <Text style={{ ...styles.textStyle, fontSize: moderateScale(12), color: '#666' }}>LinkedIn</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => share('tw')}>
-                                    <View style={{ ...styles.flexCon, marginBottom: 20 }}>
-                                        <Icon
-                                            name='twitter'
-                                            type='font-awesome'
-                                            color='#1d9bf0'
-                                            iconStyle={{ fontSize: moderateScale(26), width: 28 }}
-                                        />
-                                        <Text style={{ ...styles.textStyle, fontSize: moderateScale(12), color: '#666' }}>Twitter</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => share('wa')}>
-                                    <View style={{ ...styles.flexCon }}>
-                                        <Icon
-                                            name='whatsapp'
-                                            type='font-awesome'
-                                            color='#25D366'
-                                            iconStyle={{ fontSize: moderateScale(26), width: 28 }}
-                                        />
-                                        <Text style={{ ...styles.textStyle, fontSize: moderateScale(12), color: '#666' }}>Whatsapp</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </Collapsible>
-                        </View> */}
           </View>
         </DrawerContentScrollView>
         <SafeAreaView>

@@ -1,7 +1,6 @@
-<manifest
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.leaperway"
->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+    package="com.leaperway">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -9,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:node="remove" tools:ignore="QueryAllPackagesPermission" />
 
     <application
     android:name=".MainApplication"
@@ -30,7 +30,6 @@
       android:name="com.facebook.sdk.ClientToken"
       android:value="@string/facebook_client_token"
     />
-      <!-- You will also only need to add this uses-library tag -->
       <uses-library
       android:name="org.apache.http.legacy"
       android:required="false"
