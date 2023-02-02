@@ -30,29 +30,41 @@ const NewPassword = ({route,navigation}) => {
         let ide;
         // route.params.email
     
-        await axiosconfig.post('app/restaurent_register',{code:'^^@$T3r*'}).then((res:any)=>{
+        // await axiosconfig.post('app/restaurent_register',{code:'^^@$T3r*'}).then((res:any)=>{
       
-            res.data.map((v)=>{
-                if(v.email == route.params.email){
-                    ide = v.id
-                }
-            })
-        }).catch((err)=>{
-            setLoader(false)
-            showToast('error', err.response.data.message);
-        })
-        let data = {
-            code:'^^@$T3r*>',
-            password:confirmPass,
-            id:ide
-        }
-        senh(data)
+        //     res.data.map((v)=>{
+        //         if(v.email == route.params.email){
+        //             ide = v.id
+        //         }
+        //     })
+        // }).catch((err)=>{
+        //     setLoader(false)
+        //     showToast('error', err.response.data.message);
+        // })
+        // let data = {
+        //     code:'^^@$T3r*>',
+        //     password:confirmPass,
+        //     id:ide
+        // }
+        senh()
         
     }
 
-    const senh = async(data) => {
+    const senh = async() => {
 
-        await axiosconfig.post('app/restaurent_register',data).then((res:any)=>{
+        // await axiosconfig.post('app/restaurent_register',data).then((res:any)=>{
+        //     setLoader(false)
+        //     navigation.navigate('Login')
+        // }).catch((err)=>{
+        //     setLoader(false)
+        //     showToast('error', err.response.data.message)
+        // })
+        let data = {
+            confirm_password:confirmPass,
+            email:route.params.email,
+            new_password:newPass
+        }
+        await axiosconfig.post('app/forgot-password',data).then((res:any)=>{
             setLoader(false)
             navigation.navigate('Login')
         }).catch((err)=>{

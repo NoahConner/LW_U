@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ToastAndroid,
+  Platform,
 } from 'react-native';
 import {Image, Button, Icon, Input} from 'react-native-elements';
 
@@ -138,17 +139,10 @@ class MarkerTypes extends React.Component {
           name={'Map'}
           wallet={false}
         />
-        <View
-          style={{
-            // zIndex: 1000,
-            position: 'relative',
-            height: moderateScale(height - 100, 0.1),
-            width: '100%',
-          }}>
-          <View
+         <View
             style={{
               position: 'absolute',
-              top: moderateScale(70, 0.1),
+              top: Platform.OS == 'ios' ? moderateScale(120, 0.1) : moderateScale(70, 0.1),
               left: 0,
               zIndex: 9999,
               width: '100%',
@@ -192,7 +186,6 @@ class MarkerTypes extends React.Component {
               currentLocationLabel="Current location"
             />
           </View>
-        </View>
 
         <View
           style={{

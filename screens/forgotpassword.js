@@ -30,18 +30,19 @@ const ForgotPassword = ({navigation})=>{
             showToast('error', 'Email cannot be null.');
             return false
         }
+        otpSend()
         setLoader(true)
         
-        await axiosconfig.get(`app/check-mail/${email}`).then((res: any) => {
+        // await axiosconfig.get(`app/check-mail/${email}`).then((res: any) => {
 
-            if (res.status == 200) {
-                setLoader(false)
-                showToast('error', 'Email not found')
-            }
-        }).catch((err) => {
+        //     if (res.status == 200) {
+        //         setLoader(false)
+        //         showToast('error', 'Email not found')
+        //     }
+        // }).catch((err) => {
       
-            otpSend()
-        })
+        //     otpSend()
+        // })
     }
 
     const  otpSend = async() => {
@@ -55,7 +56,7 @@ const ForgotPassword = ({navigation})=>{
        
         }).catch((err) => {
             setLoader(false)
-        
+            showToast('error', err.response.data.messsage);
         })
     }
 
