@@ -70,11 +70,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>RNContacts requires access to your phone's Camera.</string>
+	<string>Leaperway requires access to your phone's Camera.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs to get your location...</string>
+	<string>For nearby restaurants, LeaperWay needs your location ....</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>RNContacts requires access to your phone's Gallery.</string>
+	<string>Leaperway requires access to your phone's Gallery.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

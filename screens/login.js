@@ -37,15 +37,15 @@ const Login = ({ navigation }) => {
   const myContext = useContext(AppContext);
 
   useEffect(() => {
-    // GoogleSignin.configure({
-    //   androidClientId:
-    //     '985514740212-uiai0l1g8j0ha2eqlojfubgi737vd6bd.apps.googleusercontent.com',
-    //   webClientId:
-    //     '781921654869-goc7pjatjjrh4vn5sllnhfchhss5hau6.apps.googleusercontent.com',
-    //   iosClientId:
-    //     '9781921654869-i9qh50gfnmtj2jeiqefddb9toeqo650s.apps.googleusercontent.com',
-    // });
-    GoogleSignin.configure()
+    GoogleSignin.configure({
+      androidClientId:
+        '985514740212-uiai0l1g8j0ha2eqlojfubgi737vd6bd.apps.googleusercontent.com',
+      webClientId:
+        '781921654869-goc7pjatjjrh4vn5sllnhfchhss5hau6.apps.googleusercontent.com',
+      iosClientId:
+        '9781921654869-i9qh50gfnmtj2jeiqefddb9toeqo650s.apps.googleusercontent.com',
+    });
+    // GoogleSignin.configure()
   }, []);
 
   const infoRequest = new GraphRequest(
@@ -222,7 +222,7 @@ const Login = ({ navigation }) => {
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <CheckBox
+          {/* <CheckBox
             title="Remember me"
             checked={remember}
             onPress={() => setRemember(!remember)}
@@ -234,10 +234,11 @@ const Login = ({ navigation }) => {
               borderColor: 'transparent',
               padding: 0,
             }}
-          />
+          /> */}
+          <View></View>
           <TouchableOpacity
             onPress={() => navigation.navigate('ForgotPassword')}>
-            <Text style={{ color: '#0071BC' }}>Forgot Password?</Text>
+            <Text style={{ color: '#0071BC', fontSize:moderateScale(12) }}>Forgot Password?</Text>
           </TouchableOpacity>
         </View>
         <View style={{ width: '100%', marginTop: 30 }}>
@@ -251,7 +252,7 @@ const Login = ({ navigation }) => {
               borderRadius: 15,
             }}
           />
-          <Text
+          {/* <Text
             style={{
               color: '#666666',
               textAlign: 'center',
@@ -260,7 +261,7 @@ const Login = ({ navigation }) => {
               marginBottom: 10,
             }}>
             Or
-          </Text>
+          </Text> */}
 
 
 
@@ -288,7 +289,7 @@ const Login = ({ navigation }) => {
               />
             }
           /> */}
-          <Button
+          {/* <Button
             title="Continue with Google"
             type="solid"
             buttonStyle={{
@@ -300,6 +301,7 @@ const Login = ({ navigation }) => {
             titleStyle={{
               color: '#1E3865',
               fontWeight: 'bold',
+              fontSize:moderateScale(14)
             }}
             icon={
               <GoogleIcon
@@ -314,7 +316,7 @@ const Login = ({ navigation }) => {
             onPress={() => {
               _signIn();
             }}
-          />
+          /> */}
           <View
             style={{
               flexDirection: 'row',

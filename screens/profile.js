@@ -25,6 +25,10 @@ import axiosconfig from '../providers/axios';
 import Toast from 'react-native-toast-message';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { LoginManager } from 'react-native-fbsdk-next';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Profile = ({ navigation }) => {
   const refRBSheet = useRef();
@@ -33,8 +37,8 @@ const Profile = ({ navigation }) => {
   const myContext = useContext(AppContext);
   const [loader, setLoader] = useState(false);
   const [myData, setMyData] = useState();
-  const [fileContent, setFileContent] = useState(null);
-  const [fileUri, setFileUri] = useState(null);
+  const [passwordD, setpasswordD] = useState(null);
+  const [passwordDC, setpasswordDC] = useState(null);
 
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -73,6 +77,57 @@ const Profile = ({ navigation }) => {
       }
       return false;
     } else return true;
+  };
+
+  const deleteAcc = async () => {
+    let data = {
+      password: passwordD,
+      confirm_password: passwordDC
+    }
+    if (passwordD == null) {
+      showToast('error', `Password required`);
+      return false;
+    }
+    if (passwordDC == null) {
+      showToast('error', `Confirm Password required`);
+      return false;
+    }
+    if (passwordDC != passwordD) {
+      showToast('error', `Password not match!`);
+      return false;
+    }
+    setLoader(true)
+    await axiosconfig.post(`admin/delete`, data,
+      {
+        headers: {
+          Authorization: 'Bearer ' + myContext.userToken //the token is a variable which holds the token
+        }
+      }
+    ).then((res: any) => {
+      setLoader(false)
+      console.log(res);
+      logOut()
+    }).catch((err) => {
+      console.log(err.response, 'ressss');
+      showToast('error', err.response?.data.error);
+      setLoader(false)
+    })
+  }
+
+  const logOut = async () => {
+    storeData(null);
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+    LoginManager.logOut();
+  };
+
+  const storeData = async value => {
+    try {
+      await AsyncStorage.removeItem('@auth_token');
+      myContext.setuserToken(value);
+    } catch (e) {
+
+    }
   };
 
   const editCard = () => {
@@ -222,6 +277,48 @@ const Profile = ({ navigation }) => {
                 ...styles.inputContainerStyle,
               }}
               onChangeText={t => setFormVal(t)}
+            />
+          </>
+        ) : editCOn == 'deleteAcc' ? (
+          <>
+            <Text
+              style={{
+                fontSize: moderateScale(12),
+                fontFamily: 'Gilroy-Medium',
+              }}>
+              Password
+            </Text>
+            <Input
+              placeholder="*******"
+              containerStyle={{
+                ...styles.textContainerStyle,
+                marginBottom: 10,
+              }}
+              inputContainerStyle={{
+                ...styles.inputContainerStyle,
+              }}
+              onChangeText={t => setpasswordD(t)}
+              secureTextEntry={true}
+            />
+            <Text
+              style={{
+                fontSize: moderateScale(12),
+                fontFamily: 'Gilroy-Medium',
+                marginTop: 10
+              }}>
+              Confirm Password
+            </Text>
+            <Input
+              placeholder="*******"
+              containerStyle={{
+                ...styles.textContainerStyle,
+                marginBottom: 10,
+              }}
+              inputContainerStyle={{
+                ...styles.inputContainerStyle,
+              }}
+              onChangeText={t => setpasswordDC(t)}
+              secureTextEntry={true}
             />
           </>
         ) : null}
@@ -477,7 +574,7 @@ const Profile = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <View style={{ ...styles.mainCard, marginBottom: 40 }}>
+        <View style={{ ...styles.mainCard }}>
           <Text style={styles.nameF}>Password</Text>
           <Text style={styles.nameB}>**********</Text>
           {myData && myData.userfrom == 'NORMAL' ? (
@@ -490,6 +587,15 @@ const Profile = ({ navigation }) => {
             </>
           ) : null}
         </View>
+
+          <TouchableOpacity  onPress={() => openSheet('deleteAcc')}>
+        <LinearGradient
+          colors={['#FF3C40', '#FF3C40', '#C46163']}
+          style={{ ...styles.mainCard, marginBottom:40 }}
+          >
+            <Text style={{color:'#fff', fontFamily:'Gilroy-Bold', textAlign:'center'}}>Delete Account</Text>
+        </LinearGradient>
+          </TouchableOpacity>
       </ScrollView>
 
       <RBSheet
@@ -509,25 +615,31 @@ const Profile = ({ navigation }) => {
             borderTopStartRadius: 20,
           },
         }}
-        height={editCOn != 'camera' ? 280 : 160}>
+        height={editCOn == 'camera' ? 160 : editCOn == 'deleteAcc' ? 400 : 280}>
         <View style={{ padding: 20 }}>
           {editCard()}
           {editCOn != 'camera' ? (
             <>
               <View>
                 <Button
-                  title="Save"
+                  title={editCOn == 'deleteAcc' ? 'Delete' : 'Save'}
                   buttonStyle={{
                     backgroundColor: '#1E3865',
                     padding: 15,
                     borderRadius: 15,
                   }}
-                  onPress={() => userForm()}
+                  onPress={() => editCOn == 'deleteAcc' ? deleteAcc() : userForm()}
                 />
               </View>
             </>
           ) : null}
         </View>
+        <Toast />
+        {loader ? (
+          <>
+            <Loader />
+          </>
+        ) : null}
       </RBSheet>
     </View>
   );
@@ -546,6 +658,13 @@ const styles = StyleSheet.create({
   },
   mainCard: {
     backgroundColor: '#F6F8FA',
+    padding: 20,
+    borderRadius: 12,
+    position: 'relative',
+    marginBottom: 20,
+  },
+  mainCardD: {
+    backgroundColor: 'red',
     padding: 20,
     borderRadius: 12,
     position: 'relative',

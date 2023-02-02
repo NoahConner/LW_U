@@ -28,7 +28,7 @@ const Resturants = ({ route, navigation }) => {
     const [leaperName, setleaperName] = useState(null);
     const [modalVisible1, setModalVisible1] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
-    const [copied,setcopied] = useState(false)
+    const [copied, setcopied] = useState(false)
     const [couponcode, setcouponcode] = useState(null)
 
     const showDatePicker = () => {
@@ -61,7 +61,7 @@ const Resturants = ({ route, navigation }) => {
     }
 
     const generateCoupon = async () => {
-       
+
         // return
         if (leaperName == null || leaperName.trim() == '') {
             showToast('error', 'Leaper name required!')
@@ -74,12 +74,12 @@ const Resturants = ({ route, navigation }) => {
         }
 
         let coupon = Math.random().toString(36).substr(2, 8).toUpperCase()
-    
+
         let dt = {
             deal_id: currentDeal.id,
             user_id: myContext.myData.id,
             leaper_name: leaperName.toLowerCase().trim(),
-            leaper_dob:datePick,
+            leaper_dob: datePick,
             coupon: coupon
         }
 
@@ -93,7 +93,7 @@ const Resturants = ({ route, navigation }) => {
         ).then((res: any) => {
 
             setLoader(false)
-            
+
             setcouponcode(coupon)
             setdatePick(null)
             setleaperName(null)
@@ -105,7 +105,7 @@ const Resturants = ({ route, navigation }) => {
                 setModalVisible2(true)
             }, 1000);
         }).catch((err) => {
-           
+
             setLoader(false)
         })
     }
@@ -119,10 +119,10 @@ const Resturants = ({ route, navigation }) => {
     //             }
     //         }
     //     ).then((res: any) => {
-            
+
     //         // myContext.setWalletAmount(res.data.wallet)
     //     }).catch((err) => {
-           
+
     //     })
     // }
 
@@ -171,7 +171,7 @@ const Resturants = ({ route, navigation }) => {
     useEffect(() => {
 
         setResData(route.params)
-       
+
     }, [])
 
     const goOnDeposit = () => {
@@ -310,7 +310,7 @@ const Resturants = ({ route, navigation }) => {
                         </View>
                     </View>
                 </ScrollView>
-
+                <Toast />
             </RBSheet>
             {/* <Modals navigation={navigation} /> */}
             {

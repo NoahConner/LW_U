@@ -53,15 +53,15 @@ const SignIn = ({ navigation }) => {
       opt: null,
     };
     setSignData(DoP);
-    // GoogleSignin.configure({
-    //   androidClientId:
-    //     '985514740212-uiai0l1g8j0ha2eqlojfubgi737vd6bd.apps.googleusercontent.com',
-    //   webClientId:
-    //     '781921654869-goc7pjatjjrh4vn5sllnhfchhss5hau6.apps.googleusercontent.com',
-    //   iosClientId:
-    //     '9781921654869-i9qh50gfnmtj2jeiqefddb9toeqo650s.apps.googleusercontent.com',
-    // });
-    GoogleSignin.configure()
+    GoogleSignin.configure({
+      androidClientId:
+        '985514740212-uiai0l1g8j0ha2eqlojfubgi737vd6bd.apps.googleusercontent.com',
+      webClientId:
+        '781921654869-goc7pjatjjrh4vn5sllnhfchhss5hau6.apps.googleusercontent.com',
+      iosClientId:
+        '9781921654869-i9qh50gfnmtj2jeiqefddb9toeqo650s.apps.googleusercontent.com',
+    });
+    // GoogleSignin.configure()
   }, []);
 
   const storeData = async value => {
@@ -342,7 +342,7 @@ const SignIn = ({ navigation }) => {
               }}
               onPress={() => signUp()}
             />
-            <Text
+            {/* <Text
               style={{
                 color: '#666666',
                 textAlign: 'center',
@@ -351,7 +351,7 @@ const SignIn = ({ navigation }) => {
                 marginBottom: 10,
               }}>
               Or
-            </Text>
+            </Text> */}
             {/* <Button
               title="Continue with Facebook"
               type="solid"
@@ -376,7 +376,7 @@ const SignIn = ({ navigation }) => {
                 />
               }
             /> */}
-            <Button
+            {/* <Button
               title="Continue with Google"
               type="solid"
               buttonStyle={{
@@ -388,6 +388,7 @@ const SignIn = ({ navigation }) => {
               titleStyle={{
                 color: '#1E3865',
                 fontWeight: 'bold',
+                fontSize:moderateScale(14)
               }}
               onPress={() => _signIn()}
               icon={
@@ -400,7 +401,7 @@ const SignIn = ({ navigation }) => {
                   }}
                 />
               }
-            />
+            /> */}
             <View
               style={{
                 flexDirection: 'row',
