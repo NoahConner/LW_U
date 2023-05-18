@@ -106,6 +106,7 @@ const SignIn = ({ navigation }) => {
       .post('app/check-email', { email: signData.email })
       .then((res: any) => {
         if (res.status == 200) {
+          console.log(res);
           otpSend();
         } else {
           setLoader(false);
@@ -120,13 +121,16 @@ const SignIn = ({ navigation }) => {
 
   const otpSend = async () => {
     await axiosconfig
-      .post('app/otp', { email: signData.email })
+      .post('app/otp', { email: signData.email, forgot:0 })
       .then((res: any) => {
         setLoader(false);
+        console.log(res);
         navigation.navigate('OPT', signData);
       })
       .catch(err => {
+        console.log(err.response);
         setLoader(false);
+        showToast('error', err.response.data.message);
       });
   };
 

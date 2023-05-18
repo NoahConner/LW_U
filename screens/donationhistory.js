@@ -142,7 +142,7 @@ const DonationHistory = ({ navigation }) => {
                         </View>
                         <View style={{ ...styles.flexRow, marginTop: 15 }}>
                             <View style={{ ...styles.flexRow, alignItems: "flex-start" }}>
-                                <Text style={{ fontSize: moderateScale(15), fontFamily: 'Gilroy-Bold', marginTop: -3, ...styles.redColor }}>Resturant:</Text>
+                                <Text style={{ fontSize: moderateScale(15), fontFamily: 'Gilroy-Bold', marginTop: -3, ...styles.redColor }}>Restaurant:</Text>
                                 <Text style={{ fontSize: moderateScale(12), marginLeft: 16, flexShrink: 1, fontFamily: 'Gilroy-Medium', color: '#696868' }}>{currentDeal?.restaurent?.user?.name}</Text>
                             </View>
                         </View>

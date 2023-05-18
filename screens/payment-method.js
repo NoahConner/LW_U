@@ -122,7 +122,7 @@ const PaymentMethod = ({ navigation }) => {
     
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {
                 loader ? (
                     <>
@@ -132,8 +132,7 @@ const PaymentMethod = ({ navigation }) => {
             }
             <StackHeader navigation={navigation} name={'Payment Method'} />
             <View style={{ marginTop: 0, paddingHorizontal: 20, width: '100%', paddingBottom: 80 }}>
-                <SafeAreaView >
-                    <FlatList
+            <FlatList
                         data={cards}
                         renderItem={({ item, index }) => (
                             cardDiv(item, index)
@@ -154,8 +153,6 @@ const PaymentMethod = ({ navigation }) => {
                             </TouchableOpacity>
                         }
                     />
-
-                </SafeAreaView>
             </View>
             <RBSheet
                 ref={refRBSheet}
@@ -180,7 +177,7 @@ const PaymentMethod = ({ navigation }) => {
             </RBSheet>
 
             <Modals navigation={navigation} />
-        </View>
+        </SafeAreaView>
     )
 }
 

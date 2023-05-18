@@ -240,8 +240,8 @@ const Home = ({ navigation, route }) => {
                             showsVerticalScrollIndicator={false}
                             showsHorizontalScrollIndicator={false}
                             ListHeaderComponent={
-                                <View style={{ padding: 20 }}>
-                                    <Text style={{ fontSize: moderateScale(17), fontFamily: 'Gilroy-Bold' }}>All Restaurants</Text>
+                                <View style={{ paddingHorizontal: 20 }}>
+                                    <Text style={{ fontSize: moderateScale(17), fontFamily: 'Gilroy-Bold', marginTop:20 }}>All Restaurants</Text>
                                 </View>
                             }
                         />

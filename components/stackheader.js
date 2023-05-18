@@ -8,7 +8,6 @@ const StackHeader = ({navigation,name})=>{
    
     return(
         <View style={styles.header}>
-            <SafeAreaView>
             <View style={{flexDirection:'row',alignItems:'center'}}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <LeftArr style={{width:30,height:30}}   />
@@ -16,16 +15,6 @@ const StackHeader = ({navigation,name})=>{
                 
                 <Text style={{fontSize:moderateScale(15),fontFamily:'Gilroy-Bold',marginLeft:20}}>{name}</Text>
             </View>
-            {/* {
-                name == 'Deposit History' ? (
-                    <>
-                        <TouchableOpacity>
-                            <FilterIco style={{width:30,height:30}}   />
-                        </TouchableOpacity>
-                    </>
-                ) : null
-            } */}
-            </SafeAreaView>
         </View>
     )
 }
@@ -41,7 +30,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
-        elevation: 1.5,
+        elevation: 1,
         height:moderateScale(80),
         width:'100%',
         marginTop:moderateScale(0),

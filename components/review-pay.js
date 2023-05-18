@@ -39,6 +39,10 @@ const ReviewPayment = ({ navigation, amount, cardSelect, cardSelected }) => {
             processing_fee: plusAble
         }
 
+        console.log('====================================');
+        console.log(data);
+        console.log('====================================');
+
         setLoader(true)
         await axiosconfig.post(`admin/deposite`, data,
             {
@@ -47,7 +51,9 @@ const ReviewPayment = ({ navigation, amount, cardSelect, cardSelected }) => {
                 }
             }
         ).then((res: any) => {
-
+            console.log('====================================');
+            console.log(res);
+            console.log('====================================');
             setLoader(false)
             getWallet()
             // openLink(res.data.url)
@@ -198,7 +204,7 @@ const ReviewPayment = ({ navigation, amount, cardSelect, cardSelected }) => {
                 </View>
                 <View style={{ alignItems: 'flex-end', }}>
                     <Text style={{ fontSize: moderateScale(16), color: '#666666', fontFamily: 'Gilroy-Medium' }}>Total</Text>
-                    <Text style={{ marginTop: 5, fontSize: moderateScale(20), color: '#000', fontFamily: 'Gilroy-Bold' }}>${parseInt(amount) + plusAble}</Text>
+                    <Text style={{ marginTop: 5, fontSize: moderateScale(20), color: '#000', fontFamily: 'Gilroy-Bold' }}>${(parseInt(amount) + plusAble).toFixed(2)}</Text>
                 </View>
             </View>
 

@@ -344,10 +344,13 @@ const Profile = ({ navigation }) => {
           cropping: true,
           freeStyleCropEnabled: true,
           saveToPhotos: true,
+          quality: 0.5,
+            maxWidth: 1300,
+            maxHeight: 1300
         })
           .then(image => {
             if (image.assets) {
-              myContext.setprofileImagee(image.assets[0].uri);
+              // myContext.setprofileImagee(image.assets[0].uri);
               imageUpload(image);
             }
           })
@@ -364,10 +367,13 @@ const Profile = ({ navigation }) => {
             cropping: true,
             freeStyleCropEnabled: true,
             saveToPhotos: true,
+            quality: 0.5,
+            maxWidth: 1300,
+            maxHeight: 1300
           })
             .then(image => {
               if (image.assets) {
-                myContext.setprofileImagee(image.assets[0].uri);
+                // myContext.setprofileImagee(image.assets[0].uri);
                 imageUpload(image);
               }
             })
@@ -476,13 +482,17 @@ const Profile = ({ navigation }) => {
           },
         )
         .then(res => {
-
+          console.log('====================================');
+          console.log(res.data.data.image_url, 'image');
+          console.log('====================================');
           myContext.setprofileImagee(res.data.data.image_url);
           updateData({ image: res.data.data.image_url });
           setLoader(false);
         })
         .catch(err => {
-
+          console.log('====================================');
+          console.log(err, 'image');
+          console.log('====================================');
           setLoader(false);
         });
     });
@@ -491,7 +501,7 @@ const Profile = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {loader ? (
         <>
           <Loader />
@@ -641,7 +651,7 @@ const Profile = ({ navigation }) => {
           </>
         ) : null}
       </RBSheet>
-    </View>
+    </SafeAreaView>
   );
 };
 

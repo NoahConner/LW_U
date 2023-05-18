@@ -212,6 +212,22 @@ const Resturants = ({ route, navigation }) => {
                                     )
                                 })
                             }
+                            {
+                                resData?.deals?.length == 0 ? (
+                                    <>
+                                        <View style={{alignItems:'center'}}>
+                                            <View style={{ backgroundColor: '#fff', borderRadius: 8, overflow: 'hidden', height: moderateScale(280, 0.1), width: moderateScale(280, 0.1) }}>
+                                                <Image
+                                                    source={require('../assets/png/recbook.png')}
+                                                    style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+                                                    PlaceholderContent={<ActivityIndicator />}
+                                                />
+                                            </View>
+                                            <Text style={{color: '#000', fontSize: moderateScale(18), fontFamily: 'Gilroy-Bold', textAlign:'center',paddingHorizontal:20}}>Seems like {resData?.user?.name} doesn't have any deal yet!</Text>
+                                        </View>
+                                    </>
+                                ) : null
+                            }
                         </ScrollView>
                     </View>
                 </View>

@@ -50,7 +50,7 @@ const ForgotPassword = ({navigation})=>{
             type:'forgot',
             email:email
         }
-        await axiosconfig.post('app/otp', { email: email }).then((res: any) => {
+        await axiosconfig.post('app/otp', { email: email, forgot:1 }).then((res: any) => {
             setLoader(false)
             navigation.navigate('OPT', signData);
        

@@ -70,11 +70,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Leaperway requires access to your phone's Camera.</string>
+	<string>Leaperway requires access to your phone's Camera. This Image will be used for your profile picture.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>For nearby restaurants, LeaperWay needs your location ....</string>
+	<string>Leaperway requires access to your phone's Location. This location will be used for showing nearby restaurants.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Leaperway requires access to your phone's Gallery.</string>
+	<string>Leaperway requires access to your phone's Gallery. This Image will be used for your profile picture.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

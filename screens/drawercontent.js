@@ -95,21 +95,42 @@ const DrawerContent = ({navigation}) => {
       });
   };
 
-  const shareOptions = {
-    title: 'Leaper way',
-    // message: 'Leaper way Share Url',
-    url: myContext.appUrl,
-  };
+  // const shareOptions = {
+  //   title: 'Leaper way',
+  //   // message: 'Leaper way Share Url',
+  //   url: myContext.appUrl,
+  // };
+
+  // const share = async () => {
+  //   Share.open(shareOptions)
+  //     .then(res => {
+     
+  //     })
+  //     .catch(err => {
+        
+  //     });
+  // };
 
   const share = async () => {
-    Share.open(shareOptions)
-      .then(res => {
-     
-      })
-      .catch(err => {
-        
+    try {
+      const result = await Share.share({
+        message:
+        myContext.appUrl,
       });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
   };
+
   const logOut = async () => {
     storeData(null);
     await GoogleSignin.revokeAccess();

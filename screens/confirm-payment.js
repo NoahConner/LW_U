@@ -1,4 +1,4 @@
-import React, {useState, useRef, useContext, useEffect} from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
   Dimensions,
   ImageBackground,
 } from 'react-native';
-import {Image, Button, Icon, Input, CheckBox} from 'react-native-elements';
+import { Image, Button, Icon, Input, CheckBox } from 'react-native-elements';
 import StackHeader from '../components/stackheader';
 import PaymentIcon from '../assets/svg/paymentIconred.svg';
 import VisaIcon from '../assets/svg/visa.svg';
@@ -24,9 +24,10 @@ import AmexIcon from '../assets/svg/amex.svg';
 import DiscIcon from '../assets/svg/discover.svg';
 import JcbIcon from '../assets/svg/jcb.svg';
 import DinnerClub from '../assets/svg/diners-club.svg';
-import {moderateScale} from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
 import axiosconfig from '../providers/axios';
 import Loader from '../screens/loader';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // const defaultCad = [
 //     {
@@ -44,9 +45,9 @@ import Loader from '../screens/loader';
 //   }
 
 // ]
-const ConfirmPayment = ({navigation, route}) => {
+const ConfirmPayment = ({ navigation, route }) => {
   const myContext = useContext(AppContext);
-  const {amount} = route.params;
+  const { amount } = route.params;
   const refRBSheet = useRef();
   const refRBSheetReview = useRef();
   const [cards, setCards] = useState([]);
@@ -64,24 +65,24 @@ const ConfirmPayment = ({navigation, route}) => {
 
   const cardDiv = (d, i) => {
     return (
-      <View style={{...styles.Ccard, marginTop: i == 0 ? 20 : 15}} key={i}>
+      <View style={{ ...styles.Ccard, marginTop: i == 0 ? 20 : 15 }} key={i}>
         <View style={styles.flexRow}>
           {d.card_type == 'visa' ? (
-            <VisaIcon style={{height: 30, width: 40}} />
+            <VisaIcon style={{ height: 30, width: 40 }} />
           ) : d.card_type == 'master-card' ? (
-            <MasterIcon style={{height: 30, width: 40}} />
+            <MasterIcon style={{ height: 30, width: 40 }} />
           ) : d.card_type == 'discover' ? (
-            <DiscIcon style={{height: 30, width: 40}} />
+            <DiscIcon style={{ height: 30, width: 40 }} />
           ) : d.card_type == 'jcb' ? (
-            <JcbIcon style={{height: 30, width: 40}} />
+            <JcbIcon style={{ height: 30, width: 40 }} />
           ) : d.card_type == 'american-express' ? (
-            <AmexIcon style={{height: 30, width: 40}} />
+            <AmexIcon style={{ height: 30, width: 40 }} />
           ) : d.card_type == 'diners-club' ? (
-            <DinnerClub style={{height: 30, width: 40}} />
+            <DinnerClub style={{ height: 30, width: 40 }} />
           ) : (
-            <PaymentIcon style={{height: 30, width: 40}} />
+            <PaymentIcon style={{ height: 30, width: 40 }} />
           )}
-          <View style={{marginLeft: 20}}>
+          <View style={{ marginLeft: 20 }}>
             <Text
               style={{
                 fontSize: moderateScale(14),
@@ -90,7 +91,7 @@ const ConfirmPayment = ({navigation, route}) => {
               }}>
               {d?.card_name}
             </Text>
-            <View style={{...styles.flexRow}}>
+            <View style={{ ...styles.flexRow }}>
               <Text
                 style={{
                   color: '#666666',
@@ -114,12 +115,12 @@ const ConfirmPayment = ({navigation, route}) => {
             </View>
           </View>
         </View>
-        <View style={{position: 'relative', marginTop: 10}}>
+        <View style={{ position: 'relative', marginTop: 10 }}>
           <Icon
             name="square"
             type="font-awesome"
             color={cardSelect == d.id ? '#1E3865' : '#E6E6E6'}
-            iconStyle={{fontSize: moderateScale(26)}}
+            iconStyle={{ fontSize: moderateScale(26) }}
             onPress={() => selCd(d.id, d)}
           />
           <CheckBox
@@ -162,7 +163,7 @@ const ConfirmPayment = ({navigation, route}) => {
         // myContext.setpaymentmethods(res.data)
       })
       .catch(err => {
-      
+
         setLoader(false);
       });
   };
@@ -181,100 +182,103 @@ const ConfirmPayment = ({navigation, route}) => {
   }, []);
 
   return (
-    <View style={{...styles.container}}>
+    <SafeAreaView style={{ ...styles.container }}>
       {loader ? (
         <>
           <Loader />
         </>
       ) : null}
       <StackHeader navigation={navigation} name={'Confirm Payment Method'} />
-      <View
+      <ScrollView>
+        <View
         style={{
           padding: 20,
           width: '100%',
-          height: moderateScale(Dimensions.get('window').height - 110, 0.1),
-          paddingBottom:moderateScale(120, 0.1)
+          height: '90%',
+          // paddingBottom: moderateScale(80, 0.1),
+          // backgroundColor:'#000',
+          alignItems: 'center',
+          justifyContent: 'space-between'
         }}>
-        <View style={{...styles.flexRow, justifyContent: 'space-between'}}>
-          <Text
-            style={{
-              color: '#666666',
-              fontSize: moderateScale(16),
-              fontFamily: 'Gilroy-Medium',
-            }}>
-            Deposit Amount
-          </Text>
-          <Text
-            style={{
-              color: '#000',
-              fontSize: moderateScale(16),
-              fontFamily: 'Gilroy-Bold',
-            }}>
-            ${amount}
-          </Text>
-        </View>
-        <View style={{...styles.flexRow, marginTop: 50}}>
-          <PaymentIcon style={{height: 28, width: 38}} />
-          <Text
-            style={{
-              fontFamily: 'Gilroy-Bold',
-              fontSize: moderateScale(17),
-              marginLeft: 20,
-            }}>
-            Payment Methods
-          </Text>
-        </View>
+        <View>
+          <View style={{ ...styles.flexRow, justifyContent: 'space-between' }}>
+            <Text
+              style={{
+                color: '#666666',
+                fontSize: moderateScale(16),
+                fontFamily: 'Gilroy-Medium',
+              }}>
+              Deposit Amount
+            </Text>
+            <Text
+              style={{
+                color: '#000',
+                fontSize: moderateScale(16),
+                fontFamily: 'Gilroy-Bold',
+              }}>
+              ${amount}
+            </Text>
+          </View>
+          <View style={{ ...styles.flexRow, marginTop: 50 }}>
+            <PaymentIcon style={{ height: 28, width: 38 }} />
+            <Text
+              style={{
+                fontFamily: 'Gilroy-Bold',
+                fontSize: moderateScale(17),
+                marginLeft: 20,
+              }}>
+              Payment Methods
+            </Text>
+          </View>
 
-        <View style={{marginTop: 0, width: '100%', paddingBottom: 80}}>
-          <SafeAreaView>
+          <View style={{ marginTop: 0, width: '100%', paddingBottom: 10, height: '70%' }}>
             <FlatList
               data={cards}
-              renderItem={({item, index}) => cardDiv(item, index)}
+              renderItem={({ item, index }) => cardDiv(item, index)}
               keyExtractor={item => item.id}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               ListFooterComponent={
-                <TouchableOpacity
-                  style={{
-                    ...styles.flexRow,
-                    marginTop: 20,
-                    marginBottom: 20,
-                    width: '70%',
-                  }}
-                  onPress={() => refRBSheet.current.open()}>
-                  <Icon
-                    name="plus"
-                    type="font-awesome"
-                    color="#FF3C40"
-                    iconStyle={{fontSize: moderateScale(17)}}
-                    style={{marginRight: 24}}
-                  />
-                  <Text
-                    style={{
-                      fontFamily: 'Gilroy-Bold',
-                      fontSize: moderateScale(15),
-                    }}>
-                    Add Payment Method
-                  </Text>
-                </TouchableOpacity>
+                <View></View>
               }
             />
-          </SafeAreaView>
+          </View>
+          <TouchableOpacity
+            style={{
+              ...styles.flexRow,
+              marginTop: 20,
+              marginBottom: 20,
+              width: '70%',
+            }}
+            onPress={() => refRBSheet.current.open()}>
+            <Icon
+              name="plus"
+              type="font-awesome"
+              color="#FF3C40"
+              iconStyle={{ fontSize: moderateScale(17) }}
+              style={{ marginRight: 24 }}
+            />
+            <Text
+              style={{
+                fontFamily: 'Gilroy-Bold',
+                fontSize: moderateScale(15),
+              }}>
+              Add Payment Method
+            </Text>
+          </TouchableOpacity>
         </View>
         <View
-          style={{position: 'absolute', bottom: 15, width: '100%', left: 20}}>
-          <SafeAreaView>
-            <Button
-              disabled={cardSelected == null}
-              title="Review"
-              buttonStyle={styles.NextBtns}
-              titleStyle={{
-                fontSize: moderateScale(15),
-                fontFamily: 'Gilroy-Bold',
-              }}
-              onPress={() => openreview()}
-            />
-          </SafeAreaView>
+          style={{ width: '100%' }}>
+          <Button
+            disabled={cardSelected == null}
+            title="Review"
+            buttonStyle={styles.NextBtns}
+            titleStyle={{
+              fontSize: moderateScale(15),
+              fontFamily: 'Gilroy-Bold',
+            }}
+            onPress={() => openreview()}
+          />
         </View>
         <RBSheet
           ref={refRBSheet}
@@ -325,9 +329,10 @@ const ConfirmPayment = ({navigation, route}) => {
           />
         </RBSheet>
       </View>
+      </ScrollView>
 
       <Modals navigation={navigation} />
-    </View>
+    </SafeAreaView>
   );
 };
 export default ConfirmPayment;

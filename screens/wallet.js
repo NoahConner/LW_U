@@ -101,6 +101,13 @@ const Wallet = ({ navigation }) => {
         var cNoo = '**** ' + splitt[lenghter - 1]
         return cNoo
     }
+    const totalWFee = (fee,amount,t) => {
+        if(t == '$'){
+            return fee+amount
+        }else{
+            return ((fee / 100 * amount)+amount).toFixed(2); 
+        }
+    }
     const cardDiv = (d, i) => {
         if (i < 4) {
             return (
@@ -122,12 +129,12 @@ const Wallet = ({ navigation }) => {
                                 <View style={{ ...styles.flexRow, justifyContent: 'space-between' }}>
                                     <Text style={{ fontWeight: 'bold', fontSize: moderateScale(13), marginRight: 0 }}>Deposited</Text>
                                     <Text style={{ ...styles.dater }}>{moment(d?.created_at).format('DD MMM, yy')}</Text>
-                                    <Text style={{ fontWeight: 'bold', fontSize: moderateScale(15) }}>${d?.amount}</Text>
+                                    <Text style={{ fontWeight: 'bold', fontSize: moderateScale(15) }}>${totalWFee(Number(d?.processing_fee),Number(d?.amount),d?.fee_type)}</Text>
                                 </View>
                                 <View style={{ ...styles.flexRow, justifyContent: 'space-between' }}>
                                     <Text style={styles.dater}>{splitNo(d?.card?.card_no)}</Text>
                                     <Text style={styles.dater}>Processing Fee:</Text>
-                                    <Text style={{ ...styles.dater, marginTop: 2 }}>${d?.processing_fee}</Text>
+                                    <Text style={{ ...styles.dater, marginTop: 2 }}>{d?.fee_type}{d?.processing_fee}</Text>
                                 </View>
                             </View>
                         </View>
@@ -300,7 +307,7 @@ const Wallet = ({ navigation }) => {
                                 </View>
                                 <View style={{ ...styles.flexRow, marginTop: 15 }}>
                                     <View style={{ ...styles.flexRow, alignItems: "flex-start" }}>
-                                        <Text style={{ fontSize: moderateScale(15), fontFamily: 'Gilroy-Bold', marginTop: -3, ...styles.redColor }}>Resturant:</Text>
+                                        <Text style={{ fontSize: moderateScale(15), fontFamily: 'Gilroy-Bold', marginTop: -3, ...styles.redColor }}>Restaurant:</Text>
                                         <Text style={{ fontSize: moderateScale(12), marginLeft: 16, flexShrink: 1, fontFamily: 'Gilroy-Medium', color: '#696868' }}>{currentDeal?.restaurent?.user?.name}</Text>
                                     </View>
                                 </View>
@@ -409,13 +416,13 @@ const Wallet = ({ navigation }) => {
                                 <View style={{ ...styles.flexRow, marginTop: 15 }}>
                                     <View style={{ ...styles.flexRow, alignItems: "flex-start" }}>
                                         <Text style={{ fontSize: moderateScale(15), fontFamily: 'Gilroy-Bold', marginTop: -3, ...styles.redColor }}>Processing Fee:</Text>
-                                        <Text style={{ fontSize: moderateScale(12), marginLeft: 16, flexShrink: 1, fontFamily: 'Gilroy-Medium', color: '#696868' }}>${selectedCard?.processing_fee}</Text>
+                                        <Text style={{ fontSize: moderateScale(12), marginLeft: 16, flexShrink: 1, fontFamily: 'Gilroy-Medium', color: '#696868' }}>{selectedCard?.fee_type}{selectedCard?.processing_fee}</Text>
                                     </View>
                                 </View>
                                 <View style={{ ...styles.flexRow, marginTop: 15 }}>
                                     <View style={{ ...styles.flexRow, alignItems: "flex-start" }}>
                                         <Text style={{ fontSize: moderateScale(15), fontFamily: 'Gilroy-Bold', marginTop: -3, ...styles.redColor }}>Total:</Text>
-                                        <Text style={{ fontSize: moderateScale(12), marginLeft: 16, flexShrink: 1, fontFamily: 'Gilroy-Medium', color: '#696868' }}>${Number(selectedCard?.processing_fee) + Number(selectedCard?.amount)}</Text>
+                                        <Text style={{ fontSize: moderateScale(12), marginLeft: 16, flexShrink: 1, fontFamily: 'Gilroy-Medium', color: '#696868' }}>${totalWFee(Number(selectedCard?.processing_fee),Number(selectedCard?.amount),selectedCard?.fee_type)}</Text>
                                     </View>
                                 </View>
 
