@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import Wallet from '../assets/svg/wallet.svg';
 import Bars from '../assets/svg/bars.svg';
@@ -18,16 +18,18 @@ const Header = ({ navigation, routes, address }) => {
 
     return (
         <View style={styles.header}>
-            <SafeAreaView>
             <View style={{
                 width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, textAlign: 'center',
-                elevation: 1,
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 3 },
-                shadowOpacity: 0.5,
-                shadowRadius: 5,
-                borderBottomEndRadius: 15,
-                borderBottomStartRadius: 15
+                // shadowColor: "#000",
+                // shadowOffset: {
+                //     width: 0,
+                //     height: 2,
+                // },
+                // shadowOpacity: 0.18,
+                // shadowRadius: 2.62,
+                // elevation: 1,
+                // borderBottomEndRadius: 15,
+                // borderBottomStartRadius: 15
             }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', paddingLeft: 5 }} numberOfLines={1}>
                     <Button
@@ -43,8 +45,8 @@ const Header = ({ navigation, routes, address }) => {
                         // onPress={()=> myContext.setmapModal(true)}
                         onPress={() => navigation.navigate('MapModal', routes)}
                     >
-                        <View style={{ marginLeft: 25, width: '100%', paddingRight: 125 }}>
-                            <Text style={{ fontSize: moderateScale(16), marginBottom: 5, fontFamily: 'Gilroy-Bold' }}>Location Radius</Text>
+                        <View style={{ marginLeft: 25, width: '76%'}}>
+                            <Text style={{ fontSize: moderateScale(16), marginBottom: Platform.OS == 'ios' ? 10 : 5, fontFamily: 'Gilroy-Bold' }}>Location Radius</Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Location
                                     style={{ height: 16, width: 12, marginRight: 10 }}
@@ -68,7 +70,6 @@ const Header = ({ navigation, routes, address }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            </SafeAreaView>
         </View>
     )
 }
@@ -82,9 +83,13 @@ const styles = StyleSheet.create({
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.23,
+        shadowOpacity: 0.10,
         shadowRadius: 2.62,
-        elevation: 4,
+        elevation: 2,
+        borderBottomEndRadius: 15,
+        borderBottomStartRadius: 15,
+        backgroundColor:'#fff',
+        marginBottom:5
     }
 })
 

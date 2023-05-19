@@ -210,7 +210,7 @@ const Home = ({ navigation, route }) => {
 
     return (
 
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={{ width: '100%' }}>
                 <Header navigation={navigation} routes={location} address={address} />
             </View>
@@ -221,7 +221,7 @@ const Home = ({ navigation, route }) => {
                     </>
                 ) : null
             }
-            <SafeAreaView style={{ ...styles.container, paddingHorizontal: 20 }}>
+            <View style={{ ...styles.container, paddingHorizontal: 20 }}>
                 {
 
                     <>
@@ -241,15 +241,15 @@ const Home = ({ navigation, route }) => {
                             showsHorizontalScrollIndicator={false}
                             ListHeaderComponent={
                                 <View style={{ paddingHorizontal: 20 }}>
-                                    <Text style={{ fontSize: moderateScale(17), fontFamily: 'Gilroy-Bold', marginTop:20 }}>All Restaurants</Text>
+                                    <Text style={{ fontSize: moderateScale(17), fontFamily: 'Gilroy-Bold', marginTop: 20 }}>All Restaurants</Text>
                                 </View>
                             }
                         />
                     </>
                 }
 
-            </SafeAreaView>
-        </View>
+            </View>
+        </SafeAreaView>
     )
 }
 
